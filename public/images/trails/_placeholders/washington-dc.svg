@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Washington DC trail placeholder">
+  <rect width="800" height="500" fill="#fee2e2"/>
+  <rect x="300" y="90" width="200" height="260" fill="#fca5a5" opacity="0.45"/>
+  <path d="M0 360 C 240 300, 380 410, 560 330 C 680 270, 740 360, 800 320 L 800 500 L 0 500 Z" fill="#059669"/>
+  <path d="M0 410 C 260 380, 400 450, 580 400 L 580 500 L 0 500 Z" fill="#d4d4d8"/>
+  <text x="40" y="80" fill="#991b1b" font-family="Arial, sans-serif" font-size="30" font-weight="700">Washington DC</text>
+</svg>

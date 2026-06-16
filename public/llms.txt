@@ -1,0 +1,21 @@
+# eBikeQuest
+
+> Everything E-Bike. One Quest.
+
+National e-bike discovery platform for trails, laws, guides, shops, rentals, and more.
+
+## Live categories (V1)
+- Trails: /trails
+- Guides: /guides
+- Laws: /laws
+
+## Coverage
+Virginia, Maryland, Washington DC only. Other jurisdictions are not publicly indexed.
+
+## Trust & editorial
+- Editorial Standards: /editorial-standards
+- About: /about
+- Suggest a trail: /suggest-trail
+
+## Optional
+- Sitemap: /sitemap.xml

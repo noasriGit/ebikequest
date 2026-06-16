@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 686" role="img" aria-label="Washington and Old Dominion Trail placeholder">
+  <rect width="1600" height="686" fill="#dbeafe"/>
+  <path d="M0 420 C 300 340, 520 480, 820 390 C 1120 300, 1320 430, 1600 360 L 1600 686 L 0 686 Z" fill="#059669"/>
+  <path d="M0 500 C 360 450, 560 540, 900 470 C 1180 410, 1360 500, 1600 460 L 1600 686 L 0 686 Z" fill="#d4d4d8"/>
+  <circle cx="980" cy="470" r="34" fill="#18181b"/>
+  <circle cx="1060" cy="470" r="34" fill="#18181b"/>
+  <path d="M930 430 L 980 360 L 1030 405 L 1090 350 L 1140 430 Z" fill="#047857"/>
+  <text x="64" y="96" fill="#1e3a8a" font-family="Arial, sans-serif" font-size="40" font-weight="700">W&amp;OD Trail</text>
+  <text x="64" y="140" fill="#1d4ed8" font-family="Arial, sans-serif" font-size="22">Example trail-specific photo path</text>
+</svg>

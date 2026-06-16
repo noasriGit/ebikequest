@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 540" role="img" aria-label="Trails directory banner placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#047857"/>
+      <stop offset="100%" stop-color="#134e4a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="540" fill="url(#bg)"/>
+  <path d="M0 360 C 300 280, 500 400, 800 320 C 1100 240, 1300 360, 1600 300 L 1600 540 L 0 540 Z" fill="#065f46" opacity="0.9"/>
+  <path d="M700 330 C 760 300, 820 300, 880 330 L 860 390 L 720 390 Z" fill="#10b981"/>
+  <circle cx="780" cy="400" r="28" fill="#18181b"/>
+  <circle cx="840" cy="400" r="28" fill="#18181b"/>
+  <text x="72" y="110" fill="#ecfdf5" font-family="Arial, sans-serif" font-size="48" font-weight="700">Trail Directory</text>
+  <text x="72" y="160" fill="#a7f3d0" font-family="Arial, sans-serif" font-size="22">Mid-Atlantic e-bike routes</text>
+</svg>

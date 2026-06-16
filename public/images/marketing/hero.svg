@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="E-bike trail hero placeholder">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6ee7b7"/>
+      <stop offset="55%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#064e3b"/>
+    </linearGradient>
+    <linearGradient id="path" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d4d4d8"/>
+      <stop offset="100%" stop-color="#71717a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <ellipse cx="1200" cy="180" rx="120" ry="120" fill="#ecfdf5" opacity="0.85"/>
+  <path d="M0 620 C 260 540, 420 700, 700 590 C 980 480, 1120 650, 1600 560 L 1600 900 L 0 900 Z" fill="#047857"/>
+  <path d="M0 690 C 320 640, 520 760, 860 670 C 1180 590, 1320 710, 1600 650 L 1600 900 L 0 900 Z" fill="#065f46"/>
+  <path d="M120 760 C 420 720, 620 780, 980 730 C 1220 695, 1380 760, 1500 740 L 1500 900 L 120 900 Z" fill="url(#path)" opacity="0.95"/>
+  <circle cx="980" cy="700" r="42" fill="#18181b"/>
+  <circle cx="980" cy="700" r="18" fill="#71717a"/>
+  <circle cx="1080" cy="700" r="42" fill="#18181b"/>
+  <circle cx="1080" cy="700" r="18" fill="#71717a"/>
+  <path d="M930 670 L 980 610 L 1030 650 L 1080 590 L 1130 670 Z" fill="#059669"/>
+  <text x="80" y="120" fill="#ecfdf5" font-family="Arial, sans-serif" font-size="42" font-weight="700">eBikeQuest Hero</text>
+  <text x="80" y="170" fill="#d1fae5" font-family="Arial, sans-serif" font-size="24">Replace with public/images/marketing/hero.jpg</text>
+</svg>

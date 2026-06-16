@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Trail gallery placeholder">
+  <rect width="800" height="600" fill="#f4f4f5"/>
+  <rect x="60" y="80" width="680" height="440" rx="24" fill="#d1fae5"/>
+  <path d="M120 420 C 240 340, 340 460, 480 360 C 620 260, 560 420, 680 360" stroke="#059669" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <circle cx="430" cy="390" r="22" fill="#18181b"/>
+  <circle cx="480" cy="390" r="22" fill="#18181b"/>
+  <text x="300" y="300" fill="#047857" font-family="Arial, sans-serif" font-size="28" font-weight="600">Trail photo</text>
+</svg>

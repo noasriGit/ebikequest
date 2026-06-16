@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Virginia trail placeholder">
+  <rect width="800" height="500" fill="#dbeafe"/>
+  <path d="M0 330 C 200 250, 350 380, 550 280 C 700 200, 760 320, 800 260 L 800 500 L 0 500 Z" fill="#1d4ed8" opacity="0.35"/>
+  <path d="M0 390 C 220 340, 360 430, 520 360 C 660 300, 730 390, 800 350 L 800 500 L 0 500 Z" fill="#059669"/>
+  <path d="M0 420 C 240 390, 380 450, 560 410 L 560 500 L 0 500 Z" fill="#d4d4d8"/>
+  <text x="40" y="80" fill="#1e3a8a" font-family="Arial, sans-serif" font-size="34" font-weight="700">Virginia</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Trail cover placeholder">
+  <rect width="800" height="500" fill="#ecfdf5"/>
+  <path d="M0 320 C 180 260, 280 360, 420 290 C 560 220, 650 330, 800 270 L 800 500 L 0 500 Z" fill="#059669"/>
+  <path d="M0 380 C 200 340, 320 410, 500 350 C 640 300, 700 380, 800 340 L 800 500 L 0 500 Z" fill="#d4d4d8"/>
+  <circle cx="520" cy="360" r="24" fill="#18181b"/>
+  <circle cx="570" cy="360" r="24" fill="#18181b"/>
+  <path d="M500 340 L 530 300 L 555 325 L 585 285 L 600 340 Z" fill="#047857"/>
+</svg>
