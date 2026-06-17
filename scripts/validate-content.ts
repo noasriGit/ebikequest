@@ -1,7 +1,14 @@
+import fs from "node:fs";
+import path from "node:path";
 import { allTrails } from "../content/trails";
 import { guides } from "../content/guides";
 import { jurisdictionLaws } from "../content/laws/jurisdictions";
 import { JURISDICTIONS } from "../config/jurisdictions";
+import { getAllImageLocalPaths, getImageAssetByPath } from "../content/images/manifest";
+import { marketingImages, trailPlaceholderImages } from "../config/images";
+
+const root = path.join(process.cwd());
+const publicDir = path.join(root, "public");
 
 let hasErrors = false;
 
@@ -30,6 +37,59 @@ function validateTrails() {
     if (!jurisdiction?.isPublic) {
       error(`Trail "${trail.slug}" references non-public jurisdiction "${trail.jurisdiction}"`);
     }
+
+    const cover = trail.images?.[0];
+    if (!cover?.src) {
+      error(`Trail "${trail.slug}" missing images[0].src`);
+      continue;
+    }
+    if (cover.src.endsWith(".svg")) {
+      error(`Trail "${trail.slug}" uses SVG placeholder: ${cover.src}`);
+    }
+    if (!cover.alt || cover.alt.length < 20) {
+      error(`Trail "${trail.slug}" cover alt text must be at least 20 characters`);
+    }
+
+    validateLocalImage(cover.src, `Trail "${trail.slug}" cover`);
+    if (!getImageAssetByPath(cover.src)) {
+      error(`Trail "${trail.slug}" cover missing manifest entry: ${cover.src}`);
+    }
+  }
+}
+
+function validateLocalImage(src: string, label: string) {
+  if (!src.startsWith("/images/")) {
+    error(`${label}: src must be a local /images/ path, got ${src}`);
+    return;
+  }
+  const filePath = path.join(publicDir, src.replace(/^\//, ""));
+  if (!fs.existsSync(filePath)) {
+    error(`${label}: file not found at public${src}`);
+  }
+}
+
+function validateMarketingAndFallbackImages() {
+  const configPaths = [
+    marketingImages.hero,
+    marketingImages.hubs.trails,
+    trailPlaceholderImages.default,
+    trailPlaceholderImages.gallery,
+    ...Object.values(trailPlaceholderImages.byJurisdiction),
+  ];
+
+  for (const src of configPaths) {
+    if (src.endsWith(".svg")) {
+      error(`Config image still uses SVG: ${src}`);
+    }
+    validateLocalImage(src, `Config image ${src}`);
+    if (!getImageAssetByPath(src)) {
+      error(`Config image missing manifest entry: ${src}`);
+    }
+  }
+
+  const manifestPaths = getAllImageLocalPaths();
+  for (const src of manifestPaths) {
+    validateLocalImage(src, `Manifest asset ${src}`);
   }
 }
 
@@ -69,6 +129,7 @@ validateJurisdictions();
 validateTrails();
 validateGuides();
 validateLaws();
+validateMarketingAndFallbackImages();
 
 if (hasErrors) {
   console.error("\nContent validation failed.");
@@ -80,3 +141,4 @@ console.log(`  Trails: ${allTrails.length}`);
 console.log(`  Guides: ${guides.length}`);
 console.log(`  Laws: ${jurisdictionLaws.length}`);
 console.log(`  Jurisdictions: ${JURISDICTIONS.length} (${JURISDICTIONS.filter((j) => j.isPublic).length} public)`);
+console.log(`  Image assets: ${getAllImageLocalPaths().length}`);

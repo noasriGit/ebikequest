@@ -21,6 +21,7 @@ export const footerExploreNav: NavItem[] = [
 export const footerTrustNav: NavItem[] = [
   { label: "Editorial Standards", href: "/editorial-standards" },
   { label: "About", href: "/about" },
+  { label: "Image Credits", href: "/image-credits" },
 ];
 
 export const footerLegalNav: NavItem[] = [

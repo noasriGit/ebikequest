@@ -1,16 +1,25 @@
 import Link from "next/link";
+import { ContentImage } from "@/components/content/ContentImage";
+import { EditorialKicker } from "@/components/editorial/EditorialKicker";
+import { PhotoFrame } from "@/components/editorial/PhotoFrame";
+import { SectionDivider } from "@/components/editorial/SectionDivider";
 import { HomeHero } from "@/components/layout/HomeHero";
 import { Container } from "@/components/layout/Container";
 import { PlatformCategoryGrid } from "@/components/navigation/PlatformCategoryGrid";
 import { GuideCard } from "@/components/guides/GuideCard";
-import { LawComparisonMatrix } from "@/components/laws/LawComponents";
-import { DirectoryGrid, TrailCard } from "@/components/trails/TrailCard";
-import { Button } from "@/components/ui/Button";
+import { LawTeaserSection } from "@/components/laws/LawTeaser";
+import { TrailCard } from "@/components/trails/TrailCard";
+import { Button } from "@/components/design-system/Button/Button";
+import { FadeUp } from "@/components/motion/FadeUp";
+import { StaggerChildren, StaggerItem } from "@/components/motion/StaggerChildren";
+import { marketingImages } from "@/config/images";
 import { siteConfig } from "@/config/site";
 import {
   getFeaturedTrails,
   getGuides,
   getNationalLawHub,
+  getPublicJurisdictions,
+  getTrails,
 } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { getHomeHeroImage } from "@/lib/utils/images";
@@ -22,107 +31,167 @@ export const metadata = buildPageMetadata({
 });
 
 export default async function HomePage() {
-  const [featuredTrails, guides, lawHub] = await Promise.all([
+  const [featuredTrails, guides, lawHub, jurisdictions, allTrails] = await Promise.all([
     getFeaturedTrails(6),
     getGuides(),
     getNationalLawHub(),
+    getPublicJurisdictions(),
+    getTrails(),
   ]);
 
-  const featuredGuides = guides.slice(0, 4);
+  const featuredGuides = guides.slice(0, 2);
   const heroImage = getHomeHeroImage();
 
   return (
     <>
-      <HomeHero image={heroImage} />
+      <HomeHero
+        image={heroImage}
+        trailCount={allTrails.length}
+        jurisdictionCount={jurisdictions.length}
+      />
 
-      <Container className="py-14">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-zinc-900">Explore the platform</h2>
-          <p className="mt-2 text-zinc-600">
-            Trails are live today. Shops, rentals, repairs, events, reviews, and news are on the
-            roadmap.
+      <section className="bg-surface-sunken py-16 md:py-20">
+        <Container>
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+            <FadeUp>
+              <EditorialKicker>Verified &amp; researched</EditorialKicker>
+              <h2 className="mt-4 text-display-lg text-text-primary">
+                Trusted trail and law information
+              </h2>
+              <p className="mt-4 text-body-lg text-text-secondary">
+                Every listing is researched against official sources and reviewed by our editorial
+                team before publication.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <Button href="/editorial-standards" variant="outline">
+                  Editorial Standards
+                </Button>
+                <span className="text-body-sm text-text-muted">
+                  Questions?{" "}
+                  <a href={`mailto:${siteConfig.correctionsEmail}`} className="link-editorial">
+                    {siteConfig.correctionsEmail}
+                  </a>
+                </span>
+              </div>
+            </FadeUp>
+            <FadeUp delay={0.1}>
+              <PhotoFrame
+                src={marketingImages.hubs.trails}
+                alt="E-bike trail through Mid-Atlantic woodland"
+                aspect="square"
+                caption="Verified against official trail and agency sources"
+              />
+            </FadeUp>
+          </div>
+        </Container>
+      </section>
+
+      <SectionDivider from="surface-sunken" to="surface-base" />
+
+      <Container className="py-16 md:py-24">
+        <FadeUp>
+          <EditorialKicker>Explore</EditorialKicker>
+          <h2 className="mt-4 text-heading-lg text-text-primary">Start exploring</h2>
+          <p className="mt-2 max-w-2xl text-body-md text-text-secondary">
+            Trails, laws, and guides are live today across our launch markets.
           </p>
+        </FadeUp>
+        <div className="mt-10">
+          <PlatformCategoryGrid />
         </div>
-        <PlatformCategoryGrid />
       </Container>
 
-      <section className="border-y border-zinc-200 bg-white">
-        <Container className="py-14">
-          <div className="mb-8 flex items-end justify-between gap-4">
-            <div>
-              <h2 className="text-2xl font-bold text-zinc-900">Featured trails</h2>
-              <p className="mt-2 text-zinc-600">Verified e-bike trail listings in our launch markets</p>
-            </div>
-            <Link href="/trails" className="text-sm font-semibold text-emerald-700 hover:underline">
+      <SectionDivider from="surface-base" to="surface-raised" />
+
+      <section className="bg-surface-raised py-16 md:py-24">
+        <Container>
+          <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <FadeUp>
+              <EditorialKicker>Trails</EditorialKicker>
+              <h2 className="mt-4 text-heading-lg text-text-primary">Featured trails</h2>
+              <p className="mt-2 text-body-md text-text-secondary">
+                Verified e-bike trail listings in our launch markets
+              </p>
+            </FadeUp>
+            <Link href="/trails" className="text-sm font-semibold text-brand-accent hover:underline">
               View all trails →
             </Link>
           </div>
-          <DirectoryGrid>
+          <StaggerChildren className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featuredTrails.map((trail) => (
-              <TrailCard key={trail.id} trail={trail} />
+              <StaggerItem key={trail.id} className="h-full">
+                <TrailCard trail={trail} />
+              </StaggerItem>
             ))}
-          </DirectoryGrid>
+          </StaggerChildren>
         </Container>
       </section>
 
-      <Container className="py-14">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-zinc-900">Know the rules before you ride</h2>
-          <p className="mt-2 text-zinc-600">
+      <SectionDivider from="surface-raised" to="surface-base" />
+
+      <Container className="py-16 md:py-24">
+        <FadeUp>
+          <EditorialKicker>Laws</EditorialKicker>
+          <h2 className="mt-4 text-heading-lg text-text-primary">Know the rules before you ride</h2>
+          <p className="mt-2 max-w-2xl text-body-md text-text-secondary">
             Compare e-bike laws across Virginia, Maryland, and Washington DC
           </p>
-        </div>
-        <LawComparisonMatrix rows={lawHub.comparisonMatrix} />
-        <div className="mt-6">
-          <Button href="/laws" variant="ghost">
-            View full laws authority hub →
-          </Button>
+        </FadeUp>
+        <div className="mt-10">
+          <LawTeaserSection rows={lawHub.comparisonMatrix} />
         </div>
       </Container>
 
-      <section className="border-t border-zinc-200 bg-zinc-50">
-        <Container className="py-14">
-          <h2 className="text-2xl font-bold text-zinc-900">Guides</h2>
-          <DirectoryGrid>
-            {featuredGuides.map((guide) => (
-              <GuideCard key={guide.id} guide={guide} />
-            ))}
-          </DirectoryGrid>
+      <section className="bg-surface-sunken py-16 md:py-24">
+        <Container>
+          <FadeUp>
+            <EditorialKicker>Guides</EditorialKicker>
+            <h2 className="mt-4 text-heading-lg text-text-primary">Reference for riders</h2>
+            <p className="mt-2 text-body-md text-text-secondary">
+              Guides for riders new to e-bikes and Mid-Atlantic trails
+            </p>
+          </FadeUp>
+          <div className="mt-10 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+            {featuredGuides[0] ? (
+              <FadeUp>
+                <GuideCard guide={featuredGuides[0]} featured large />
+              </FadeUp>
+            ) : null}
+            {featuredGuides[1] ? (
+              <FadeUp delay={0.08}>
+                <GuideCard guide={featuredGuides[1]} featured />
+              </FadeUp>
+            ) : null}
+          </div>
+          <div className="mt-8">
+            <Button href="/guides" variant="ghost">
+              View all guides →
+            </Button>
+          </div>
         </Container>
       </section>
 
-      <Container className="py-14">
-        <div className="rounded-xl border border-zinc-200 bg-white p-8 md:flex md:items-center md:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
-              Verified sources
+      <section className="relative overflow-hidden py-16 md:py-24">
+        <ContentImage
+          src={heroImage.src}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover brightness-[0.55] saturate-[1.05]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(26,25,23,0.85)] to-[rgba(26,25,23,0.6)]" />
+        <Container className="relative">
+          <FadeUp>
+            <EditorialKicker light>Community</EditorialKicker>
+            <h2 className="mt-4 max-w-xl text-heading-lg text-white">Know a great e-bike trail?</h2>
+            <p className="mt-4 max-w-xl text-body-md text-white/85">
+              Help us expand our directory with community trail suggestions in Virginia, Maryland,
+              and DC.
             </p>
-            <h2 className="mt-2 text-xl font-bold text-zinc-900">
-              We document how every listing is researched and reviewed
-            </h2>
-            <p className="mt-2 text-zinc-600">
-              Read our Editorial Standards for verification, update, and correction policies.
-            </p>
-          </div>
-          <Button href="/editorial-standards" className="mt-6 shrink-0 md:mt-0">
-            Editorial Standards
-          </Button>
-        </div>
-      </Container>
-
-      <section className="border-t border-zinc-200 bg-emerald-50">
-        <Container className="py-14 text-center">
-          <h2 className="text-2xl font-bold text-zinc-900">Know a great e-bike trail?</h2>
-          <p className="mx-auto mt-2 max-w-xl text-zinc-600">
-            Help us expand our directory with community trail suggestions in Virginia, Maryland, and
-            DC.
-          </p>
-          <Button href="/suggest-trail" className="mt-6">
-            Suggest a Trail
-          </Button>
-          <p className="mt-8 text-sm text-zinc-500">
-            Launching in Virginia, Maryland &amp; Washington DC
-          </p>
+            <Button href="/suggest-trail" className="mt-8" size="lg" variant="accent">
+              Suggest a Trail
+            </Button>
+          </FadeUp>
         </Container>
       </section>
     </>

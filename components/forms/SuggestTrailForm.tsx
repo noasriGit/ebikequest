@@ -1,14 +1,21 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import type { SuggestTrailPayload } from "@/types/submission";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/design-system/Button/Button";
+import { FormField, Input, Textarea } from "@/components/design-system/Input/Input";
 
 export function SuggestTrailForm() {
-  const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState<Partial<Record<keyof SuggestTrailPayload, string>>>({});
+  const searchParams = useSearchParams();
+  const prefilledTrail = searchParams.get("trail") ?? "";
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<keyof SuggestTrailPayload, string>>>({});
+  const [serverError, setServerError] = useState("");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     const payload: SuggestTrailPayload = {
@@ -25,18 +32,38 @@ export function SuggestTrailForm() {
 
     if (Object.keys(nextErrors).length) {
       setErrors(nextErrors);
+      setServerError("");
       return;
     }
 
     setErrors({});
-    setSubmitted(true);
+    setLoading(true);
+    setServerError("");
+
+    try {
+      const res = await fetch("/api/suggest-trail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Submission failed");
+      setSubmitted(true);
+    } catch (err) {
+      setServerError(err instanceof Error ? err.message : "Submission failed");
+    } finally {
+      setLoading(false);
+    }
   }
 
   if (submitted) {
     return (
-      <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-6">
-        <h2 className="text-lg font-semibold text-emerald-900">Thank you!</h2>
-        <p className="mt-2 text-emerald-800">
+      <div
+        className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--brand)_25%,transparent)] bg-brand-light p-6"
+        role="status"
+      >
+        <h2 className="text-lg font-semibold text-text-primary">Thank you!</h2>
+        <p className="mt-2 text-text-secondary">
           Your trail suggestion has been received. Our editorial team will review it and follow up
           if we need additional information.
         </p>
@@ -45,61 +72,60 @@ export function SuggestTrailForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5 rounded-xl border border-zinc-200 bg-white p-6">
-      <div>
-        <label htmlFor="trailName" className="block text-sm font-medium text-zinc-700">
-          Trail name *
-        </label>
-        <input
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-5 rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-6 shadow-[var(--shadow-xs)]"
+      noValidate
+    >
+      <FormField id="trailName" label="Trail name" error={errors.trailName} required>
+        <Input
           id="trailName"
           name="trailName"
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2"
+          defaultValue={prefilledTrail}
+          invalid={!!errors.trailName}
+          aria-describedby={errors.trailName ? "trailName-error" : undefined}
         />
-        {errors.trailName ? <p className="mt-1 text-sm text-red-600">{errors.trailName}</p> : null}
-      </div>
+      </FormField>
 
-      <div>
-        <label htmlFor="location" className="block text-sm font-medium text-zinc-700">
-          Location *
-        </label>
-        <input
+      <FormField id="location" label="Location" error={errors.location} required>
+        <Input
           id="location"
           name="location"
           placeholder="City, park, or address"
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2"
+          invalid={!!errors.location}
+          aria-describedby={errors.location ? "location-error" : undefined}
         />
-        {errors.location ? <p className="mt-1 text-sm text-red-600">{errors.location}</p> : null}
-      </div>
+      </FormField>
 
-      <div>
-        <label htmlFor="notes" className="block text-sm font-medium text-zinc-700">
-          Notes
-        </label>
-        <textarea
+      <FormField id="notes" label="Notes">
+        <Textarea
           id="notes"
           name="notes"
           rows={4}
           placeholder="E-bike policy, surface type, or why you recommend this trail"
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2"
         />
-      </div>
+      </FormField>
 
-      <div>
-        <label htmlFor="submitterEmail" className="block text-sm font-medium text-zinc-700">
-          Your email *
-        </label>
-        <input
+      <FormField id="submitterEmail" label="Your email" error={errors.submitterEmail} required>
+        <Input
           id="submitterEmail"
           name="submitterEmail"
           type="email"
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2"
+          autoComplete="email"
+          invalid={!!errors.submitterEmail}
+          aria-describedby={errors.submitterEmail ? "submitterEmail-error" : undefined}
         />
-        {errors.submitterEmail ? (
-          <p className="mt-1 text-sm text-red-600">{errors.submitterEmail}</p>
-        ) : null}
-      </div>
+      </FormField>
 
-      <Button type="submit">Submit suggestion</Button>
+      {serverError ? (
+        <p className="text-sm text-semantic-disallow" role="alert">
+          {serverError}
+        </p>
+      ) : null}
+
+      <Button type="submit" loading={loading}>
+        Submit suggestion
+      </Button>
     </form>
   );
 }

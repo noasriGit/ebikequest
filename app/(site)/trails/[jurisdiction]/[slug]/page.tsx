@@ -1,16 +1,21 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/layout/Container";
-import { PageHero } from "@/components/layout/PageHero";
 import { EntityMeta } from "@/components/content/EntityMeta";
 import { EditorialStandardsCallout } from "@/components/laws/LawComponents";
-import { TrailCoverHero, TrailImageGallery } from "@/components/trails/TrailImageGallery";
+import {
+  TrailHero,
+  TrailImageGallery,
+  TrailMapLink,
+} from "@/components/trails/TrailImageGallery";
+import { TrailCard } from "@/components/trails/TrailCard";
 import { Badge } from "@/components/ui/Badge";
 import {
   assertPublicJurisdiction,
   getJurisdictionName,
   getTrail,
   getTrailStaticParams,
+  getTrails,
 } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { getTrailCoverImage, getTrailGalleryImages } from "@/lib/utils/images";
@@ -56,10 +61,14 @@ export default async function TrailDetailPage({
   const path = `/trails/${jurisdiction}/${slug}`;
   const coverImage = getTrailCoverImage(trail);
   const galleryImages = getTrailGalleryImages(trail);
+  const relatedTrails = (await getTrails({ jurisdiction: jurisdiction as import("@/types/jurisdiction").JurisdictionSlug }))
+    .filter((t) => t.slug !== slug)
+    .slice(0, 3);
 
   return (
     <>
-      <PageHero
+      <TrailHero
+        image={coverImage}
         title={trail.title}
         description={trail.description}
         breadcrumbs={[
@@ -68,6 +77,23 @@ export default async function TrailDetailPage({
           { label: jurisdictionName, href: `/trails/${jurisdiction}` },
           { label: trail.title },
         ]}
+        badges={
+          <>
+            <Badge className="bg-white/95 text-text-primary">{jurisdictionName}</Badge>
+            <Badge className="bg-white/95 capitalize text-text-primary">
+              {trail.stats.difficulty}
+            </Badge>
+            {trail.ebikePolicy.allowed ? (
+              <Badge variant="success" className="bg-white/95">
+                E-bike allowed
+              </Badge>
+            ) : (
+              <Badge variant="warning" className="bg-white/95">
+                Restricted
+              </Badge>
+            )}
+          </>
+        }
       />
       <JsonLd
         data={[
@@ -87,7 +113,31 @@ export default async function TrailDetailPage({
         ]}
       />
       <Container className="py-10">
-        <TrailCoverHero image={coverImage} />
+        <div className="flex flex-wrap gap-6 border-b border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] pb-6 font-mono text-sm">
+          {trail.stats.distanceMiles ? (
+            <div>
+              <span className="text-text-muted">Distance </span>
+              <span className="font-semibold text-text-primary">{trail.stats.distanceMiles} mi</span>
+            </div>
+          ) : null}
+          <div>
+            <span className="text-text-muted">Difficulty </span>
+            <span className="font-semibold capitalize text-text-primary">{trail.stats.difficulty}</span>
+          </div>
+          {trail.stats.elevationFeet ? (
+            <div>
+              <span className="text-text-muted">Elevation </span>
+              <span className="font-semibold text-text-primary">{trail.stats.elevationFeet} ft</span>
+            </div>
+          ) : null}
+          {trail.ebikePolicy.lastVerified ? (
+            <div>
+              <span className="text-text-muted">Verified </span>
+              <span className="font-semibold text-text-primary">{trail.ebikePolicy.lastVerified}</span>
+            </div>
+          ) : null}
+        </div>
+
         <EntityMeta
           author={trail.author}
           reviewedBy={trail.reviewedBy}
@@ -97,19 +147,19 @@ export default async function TrailDetailPage({
         />
 
         <div className="mt-8 grid gap-8 lg:grid-cols-3">
-          <div className="lg:col-span-2 space-y-8">
+          <div className="space-y-8 lg:col-span-2">
             <TrailImageGallery images={galleryImages} />
 
             <section>
-              <h2 className="text-xl font-semibold text-zinc-900">Trail overview</h2>
-              <p className="mt-3 text-zinc-600">{trail.location.name}</p>
+              <h2 className="text-xl font-semibold text-text-primary">Trail overview</h2>
+              <p className="mt-3 text-text-secondary">{trail.location.name}</p>
               {trail.location.address ? (
-                <p className="mt-1 text-sm text-zinc-500">{trail.location.address}</p>
+                <p className="mt-1 text-sm text-text-muted">{trail.location.address}</p>
               ) : null}
             </section>
 
-            <section className="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
-              <h2 className="text-lg font-semibold text-emerald-900">E-bike policy</h2>
+            <section className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--brand)_25%,transparent)] bg-brand-light p-5">
+              <h2 className="text-lg font-semibold text-text-primary">E-bike policy</h2>
               <div className="mt-3 flex flex-wrap gap-2">
                 {trail.ebikePolicy.classesAllowed.map((c) => (
                   <Badge key={c} variant="success">
@@ -117,13 +167,13 @@ export default async function TrailDetailPage({
                   </Badge>
                 ))}
               </div>
-              <p className="mt-3 text-emerald-900">{trail.ebikePolicy.notes}</p>
+              <p className="mt-3 text-text-primary">{trail.ebikePolicy.notes}</p>
               {trail.ebikePolicy.sourceUrl ? (
                 <a
                   href={trail.ebikePolicy.sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-3 inline-block text-sm font-semibold text-emerald-800 underline"
+                  className="mt-3 inline-block text-sm font-semibold text-brand underline"
                 >
                   View official source
                 </a>
@@ -132,7 +182,7 @@ export default async function TrailDetailPage({
 
             {trail.tags?.length ? (
               <section>
-                <h2 className="text-lg font-semibold text-zinc-900">Tags</h2>
+                <h2 className="text-lg font-semibold text-text-primary">Tags</h2>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {trail.tags.map((tag) => (
                     <Badge key={tag}>{tag}</Badge>
@@ -145,44 +195,65 @@ export default async function TrailDetailPage({
           </div>
 
           <aside className="space-y-6">
-            <div className="rounded-xl border border-zinc-200 bg-white p-5">
-              <h2 className="font-semibold text-zinc-900">Trail stats</h2>
+            <div className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-5 shadow-[var(--shadow-xs)] lg:sticky lg:top-20">
+              <h2 className="font-semibold text-text-primary">Trail stats</h2>
               <dl className="mt-4 space-y-3 text-sm">
                 <div>
-                  <dt className="text-zinc-500">Difficulty</dt>
-                  <dd className="font-medium capitalize text-zinc-900">{trail.stats.difficulty}</dd>
+                  <dt className="text-text-muted">Difficulty</dt>
+                  <dd className="font-medium capitalize text-text-primary">{trail.stats.difficulty}</dd>
                 </div>
                 {trail.stats.distanceMiles ? (
                   <div>
-                    <dt className="text-zinc-500">Distance</dt>
-                    <dd className="font-medium text-zinc-900">{trail.stats.distanceMiles} miles</dd>
+                    <dt className="text-text-muted">Distance</dt>
+                    <dd className="font-medium text-text-primary">{trail.stats.distanceMiles} miles</dd>
                   </div>
                 ) : null}
                 {trail.stats.elevationFeet ? (
                   <div>
-                    <dt className="text-zinc-500">Elevation</dt>
-                    <dd className="font-medium text-zinc-900">{trail.stats.elevationFeet} ft</dd>
+                    <dt className="text-text-muted">Elevation</dt>
+                    <dd className="font-medium text-text-primary">{trail.stats.elevationFeet} ft</dd>
                   </div>
                 ) : null}
                 {trail.stats.surface?.length ? (
                   <div>
-                    <dt className="text-zinc-500">Surface</dt>
-                    <dd className="font-medium text-zinc-900">{trail.stats.surface.join(", ")}</dd>
+                    <dt className="text-text-muted">Surface</dt>
+                    <dd className="font-medium text-text-primary">{trail.stats.surface.join(", ")}</dd>
                   </div>
                 ) : null}
               </dl>
-            </div>
-
-            <div className="rounded-xl border border-zinc-200 bg-white p-5">
-              <Link
-                href={`/laws/${jurisdiction}`}
-                className="text-sm font-semibold text-emerald-700 hover:underline"
-              >
-                View {jurisdictionName} e-bike laws →
-              </Link>
+              <div className="mt-5 space-y-3 border-t border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] pt-5">
+                <Link
+                  href={`/laws/${jurisdiction}`}
+                  className="block text-sm font-semibold text-brand hover:underline"
+                >
+                  View {jurisdictionName} e-bike laws →
+                </Link>
+                <TrailMapLink
+                  lat={trail.location.coordinates?.lat}
+                  lng={trail.location.coordinates?.lng}
+                  name={trail.location.name}
+                />
+                <Link
+                  href={`/suggest-trail?trail=${encodeURIComponent(trail.title)}`}
+                  className="block text-sm text-text-muted hover:text-brand"
+                >
+                  Report incorrect info
+                </Link>
+              </div>
             </div>
           </aside>
         </div>
+
+        {relatedTrails.length ? (
+          <section className="mt-16 border-t border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] pt-12">
+            <h2 className="text-heading-md font-semibold text-text-primary">More trails in {jurisdictionName}</h2>
+            <div className="mt-6 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {relatedTrails.map((t) => (
+                <TrailCard key={t.id} trail={t} />
+              ))}
+            </div>
+          </section>
+        ) : null}
       </Container>
     </>
   );

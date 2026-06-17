@@ -1,15 +1,15 @@
 import { Suspense } from "react";
 import { Container } from "@/components/layout/Container";
-import { HubBanner } from "@/components/layout/HubBanner";
 import { PageHero } from "@/components/layout/PageHero";
 import { FilterBar } from "@/components/content/FilterBar";
+import { Button } from "@/components/design-system/Button/Button";
 import { parseTrailFilters } from "@/lib/content/trail-filters";
 import { DirectoryGrid, TrailCard } from "@/components/trails/TrailCard";
-import { getPublicJurisdictions, getTrails } from "@/lib/content";
+import { getHubImage } from "@/config/images";
+import { getFeaturedTrails, getPublicJurisdictions, getTrails } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { buildItemListSchema } from "@/lib/seo/structured-data";
-import { getTrailHubImage } from "@/lib/utils/images";
 
 export const metadata = buildPageMetadata({
   title: "E-Bike Trails Directory",
@@ -28,10 +28,22 @@ async function TrailsResults({
   const trails = await getTrails(filters);
 
   if (!trails.length) {
+    const featured = await getFeaturedTrails(3);
     return (
-      <p className="rounded-xl border border-zinc-200 bg-white p-8 text-zinc-600">
-        No trails match your filters. Try adjusting jurisdiction, difficulty, or e-bike class.
-      </p>
+      <div className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-8 text-center">
+        <h2 className="text-heading-md text-text-primary">No trails match your filters</h2>
+        <p className="mt-2 text-text-secondary">
+          Try adjusting jurisdiction, difficulty, or e-bike class — or browse featured trails below.
+        </p>
+        <div className="mt-8 grid gap-6 sm:grid-cols-3">
+          {featured.map((trail) => (
+            <TrailCard key={trail.id} trail={trail} />
+          ))}
+        </div>
+        <Button href="/trails" variant="ghost" className="mt-8">
+          Clear filters
+        </Button>
+      </div>
     );
   }
 
@@ -50,31 +62,37 @@ export default async function TrailsPage({
   searchParams: Promise<{ jurisdiction?: string; difficulty?: string; class?: string }>;
 }) {
   const jurisdictions = await getPublicJurisdictions();
-  const trails = await getTrails();
+  const allTrails = await getTrails();
 
   return (
     <>
       <PageHero
+        variant="trails"
         title="E-Bike Trails Directory"
         description="Browse verified e-bike trail listings with access policies, difficulty, and jurisdiction filters."
+        kicker="Directory"
+        image={getHubImage("trails")}
+        imageAlt="E-bike trails in the Mid-Atlantic"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Trails" }]}
       />
       <JsonLd
         data={buildItemListSchema(
-          trails.map((t) => ({
+          allTrails.map((t) => ({
             name: t.title,
             path: `/trails/${t.jurisdiction}/${t.slug}`,
           })),
         )}
       />
       <Container className="py-10">
-        <HubBanner image={getTrailHubImage()} title="Verified trails in Virginia, Maryland, and DC" />
+        <p className="mb-6 font-mono text-sm text-text-muted">
+          {allTrails.length} verified trails across {jurisdictions.length} jurisdictions
+        </p>
         <div className="mb-8">
-          <Suspense fallback={<div className="h-24 animate-pulse rounded-xl bg-zinc-100" />}>
+          <Suspense fallback={<div className="h-16 animate-pulse rounded-[var(--radius-md)] bg-surface-sunken" />}>
             <FilterBar jurisdictions={jurisdictions} basePath="/trails" />
           </Suspense>
         </div>
-        <Suspense fallback={<div className="h-64 animate-pulse rounded-xl bg-zinc-100" />}>
+        <Suspense fallback={<div className="h-64 animate-pulse rounded-[var(--radius-md)] bg-surface-sunken" />}>
           <TrailsResults searchParams={searchParams} />
         </Suspense>
       </Container>

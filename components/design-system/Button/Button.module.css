@@ -1,0 +1,131 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--surface-base), 0 0 0 4px var(--brand);
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.button:not(:disabled):not([aria-disabled="true"]):hover {
+  transform: translateY(-1px);
+}
+
+.sm {
+  padding: 0.5rem 0.875rem;
+  font-size: 0.8125rem;
+}
+
+.md {
+  padding: 0.625rem 1rem;
+}
+
+.lg {
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9375rem;
+  border-radius: var(--radius-lg);
+}
+
+.primary {
+  background: var(--brand);
+  color: white;
+  box-shadow: var(--shadow-xs);
+}
+
+.primary:not(:disabled):not([aria-disabled="true"]):hover {
+  background: var(--brand-dark);
+  box-shadow: var(--shadow-md);
+}
+
+.secondary {
+  background: var(--surface-raised);
+  color: var(--text-primary);
+  border-color: color-mix(in srgb, var(--text-muted) 40%, transparent);
+}
+
+.secondary:not(:disabled):not([aria-disabled="true"]):hover {
+  background: var(--surface-sunken);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--brand);
+}
+
+.ghost:not(:disabled):not([aria-disabled="true"]):hover {
+  background: var(--brand-light);
+}
+
+.outline {
+  background: transparent;
+  color: var(--brand);
+  border-color: var(--brand);
+}
+
+.outline:not(:disabled):not([aria-disabled="true"]):hover {
+  background: var(--brand-light);
+}
+
+.dark {
+  background: transparent;
+  color: white;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.dark:not(:disabled):not([aria-disabled="true"]):hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.accent {
+  background: var(--brand-accent);
+  color: white;
+  box-shadow: var(--shadow-xs);
+}
+
+.accent:not(:disabled):not([aria-disabled="true"]):hover {
+  background: color-mix(in srgb, var(--brand-accent) 85%, black);
+  box-shadow: var(--shadow-md);
+}
+
+.loading {
+  pointer-events: none;
+}
+
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

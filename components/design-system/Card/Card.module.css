@@ -1,0 +1,36 @@
+.card {
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--text-muted) 16%, transparent);
+  background: var(--surface-raised);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-xs);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.cardLink {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+}
+
+.cardLink:hover {
+  border-color: color-mix(in srgb, var(--brand-accent) 40%, transparent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.accent {
+  border-left: 3px solid var(--brand-accent);
+}
+
+.photo {
+  padding: 0;
+}
+
+.photoContent {
+  padding: 1.25rem;
+}

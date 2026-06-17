@@ -1,5 +1,6 @@
 import type { Trail } from "@/types/trail";
 import { EDITORIAL_DEFAULTS } from "../_shared/defaults";
+import { trailCoverImages } from "../images/trail-covers";
 
 export const washingtonDcTrails: Trail[] = [
   {
@@ -27,6 +28,7 @@ export const washingtonDcTrails: Trail[] = [
       lastVerified: "2026-05-16",
     },
     tags: ["historic", "riverfront"],
+    images: [trailCoverImages["c-and-o-canal-towpath-dc"]],
   },
   {
     id: "trail-dc-rock-creek",
@@ -53,6 +55,7 @@ export const washingtonDcTrails: Trail[] = [
       lastVerified: "2026-05-11",
     },
     tags: ["urban", "park"],
+    images: [trailCoverImages["rock-creek-trail"]],
   },
   {
     id: "trail-dc-anacostia-riverwalk",
@@ -79,6 +82,7 @@ export const washingtonDcTrails: Trail[] = [
       lastVerified: "2026-05-20",
     },
     tags: ["riverfront", "paved", "commuter"],
+    images: [trailCoverImages["anacostia-riverwalk-trail"]],
   },
   {
     id: "trail-dc-capital-crescent-dc",
@@ -105,6 +109,7 @@ export const washingtonDcTrails: Trail[] = [
       lastVerified: "2026-05-14",
     },
     tags: ["paved", "commuter"],
+    images: [trailCoverImages["capital-crescent-trail-dc"]],
   },
   {
     id: "trail-dc-monument-loop",
@@ -131,6 +136,7 @@ export const washingtonDcTrails: Trail[] = [
       lastVerified: "2026-05-09",
     },
     tags: ["urban", "landmarks"],
+    images: [trailCoverImages["national-mall-connector-routes"]],
   },
   {
     id: "trail-dc-fort-circle",
@@ -157,5 +163,6 @@ export const washingtonDcTrails: Trail[] = [
       lastVerified: "2026-04-22",
     },
     tags: ["historic", "mixed-surface"],
+    images: [trailCoverImages["fort-circle-trail-network"]],
   },
 ];

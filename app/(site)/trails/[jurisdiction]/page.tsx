@@ -50,15 +50,19 @@ export default async function JurisdictionTrailsPage({
   return (
     <>
       <PageHero
+        variant="trails"
         title={`E-Bike Trails in ${name}`}
         description={`Verified trail directory for ${name} with e-bike access policies.`}
+        kicker={name}
+        image={hubImage.src}
+        imageAlt={hubImage.alt}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Trails", href: "/trails" },
           { label: name },
         ]}
       >
-        <Link href={`/laws/${jurisdiction}`} className="text-sm font-semibold text-emerald-700 hover:underline">
+        <Link href={`/laws/${jurisdiction}`} className="text-sm font-semibold link-editorial">
           View {name} e-bike laws →
         </Link>
       </PageHero>

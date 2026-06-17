@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Instrument_Serif } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { MotionProvider } from "@/components/motion/MotionProvider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { siteConfig } from "@/config/site";
 import { buildOrganizationSchema, buildWebSiteSchema } from "@/lib/seo/structured-data";
@@ -15,6 +17,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -33,11 +41,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}>
-        <JsonLd data={[buildOrganizationSchema(), buildWebSiteSchema()]} />
-        <SiteHeader />
-        <main>{children}</main>
-        <SiteFooter />
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} bg-paper-texture min-h-screen antialiased`}
+      >
+        <MotionProvider>
+          <a href="#main-content" className="skip-link">
+            Skip to content
+          </a>
+          <JsonLd data={[buildOrganizationSchema(), buildWebSiteSchema()]} />
+          <SiteHeader />
+          <main id="main-content">{children}</main>
+          <SiteFooter />
+        </MotionProvider>
       </body>
     </html>
   );

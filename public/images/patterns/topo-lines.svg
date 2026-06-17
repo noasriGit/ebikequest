@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" fill="none">
+  <path d="M0 30 Q30 20 60 30 T120 30" stroke="currentColor" stroke-width="0.75" opacity="0.35"/>
+  <path d="M0 50 Q35 40 70 50 T120 50" stroke="currentColor" stroke-width="0.75" opacity="0.3"/>
+  <path d="M0 70 Q25 60 50 70 T120 70" stroke="currentColor" stroke-width="0.75" opacity="0.25"/>
+  <path d="M0 90 Q40 80 80 90 T120 90" stroke="currentColor" stroke-width="0.75" opacity="0.2"/>
+  <path d="M0 15 Q20 10 40 15 T80 15 T120 15" stroke="currentColor" stroke-width="0.5" opacity="0.15"/>
+</svg>

@@ -6,15 +6,16 @@ export function Badge({
   className,
 }: {
   children: React.ReactNode;
-  variant?: "default" | "live" | "soon" | "success" | "warning";
+  variant?: "default" | "live" | "soon" | "success" | "warning" | "editorial";
   className?: string;
 }) {
   const variants = {
-    default: "bg-zinc-100 text-zinc-700",
-    live: "bg-emerald-100 text-emerald-800",
-    soon: "bg-amber-100 text-amber-800",
-    success: "bg-green-100 text-green-800",
-    warning: "bg-orange-100 text-orange-800",
+    default: "bg-surface-sunken text-text-secondary",
+    live: "bg-brand-light text-brand",
+    soon: "bg-[color-mix(in_srgb,var(--brand-accent)_15%,white)] text-brand-accent",
+    success: "bg-[color-mix(in_srgb,var(--semantic-allow)_12%,white)] text-semantic-allow",
+    warning: "bg-[color-mix(in_srgb,var(--semantic-restrict)_12%,white)] text-semantic-restrict",
+    editorial: "bg-brand-accent-light text-brand-accent border border-[color-mix(in_srgb,var(--brand-accent)_25%,transparent)]",
   };
 
   return (

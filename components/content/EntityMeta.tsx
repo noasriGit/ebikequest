@@ -16,7 +16,7 @@ export function EntityMeta({
   lastVerified?: string;
 }) {
   return (
-    <div className="space-y-2 border-b border-zinc-200 pb-6">
+    <div className="space-y-2 border-b border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] pb-6">
       <AuthorByline author={author} />
       <ReviewerByline reviewer={reviewedBy} />
       <ContentFreshness

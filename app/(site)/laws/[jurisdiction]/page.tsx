@@ -9,6 +9,7 @@ import {
   LegalDisclaimer,
   SourceCitationList,
 } from "@/components/laws/LawComponents";
+import { getJurisdictionImage } from "@/config/images";
 import {
   assertPublicJurisdiction,
   getJurisdictionName,
@@ -22,6 +23,7 @@ import {
   buildBreadcrumbSchema,
   buildFaqSchema,
 } from "@/lib/seo/structured-data";
+import type { JurisdictionSlug } from "@/types/jurisdiction";
 
 export const dynamicParams = false;
 
@@ -57,12 +59,18 @@ export default async function JurisdictionLawPage({
 
   const name = getJurisdictionName(jurisdiction);
   const path = `/laws/${jurisdiction}`;
+  const slug = jurisdiction as JurisdictionSlug;
 
   return (
     <>
       <PageHero
+        variant="laws"
         title={law.title}
         description={law.summary}
+        kicker={name}
+        align="split"
+        image={getJurisdictionImage(slug)}
+        imageAlt={`${name} e-bike laws`}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Laws", href: "/laws" },
@@ -88,7 +96,7 @@ export default async function JurisdictionLawPage({
           ]),
         ]}
       />
-      <Container className="py-10 space-y-10">
+      <Container className="space-y-10 py-10">
         <EntityMeta
           author={law.author}
           reviewedBy={law.reviewedBy}
@@ -97,51 +105,51 @@ export default async function JurisdictionLawPage({
           lastVerified={law.lastVerified}
         />
         <LegalDisclaimer />
-        <section>
-          <h2 className="text-2xl font-semibold text-zinc-900">Summary</h2>
-          <p className="mt-4 text-zinc-600">{law.summary}</p>
+        <section className="prose-editorial max-w-none">
+          <h2 className="text-heading-editorial">Summary</h2>
+          <p className="mt-4">{law.summary}</p>
         </section>
         <section>
-          <h2 className="text-2xl font-semibold text-zinc-900">Classifications</h2>
+          <h2 className="text-heading-editorial">Classifications</h2>
           <div className="mt-6">
             <ClassRulesGrid classifications={law.classifications} />
           </div>
         </section>
-        <section>
-          <h2 className="text-2xl font-semibold text-zinc-900">Trail access</h2>
-          <p className="mt-4 text-zinc-600">{law.trailAccess}</p>
+        <section className="prose-editorial max-w-none">
+          <h2 className="text-heading-editorial">Trail access</h2>
+          <p className="mt-4">{law.trailAccess}</p>
         </section>
         <section>
-          <h2 className="text-2xl font-semibold text-zinc-900">Requirements</h2>
+          <h2 className="text-heading-editorial">Requirements</h2>
           <dl className="mt-4 grid gap-4 sm:grid-cols-2">
             {law.helmetRequirements ? (
-              <div className="rounded-xl border border-zinc-200 p-4">
-                <dt className="font-medium text-zinc-900">Helmets</dt>
-                <dd className="mt-1 text-zinc-600">{law.helmetRequirements}</dd>
+              <div className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-4 shadow-[var(--shadow-xs)]">
+                <dt className="font-medium text-text-primary">Helmets</dt>
+                <dd className="mt-1 text-text-secondary">{law.helmetRequirements}</dd>
               </div>
             ) : null}
             {law.ageRequirements ? (
-              <div className="rounded-xl border border-zinc-200 p-4">
-                <dt className="font-medium text-zinc-900">Age</dt>
-                <dd className="mt-1 text-zinc-600">{law.ageRequirements}</dd>
+              <div className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-4 shadow-[var(--shadow-xs)]">
+                <dt className="font-medium text-text-primary">Age</dt>
+                <dd className="mt-1 text-text-secondary">{law.ageRequirements}</dd>
               </div>
             ) : null}
-            <div className="rounded-xl border border-zinc-200 p-4">
-              <dt className="font-medium text-zinc-900">Registration</dt>
-              <dd className="mt-1 text-zinc-600">
+            <div className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-4 shadow-[var(--shadow-xs)]">
+              <dt className="font-medium text-text-primary">Registration</dt>
+              <dd className="mt-1 text-text-secondary">
                 {law.registrationRequired ? "Required" : "Not required"}
               </dd>
             </div>
-            <div className="rounded-xl border border-zinc-200 p-4">
-              <dt className="font-medium text-zinc-900">Insurance</dt>
-              <dd className="mt-1 text-zinc-600">
+            <div className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-4 shadow-[var(--shadow-xs)]">
+              <dt className="font-medium text-text-primary">Insurance</dt>
+              <dd className="mt-1 text-text-secondary">
                 {law.insuranceRequired ? "Required" : "Not required"}
               </dd>
             </div>
           </dl>
         </section>
         <section>
-          <h2 className="text-2xl font-semibold text-zinc-900">FAQ</h2>
+          <h2 className="text-heading-editorial">FAQ</h2>
           <div className="mt-6">
             <JurisdictionLawFaq faq={law.faq} />
           </div>

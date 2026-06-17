@@ -1,5 +1,6 @@
 import type { Trail } from "@/types/trail";
 import { EDITORIAL_DEFAULTS } from "../_shared/defaults";
+import { trailCoverImages } from "../images/trail-covers";
 
 export const marylandTrails: Trail[] = [
   {
@@ -27,6 +28,7 @@ export const marylandTrails: Trail[] = [
       lastVerified: "2026-05-18",
     },
     tags: ["rail-trail", "paved"],
+    images: [trailCoverImages["baltimore-and-ohio-trail"]],
   },
   {
     id: "trail-md-capital-crescent",
@@ -53,6 +55,7 @@ export const marylandTrails: Trail[] = [
       lastVerified: "2026-05-14",
     },
     tags: ["commuter", "paved"],
+    images: [trailCoverImages["capital-crescent-trail"]],
   },
   {
     id: "trail-md-northeast-branch",
@@ -79,6 +82,7 @@ export const marylandTrails: Trail[] = [
       lastVerified: "2026-05-08",
     },
     tags: ["paved", "suburban"],
+    images: [trailCoverImages["northeast-branch-trail"]],
   },
   {
     id: "trail-md-great-allegheny-passage-md",
@@ -105,6 +109,7 @@ export const marylandTrails: Trail[] = [
       lastVerified: "2026-05-02",
     },
     tags: ["long-distance", "rail-trail"],
+    images: [trailCoverImages["great-allegheny-passage-maryland"]],
   },
   {
     id: "trail-md-patapsco",
@@ -132,6 +137,7 @@ export const marylandTrails: Trail[] = [
       lastVerified: "2026-04-25",
     },
     tags: ["state-park", "mixed-surface"],
+    images: [trailCoverImages["patapsco-valley-state-park-trails"]],
   },
   {
     id: "trail-md-northern-central",
@@ -158,6 +164,7 @@ export const marylandTrails: Trail[] = [
       lastVerified: "2026-05-06",
     },
     tags: ["rail-trail"],
+    images: [trailCoverImages["northern-central-trail"]],
   },
   {
     id: "trail-md-indian-head",
@@ -184,6 +191,7 @@ export const marylandTrails: Trail[] = [
       lastVerified: "2026-05-10",
     },
     tags: ["paved", "family-friendly"],
+    images: [trailCoverImages["indian-head-rail-trail"]],
   },
   {
     id: "trail-md-assateague",
@@ -210,5 +218,6 @@ export const marylandTrails: Trail[] = [
       lastVerified: "2026-04-18",
     },
     tags: ["coastal", "national-seashore"],
+    images: [trailCoverImages["assateague-island-trails"]],
   },
 ];

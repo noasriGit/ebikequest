@@ -14,25 +14,25 @@ export function ContentFreshness({
   lastVerified,
 }: ContentFreshnessProps) {
   return (
-    <dl className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-zinc-600">
+    <dl className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-text-secondary">
       <div>
         <dt className="inline">Published: </dt>
-        <dd className="inline font-medium text-zinc-800">{formatDate(publishedAt)}</dd>
+        <dd className="inline font-medium text-text-primary">{formatDate(publishedAt)}</dd>
       </div>
       <div>
         <dt className="inline">Updated: </dt>
-        <dd className="inline font-medium text-zinc-800">{formatDate(updatedAt)}</dd>
+        <dd className="inline font-medium text-text-primary">{formatDate(updatedAt)}</dd>
       </div>
       {reviewedAt ? (
         <div>
           <dt className="inline">Reviewed: </dt>
-          <dd className="inline font-medium text-zinc-800">{formatDate(reviewedAt)}</dd>
+          <dd className="inline font-medium text-text-primary">{formatDate(reviewedAt)}</dd>
         </div>
       ) : null}
       {lastVerified ? (
         <div>
           <dt className="inline">Policy verified: </dt>
-          <dd className="inline font-medium text-zinc-800">{formatDate(lastVerified)}</dd>
+          <dd className="inline font-medium text-text-primary">{formatDate(lastVerified)}</dd>
         </div>
       ) : null}
     </dl>

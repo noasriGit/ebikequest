@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
 import { SuggestTrailForm } from "@/components/forms/SuggestTrailForm";
@@ -22,7 +23,9 @@ export default function SuggestTrailPage() {
         ]}
       />
       <Container className="max-w-xl py-10">
-        <SuggestTrailForm />
+        <Suspense fallback={<div className="h-64 animate-pulse rounded-[var(--radius-md)] bg-surface-sunken" />}>
+          <SuggestTrailForm />
+        </Suspense>
       </Container>
     </>
   );

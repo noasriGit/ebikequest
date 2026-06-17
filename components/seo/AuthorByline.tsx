@@ -3,14 +3,14 @@ import type { Author, Reviewer } from "@/types/content";
 
 export function AuthorByline({ author }: { author: Author }) {
   return (
-    <p className="text-sm text-zinc-600">
+    <p className="text-sm text-text-secondary">
       By{" "}
       {author.url ? (
-        <Link href={author.url} className="font-medium text-emerald-700 hover:underline">
+        <Link href={author.url} className="font-medium link-editorial">
           {author.name}
         </Link>
       ) : (
-        <span className="font-medium text-zinc-900">{author.name}</span>
+        <span className="font-medium text-text-primary">{author.name}</span>
       )}
       {author.title ? ` · ${author.title}` : null}
     </p>
@@ -19,9 +19,9 @@ export function AuthorByline({ author }: { author: Author }) {
 
 export function ReviewerByline({ reviewer }: { reviewer: Reviewer }) {
   return (
-    <p className="text-sm text-zinc-600">
+    <p className="text-sm text-text-secondary">
       Reviewed by{" "}
-      <span className="font-medium text-zinc-900">{reviewer.name}</span>
+      <span className="font-medium text-text-primary">{reviewer.name}</span>
       {reviewer.credentials ? ` · ${reviewer.credentials}` : null}
     </p>
   );

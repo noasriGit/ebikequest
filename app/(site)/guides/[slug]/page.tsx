@@ -8,6 +8,7 @@ import {
   GuideToc,
 } from "@/components/guides/GuideCard";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
+import { getGuideImage } from "@/config/images";
 import { getGuide, getGuideStaticParams, getGuides } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -54,8 +55,13 @@ export default async function GuideDetailPage({
   return (
     <>
       <PageHero
+        variant="guides"
         title={guide.title}
         description={guide.description}
+        kicker="Guide"
+        align="split"
+        image={getGuideImage(guide.category)}
+        imageAlt={guide.title}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Guides", href: "/guides" },
@@ -94,7 +100,7 @@ export default async function GuideDetailPage({
             <GuideSectionRenderer sections={guide.sections} />
             {guide.faq?.length ? (
               <section className="mt-12">
-                <h2 className="text-2xl font-semibold text-zinc-900">FAQ</h2>
+                <h2 className="text-heading-editorial">FAQ</h2>
                 <div className="mt-4">
                   <FAQAccordion items={guide.faq} />
                 </div>
@@ -103,8 +109,9 @@ export default async function GuideDetailPage({
           </div>
         </div>
         {related.length ? (
-          <section className="mt-14 border-t border-zinc-200 pt-10">
-            <h2 className="text-xl font-semibold text-zinc-900">Related guides</h2>
+          <section className="mt-14 border-t border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] pt-10">
+            <p className="text-kicker mb-4">Related</p>
+            <h2 className="text-heading-md text-text-primary">Related guides</h2>
             <div className="mt-6 grid gap-6 sm:grid-cols-2">
               {related.map((g) => (
                 <GuideCard key={g.id} guide={g} />

@@ -1,50 +1,93 @@
-import { Container } from "@/components/layout/Container";
+"use client";
+
 import { ContentImage } from "@/components/content/ContentImage";
-import { Button } from "@/components/ui/Button";
+import { EditorialKicker } from "@/components/editorial/EditorialKicker";
+import { Button } from "@/components/design-system/Button/Button";
+import { FadeUp } from "@/components/motion/FadeUp";
 import { siteConfig } from "@/config/site";
 import type { ContentImageRef } from "@/lib/utils/images";
 
 interface HomeHeroProps {
   image: ContentImageRef;
+  trailCount: number;
+  jurisdictionCount: number;
 }
 
-export function HomeHero({ image }: HomeHeroProps) {
+export function HomeHero({ image, trailCount, jurisdictionCount }: HomeHeroProps) {
+  const month = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(
+    new Date(),
+  );
+
   return (
-    <section className="border-b border-zinc-200 bg-zinc-900">
-      <Container className="py-0">
-        <div className="grid min-h-[520px] items-stretch lg:grid-cols-2 lg:gap-0">
-          <div className="flex flex-col justify-center py-14 lg:py-20 lg:pr-12">
-            <p className="text-sm font-semibold uppercase tracking-widest text-emerald-400">
-              National E-Bike Discovery Platform
-            </p>
-            <h1 className="mt-4 max-w-xl text-4xl font-bold tracking-tight text-white md:text-5xl">
+    <section
+      id="home-hero"
+      className="relative -mt-[var(--site-header-height)] min-h-[calc(85vh+var(--site-header-height))] overflow-hidden border-b border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)]"
+    >
+      <div className="absolute inset-0">
+        <ContentImage
+          src={image.src}
+          alt={image.alt}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center brightness-[0.88] saturate-[1.08] contrast-[1.02]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[rgba(26,25,23,0.88)] via-[rgba(26,25,23,0.5)] to-[rgba(26,25,23,0.2)]" />
+      </div>
+
+      <div className="relative flex min-h-[calc(85vh+var(--site-header-height))] flex-col justify-end px-4 pb-16 pt-[var(--site-header-height)] sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-6xl">
+          <FadeUp>
+            <EditorialKicker light>National E-Bike Discovery Platform</EditorialKicker>
+          </FadeUp>
+          <FadeUp delay={0.08}>
+            <h1 className="mt-5 max-w-3xl text-display-xl font-normal text-white">
               {siteConfig.tagline}
             </h1>
-            <p className="mt-6 max-w-xl text-lg text-zinc-300">
-              National discovery for trails, laws, shops, rentals, and more, starting in
-              Virginia, Maryland, and Washington DC.
+          </FadeUp>
+          <FadeUp delay={0.16}>
+            <p className="mt-6 max-w-xl text-body-lg text-white/85">
+              Verified trails, laws, and guides for riders — starting in Virginia, Maryland, and
+              Washington DC.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button href="/trails">Explore Trails</Button>
-              <Button href="/laws" variant="secondary">
+          </FadeUp>
+          <FadeUp delay={0.24}>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {["Virginia", "Maryland", "Washington DC"].map((loc) => (
+                <span
+                  key={loc}
+                  className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-sm"
+                >
+                  {loc}
+                </span>
+              ))}
+            </div>
+          </FadeUp>
+          <FadeUp delay={0.32}>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button href="/trails" size="lg">
+                Explore Trails
+              </Button>
+              <Button href="/laws" variant="dark" size="lg">
                 E-Bike Laws
               </Button>
             </div>
-          </div>
-
-          <div className="relative min-h-[280px] overflow-hidden lg:min-h-full lg:rounded-l-3xl">
-            <ContentImage
-              src={image.src}
-              alt={image.alt}
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="brightness-95 saturate-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/40 via-transparent to-transparent lg:bg-gradient-to-l lg:from-zinc-900/30 lg:via-transparent lg:to-transparent" />
-          </div>
+          </FadeUp>
+          <FadeUp delay={0.4}>
+            <p className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-sm text-white/70">
+              <span>{trailCount} verified trails</span>
+              <span className="text-brand-accent" aria-hidden>
+                ·
+              </span>
+              <span>{jurisdictionCount} jurisdictions</span>
+              <span className="text-brand-accent" aria-hidden>
+                ·
+              </span>
+              <span>Updated {month}</span>
+            </p>
+          </FadeUp>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

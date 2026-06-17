@@ -1,5 +1,6 @@
 import type { Trail } from "@/types/trail";
 import { EDITORIAL_DEFAULTS } from "../_shared/defaults";
+import { trailCoverImages } from "../images/trail-covers";
 
 export const virginiaTrails: Trail[] = [
   {
@@ -32,12 +33,7 @@ export const virginiaTrails: Trail[] = [
     amenities: ["restrooms", "parking", "water"],
     tags: ["rail-trail", "paved", "family-friendly"],
     relatedGuideSlugs: ["ebike-classes-explained", "mid-atlantic-trail-etiquette"],
-    images: [
-      {
-        src: "/images/trails/virginia/washington-and-old-dominion-trail/cover.svg",
-        alt: "Washington and Old Dominion Trail near Purcellville, Virginia",
-      },
-    ],
+    images: [trailCoverImages["washington-and-old-dominion-trail"]],
   },
   {
     id: "trail-va-mount-vernon",
@@ -67,6 +63,7 @@ export const virginiaTrails: Trail[] = [
     },
     amenities: ["scenic views", "parking"],
     tags: ["riverfront", "paved"],
+    images: [trailCoverImages["mount-vernon-trail"]],
   },
   {
     id: "trail-va-powhatan",
@@ -96,6 +93,7 @@ export const virginiaTrails: Trail[] = [
       lastVerified: "2026-04-28",
     },
     tags: ["state-park", "mixed-surface"],
+    images: [trailCoverImages["powhatan-state-park-trails"]],
   },
   {
     id: "trail-va-high-bridge",
@@ -122,6 +120,7 @@ export const virginiaTrails: Trail[] = [
       lastVerified: "2026-05-01",
     },
     tags: ["rail-trail", "scenic"],
+    images: [trailCoverImages["high-bridge-trail"]],
   },
   {
     id: "trail-va-new-river",
@@ -148,6 +147,7 @@ export const virginiaTrails: Trail[] = [
       lastVerified: "2026-05-05",
     },
     tags: ["rail-trail", "long-distance"],
+    images: [trailCoverImages["new-river-trail-state-park"]],
   },
   {
     id: "trail-va-belle-isle",
@@ -175,6 +175,7 @@ export const virginiaTrails: Trail[] = [
       lastVerified: "2026-04-20",
     },
     tags: ["urban", "riverfront"],
+    images: [trailCoverImages["james-river-park-belle-isle"]],
   },
   {
     id: "trail-va-skyline-drive-buffer",
@@ -201,6 +202,7 @@ export const virginiaTrails: Trail[] = [
       lastVerified: "2026-05-12",
     },
     tags: ["rail-trail", "valley"],
+    images: [trailCoverImages["shenandoah-valley-rail-trail"]],
   },
   {
     id: "trail-va-cape-henry",
@@ -227,5 +229,6 @@ export const virginiaTrails: Trail[] = [
       lastVerified: "2026-04-15",
     },
     tags: ["coastal", "state-park"],
+    images: [trailCoverImages["first-landing-state-park-trails"]],
   },
 ];

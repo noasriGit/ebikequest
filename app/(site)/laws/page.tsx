@@ -6,6 +6,7 @@ import {
   LegalDisclaimer,
   NationalLawFaq,
 } from "@/components/laws/LawComponents";
+import { getHubImage } from "@/config/images";
 import { getNationalLawHub } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -29,8 +30,13 @@ export default async function LawsHubPage() {
   return (
     <>
       <PageHero
+        variant="laws"
         title={hub.title}
         description={hub.description}
+        kicker="Regulations"
+        align="split"
+        image={getHubImage("laws")}
+        imageAlt="Mid-Atlantic trail and road cycling"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Laws" }]}
       />
       <JsonLd
@@ -48,7 +54,7 @@ export default async function LawsHubPage() {
           ]),
         ]}
       />
-      <Container className="py-10 space-y-10">
+      <Container className="space-y-10 py-10">
         <EntityMeta
           author={hub.author}
           reviewedBy={hub.reviewedBy}
@@ -57,8 +63,9 @@ export default async function LawsHubPage() {
         />
         <LegalDisclaimer />
         <section>
-          <h2 className="text-2xl font-bold text-zinc-900">State-by-state comparison</h2>
-          <p className="mt-2 text-zinc-600">
+          <p className="text-kicker mb-4">Comparison</p>
+          <h2 className="text-heading-lg text-text-primary">State-by-state comparison</h2>
+          <p className="mt-2 text-body-md text-text-secondary">
             Compare Class 1, 2, and 3 rules, helmet requirements, registration, and trail access
             across our launch jurisdictions.
           </p>
@@ -68,7 +75,8 @@ export default async function LawsHubPage() {
         </section>
         <LawMethodologyBanner methodology={hub.methodology} />
         <section>
-          <h2 className="text-2xl font-bold text-zinc-900">Frequently asked questions</h2>
+          <p className="text-kicker mb-4">FAQ</p>
+          <h2 className="text-heading-lg text-text-primary">Frequently asked questions</h2>
           <div className="mt-6">
             <NationalLawFaq faq={hub.faq} />
           </div>
