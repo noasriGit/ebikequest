@@ -1,4 +1,4 @@
-import type { Guide } from "@/types/guide";
+import type { Guide, GuideSection } from "@/types/guide";
 import { Clock } from "lucide-react";
 import { getGuideImage } from "@/config/images";
 import { Badge } from "@/components/ui/Badge";
@@ -76,7 +76,7 @@ export function GuideCard({
 export function GuideSectionRenderer({
   sections,
 }: {
-  sections: Guide["sections"];
+  sections: GuideSection[];
 }) {
   return (
     <div className="prose-editorial space-y-8">
@@ -101,7 +101,7 @@ export function GuideSectionRenderer({
   );
 }
 
-export function GuideToc({ sections }: { sections: Guide["sections"] }) {
+export function GuideToc({ sections }: { sections: GuideSection[] }) {
   return (
     <nav
       aria-label="Table of contents"

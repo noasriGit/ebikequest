@@ -1,5 +1,11 @@
-import type { ContentBase } from "./content";
+import type { ContentBase, FAQItem } from "./content";
+import type { GuideSection } from "./guide";
 import type { JurisdictionSlug } from "./jurisdiction";
+
+export interface TrailAccessPoint {
+  name: string;
+  notes?: string;
+}
 
 export type TrailDifficulty = "easy" | "moderate" | "hard";
 export type EbikeClass = "class1" | "class2" | "class3";
@@ -29,6 +35,11 @@ export interface Trail extends ContentBase {
   images?: { src: string; alt: string }[];
   tags?: string[];
   relatedGuideSlugs?: string[];
+  sections?: GuideSection[];
+  faq?: FAQItem[];
+  highlights?: string[];
+  accessPoints?: TrailAccessPoint[];
+  seasonalNotes?: string;
 }
 
 export interface TrailFilter {

@@ -1,0 +1,44 @@
+{
+  "type": "Feature",
+  "properties": {
+    "jurisdiction": "maryland",
+    "slug": "great-allegheny-passage-maryland"
+  },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [
+        -78.85,
+        39.68
+      ],
+      [
+        -78.82,
+        39.67
+      ],
+      [
+        -78.79,
+        39.66
+      ],
+      [
+        -78.762,
+        39.653
+      ],
+      [
+        -78.73,
+        39.645
+      ],
+      [
+        -78.7,
+        39.635
+      ],
+      [
+        -78.67,
+        39.625
+      ],
+      [
+        -78.64,
+        39.615
+      ]
+    ]
+  }
+}

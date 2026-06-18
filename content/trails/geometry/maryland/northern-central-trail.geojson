@@ -1,0 +1,44 @@
+{
+  "type": "Feature",
+  "properties": {
+    "jurisdiction": "maryland",
+    "slug": "northern-central-trail"
+  },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [
+        -76.68,
+        39.51
+      ],
+      [
+        -76.665,
+        39.5
+      ],
+      [
+        -76.65,
+        39.49
+      ],
+      [
+        -76.631,
+        39.481
+      ],
+      [
+        -76.615,
+        39.47
+      ],
+      [
+        -76.6,
+        39.46
+      ],
+      [
+        -76.585,
+        39.45
+      ],
+      [
+        -76.57,
+        39.44
+      ]
+    ]
+  }
+}

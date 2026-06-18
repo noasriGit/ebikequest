@@ -51,3 +51,13 @@ export {
   assertPublicJurisdiction,
   getJurisdictionName,
 } from "./jurisdictions";
+export {
+  getHub,
+  getJurisdictionTrailHub,
+  getAllHubs,
+} from "./hubs";
+export {
+  getAboutPageContent,
+  getSuggestTrailPageContent,
+  getHomeEditorialContent,
+} from "./static";

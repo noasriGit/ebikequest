@@ -1,0 +1,44 @@
+{
+  "type": "Feature",
+  "properties": {
+    "jurisdiction": "virginia",
+    "slug": "shenandoah-valley-rail-trail"
+  },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [
+        -78.92,
+        38.48
+      ],
+      [
+        -78.905,
+        38.47
+      ],
+      [
+        -78.89,
+        38.46
+      ],
+      [
+        -78.875,
+        38.455
+      ],
+      [
+        -78.87,
+        38.45
+      ],
+      [
+        -78.855,
+        38.445
+      ],
+      [
+        -78.84,
+        38.44
+      ],
+      [
+        -78.825,
+        38.435
+      ]
+    ]
+  }
+}

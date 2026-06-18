@@ -1,0 +1,40 @@
+{
+  "type": "Feature",
+  "properties": {
+    "jurisdiction": "washington-dc",
+    "slug": "fort-circle-trail-network"
+  },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [
+        -76.97,
+        38.875
+      ],
+      [
+        -76.96,
+        38.87
+      ],
+      [
+        -76.95,
+        38.865
+      ],
+      [
+        -76.948,
+        38.862
+      ],
+      [
+        -76.94,
+        38.858
+      ],
+      [
+        -76.93,
+        38.855
+      ],
+      [
+        -76.92,
+        38.852
+      ]
+    ]
+  }
+}

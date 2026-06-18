@@ -1,0 +1,40 @@
+{
+  "type": "Feature",
+  "properties": {
+    "jurisdiction": "virginia",
+    "slug": "first-landing-state-park-trails"
+  },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [
+        -76.065,
+        36.925
+      ],
+      [
+        -76.058,
+        36.922
+      ],
+      [
+        -76.051,
+        36.918
+      ],
+      [
+        -76.045,
+        36.915
+      ],
+      [
+        -76.038,
+        36.912
+      ],
+      [
+        -76.032,
+        36.908
+      ],
+      [
+        -76.025,
+        36.905
+      ]
+    ]
+  }
+}

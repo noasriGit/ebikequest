@@ -1,0 +1,44 @@
+{
+  "type": "Feature",
+  "properties": {
+    "jurisdiction": "maryland",
+    "slug": "northeast-branch-trail"
+  },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [
+        -76.96,
+        38.975
+      ],
+      [
+        -76.95,
+        38.97
+      ],
+      [
+        -76.94,
+        38.965
+      ],
+      [
+        -76.928,
+        38.963
+      ],
+      [
+        -76.915,
+        38.96
+      ],
+      [
+        -76.9,
+        38.955
+      ],
+      [
+        -76.885,
+        38.95
+      ],
+      [
+        -76.87,
+        38.945
+      ]
+    ]
+  }
+}

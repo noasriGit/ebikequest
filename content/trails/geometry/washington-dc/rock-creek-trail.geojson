@@ -1,0 +1,40 @@
+{
+  "type": "Feature",
+  "properties": {
+    "jurisdiction": "washington-dc",
+    "slug": "rock-creek-trail"
+  },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [
+        -77.065,
+        38.965
+      ],
+      [
+        -77.058,
+        38.958
+      ],
+      [
+        -77.052,
+        38.952
+      ],
+      [
+        -77.051,
+        38.948
+      ],
+      [
+        -77.048,
+        38.942
+      ],
+      [
+        -77.045,
+        38.935
+      ],
+      [
+        -77.042,
+        38.928
+      ]
+    ]
+  }
+}

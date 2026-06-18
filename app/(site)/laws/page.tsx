@@ -1,5 +1,6 @@
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
+import { HubIntro } from "@/components/hubs/HubIntro";
 import {
   LawComparisonMatrix,
   LawMethodologyBanner,
@@ -7,7 +8,7 @@ import {
   NationalLawFaq,
 } from "@/components/laws/LawComponents";
 import { getHubImage } from "@/config/images";
-import { getNationalLawHub } from "@/lib/content";
+import { getHub, getNationalLawHub } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
@@ -17,23 +18,27 @@ import {
 } from "@/lib/seo/structured-data";
 import { EntityMeta } from "@/components/content/EntityMeta";
 
-export const metadata = buildPageMetadata({
-  title: "E-Bike Laws by State (2026 Guide)",
-  description:
-    "Authoritative comparison of e-bike laws in Virginia, Maryland, and Washington DC. Class rules, helmets, registration, and trail access.",
-  path: "/laws",
-});
+export async function generateMetadata() {
+  const hub = await getHub("laws");
+  if (!hub) return {};
+  return buildPageMetadata({
+    title: hub.title,
+    description: hub.description,
+    path: hub.path,
+  });
+}
 
 export default async function LawsHubPage() {
-  const hub = await getNationalLawHub();
+  const hub = await getHub("laws");
+  const lawHub = await getNationalLawHub();
 
   return (
     <>
       <PageHero
         variant="laws"
-        title={hub.title}
-        description={hub.description}
-        kicker="Regulations"
+        title={hub?.title ?? lawHub.title}
+        description={hub?.description ?? lawHub.description}
+        kicker={hub?.kicker ?? "Regulations"}
         align="split"
         image={getHubImage("laws")}
         imageAlt="Mid-Atlantic trail and road cycling"
@@ -42,12 +47,12 @@ export default async function LawsHubPage() {
       <JsonLd
         data={[
           buildLawDatasetSchema({
-            title: hub.title,
-            description: hub.description,
+            title: lawHub.title,
+            description: lawHub.description,
             path: "/laws",
-            lastUpdated: hub.lastUpdated,
+            lastUpdated: lawHub.lastUpdated,
           }),
-          buildFaqSchema(hub.faq),
+          buildFaqSchema(lawHub.faq),
           buildBreadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Laws", path: "/laws" },
@@ -55,11 +60,12 @@ export default async function LawsHubPage() {
         ]}
       />
       <Container className="space-y-10 py-10">
+        {hub?.intro.length ? <HubIntro paragraphs={hub.intro} /> : null}
         <EntityMeta
-          author={hub.author}
-          reviewedBy={hub.reviewedBy}
-          publishedAt={hub.lastUpdated}
-          updatedAt={hub.lastUpdated}
+          author={lawHub.author}
+          reviewedBy={lawHub.reviewedBy}
+          publishedAt={lawHub.lastUpdated}
+          updatedAt={lawHub.lastUpdated}
         />
         <LegalDisclaimer />
         <section>
@@ -70,15 +76,15 @@ export default async function LawsHubPage() {
             across our launch jurisdictions.
           </p>
           <div className="mt-6">
-            <LawComparisonMatrix rows={hub.comparisonMatrix} />
+            <LawComparisonMatrix rows={lawHub.comparisonMatrix} />
           </div>
         </section>
-        <LawMethodologyBanner methodology={hub.methodology} />
+        <LawMethodologyBanner methodology={lawHub.methodology} />
         <section>
           <p className="text-kicker mb-4">FAQ</p>
           <h2 className="text-heading-lg text-text-primary">Frequently asked questions</h2>
           <div className="mt-6">
-            <NationalLawFaq faq={hub.faq} />
+            <NationalLawFaq faq={lawHub.faq} />
           </div>
         </section>
       </Container>

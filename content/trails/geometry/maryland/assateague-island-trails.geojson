@@ -1,0 +1,40 @@
+{
+  "type": "Feature",
+  "properties": {
+    "jurisdiction": "maryland",
+    "slug": "assateague-island-trails"
+  },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [
+        -75.22,
+        38.1
+      ],
+      [
+        -75.215,
+        38.095
+      ],
+      [
+        -75.21,
+        38.092
+      ],
+      [
+        -75.207,
+        38.089
+      ],
+      [
+        -75.2,
+        38.085
+      ],
+      [
+        -75.195,
+        38.08
+      ],
+      [
+        -75.19,
+        38.075
+      ]
+    ]
+  }
+}

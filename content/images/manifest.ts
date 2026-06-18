@@ -22,7 +22,7 @@ export const imageAssets: ImageAsset[] = [
   // Marketing
   {
     id: "marketing-hero",
-    localPath: "/images/marketing/hero.jpg",
+    localPath: "/images/hero.jpg",
     downloadUrl:
       "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=2400&q=85&auto=format&fit=crop",
     sourceUrl: "https://unsplash.com/photos/person-riding-bicycle-on-path-during-daytime-384716",

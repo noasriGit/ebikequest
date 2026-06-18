@@ -2,7 +2,7 @@ import type { GuideCategory } from "@/types/guide";
 import type { JurisdictionSlug } from "@/types/jurisdiction";
 
 export const marketingImages = {
-  hero: "/images/marketing/hero.jpg",
+  hero: "/images/hero.jpg",
   hubs: {
     trails: "/images/marketing/hubs/trails.jpg",
     guides: "/images/trails/_placeholders/gallery.jpg",

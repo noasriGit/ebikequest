@@ -4,9 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { useHeaderChrome } from "@/components/layout/HeaderChromeContext";
 import { primaryNav } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
-import type { HeaderTone } from "@/components/layout/HeaderChromeContext";
 import { Button } from "@/components/design-system/Button/Button";
 import { LogoMark } from "@/components/navigation/LogoMark";
 import { cn } from "@/lib/utils/cn";
@@ -16,17 +16,15 @@ function NavLink({
   label,
   onClick,
   mobile,
-  tone = "dark",
 }: {
   href: string;
   label: string;
   onClick?: () => void;
   mobile?: boolean;
-  tone?: HeaderTone;
 }) {
   const pathname = usePathname();
+  const { overlay } = useHeaderChrome();
   const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
-  const light = tone === "light";
 
   return (
     <Link
@@ -43,11 +41,9 @@ function NavLink({
                 : "text-text-primary hover:bg-surface-sunken",
             )
           : cn(
-              "relative flex h-[var(--site-header-height)] items-center text-sm duration-300",
-              light
-                ? active
-                  ? "text-white after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-brand-accent"
-                  : "text-white/85 hover:text-white"
+              "relative flex h-[var(--site-header-height)] items-center text-sm",
+              overlay
+                ? "header-nav-link"
                 : active
                   ? "text-text-primary after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-brand-accent"
                   : "text-text-secondary hover:text-brand",
@@ -59,11 +55,11 @@ function NavLink({
   );
 }
 
-export function MainNav({ tone = "dark" }: { tone?: HeaderTone }) {
+export function MainNav() {
   return (
     <nav className="hidden h-[var(--site-header-height)] items-center gap-8 md:flex" aria-label="Primary">
       {primaryNav.map((item) => (
-        <NavLink key={item.href} href={item.href} label={item.label} tone={tone} />
+        <NavLink key={item.href} href={item.href} label={item.label} />
       ))}
     </nav>
   );
@@ -129,23 +125,28 @@ export function MobileNav({
   );
 }
 
-export function SiteLogo({ compact, tone = "dark" }: { compact?: boolean; tone?: HeaderTone }) {
-  const light = tone === "light";
+export function SiteLogo({ compact }: { compact?: boolean }) {
+  const { overlay } = useHeaderChrome();
 
   return (
-    <Link href="/" className="flex shrink-0 items-center gap-2.5 leading-tight transition-colors duration-300">
+    <Link href="/" className="flex shrink-0 items-center gap-2.5 leading-tight">
       <LogoMark size={compact ? 28 : 32} />
       <span className="flex flex-col">
         <span
           className={cn(
             "font-display text-lg tracking-tight",
-            light ? "text-white" : "text-text-primary",
+            overlay ? "header-logo-title" : "text-text-primary",
           )}
         >
           eBike<span className="italic">Quest</span>
         </span>
         {!compact ? (
-          <span className={cn("hidden text-xs sm:block", light ? "text-white/70" : "text-text-muted")}>
+          <span
+            className={cn(
+              "hidden text-xs sm:block",
+              overlay ? "header-logo-tagline" : "text-text-muted",
+            )}
+          >
             {siteConfig.tagline}
           </span>
         ) : null}
@@ -157,22 +158,18 @@ export function SiteLogo({ compact, tone = "dark" }: { compact?: boolean; tone?:
 export function MenuButton({
   open,
   onClick,
-  tone = "dark",
 }: {
   open: boolean;
   onClick: () => void;
-  tone?: HeaderTone;
 }) {
-  const light = tone === "light";
+  const { overlay } = useHeaderChrome();
 
   return (
     <button
       type="button"
       className={cn(
         "rounded-[var(--radius-md)] p-2.5 transition duration-300 md:hidden",
-        light
-          ? "text-white/90 hover:bg-white/10"
-          : "text-text-secondary hover:bg-surface-sunken",
+        overlay ? "header-icon-btn" : "text-text-secondary hover:bg-surface-sunken",
       )}
       aria-label={open ? "Close menu" : "Open menu"}
       aria-expanded={open}

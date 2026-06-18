@@ -1,0 +1,36 @@
+{
+  "type": "Feature",
+  "properties": {
+    "jurisdiction": "washington-dc",
+    "slug": "national-mall-connector-routes"
+  },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [
+        -77.045,
+        38.895
+      ],
+      [
+        -77.038,
+        38.892
+      ],
+      [
+        -77.03,
+        38.889
+      ],
+      [
+        -77.023,
+        38.889
+      ],
+      [
+        -77.015,
+        38.888
+      ],
+      [
+        -77.008,
+        38.887
+      ]
+    ]
+  }
+}

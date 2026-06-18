@@ -1,0 +1,40 @@
+{
+  "type": "Feature",
+  "properties": {
+    "jurisdiction": "washington-dc",
+    "slug": "anacostia-riverwalk-trail"
+  },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [
+        -77.01,
+        38.88
+      ],
+      [
+        -77.005,
+        38.875
+      ],
+      [
+        -76.998,
+        38.87
+      ],
+      [
+        -76.989,
+        38.865
+      ],
+      [
+        -76.98,
+        38.86
+      ],
+      [
+        -76.97,
+        38.855
+      ],
+      [
+        -76.96,
+        38.85
+      ]
+    ]
+  }
+}

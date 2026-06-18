@@ -1,0 +1,44 @@
+{
+  "type": "Feature",
+  "properties": {
+    "jurisdiction": "maryland",
+    "slug": "patapsco-valley-state-park-trails"
+  },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [
+        -76.78,
+        39.33
+      ],
+      [
+        -76.77,
+        39.325
+      ],
+      [
+        -76.76,
+        39.318
+      ],
+      [
+        -76.754,
+        39.312
+      ],
+      [
+        -76.745,
+        39.305
+      ],
+      [
+        -76.735,
+        39.298
+      ],
+      [
+        -76.725,
+        39.29
+      ],
+      [
+        -76.715,
+        39.282
+      ]
+    ]
+  }
+}

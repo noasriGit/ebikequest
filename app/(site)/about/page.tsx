@@ -5,24 +5,27 @@ import { PageHero } from "@/components/layout/PageHero";
 import { PullQuote } from "@/components/editorial/PullQuote";
 import { getJurisdictionImage, marketingImages } from "@/config/images";
 import { siteConfig } from "@/config/site";
-import { getPublicJurisdictions } from "@/lib/content";
+import { getAboutPageContent, getPublicJurisdictions } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata = buildPageMetadata({
-  title: "About eBikeQuest",
-  description:
-    "eBikeQuest is a platform-first national e-bike discovery directory for trails, laws, guides, and future shop and rental listings.",
-  path: "/about",
-});
+export async function generateMetadata() {
+  const content = await getAboutPageContent();
+  return buildPageMetadata({
+    title: content.title,
+    description: content.description,
+    path: "/about",
+  });
+}
 
 export default async function AboutPage() {
   const jurisdictions = await getPublicJurisdictions();
+  const content = await getAboutPageContent();
 
   return (
     <>
       <PageHero
-        title="About eBikeQuest"
-        description="Everything E-Bike. One Quest."
+        title={content.title}
+        description={content.heroDescription}
         kicker="Our story"
         align="split"
         image={marketingImages.hero}
@@ -31,26 +34,31 @@ export default async function AboutPage() {
       />
       <Container className="py-12">
         <div className="grid gap-12 lg:grid-cols-[1fr_320px]">
-          <div className="prose-editorial max-w-none">
-            <p>
-              {siteConfig.name} is building the national discovery platform for e-bike riders,
-              starting with verified trail directories and authoritative law references in Virginia,
-              Maryland, and Washington DC.
-            </p>
+          <div className="prose-editorial max-w-none space-y-10">
+            {content.sections.map((section) => (
+              <section key={section.id}>
+                <h2 className="text-heading-editorial">{section.heading}</h2>
+                {section.paragraphs.map((paragraph) => (
+                  <p key={paragraph.slice(0, 40)} className="mt-4 text-body-md text-text-secondary">
+                    {paragraph}
+                  </p>
+                ))}
+              </section>
+            ))}
             <PullQuote cite="Editorial mission">
               We are a platform first and a content website second — structured, searchable
               directory data designed for discovery.
             </PullQuote>
-            <p>
-              Over time, eBikeQuest will expand to cover shops, rentals, repairs, events, reviews,
-              and news, all built on the same verified-data foundation.
-            </p>
-            <p>
+            <p className="text-body-md text-text-secondary">
               Questions or corrections? Email{" "}
               <a href={`mailto:${siteConfig.correctionsEmail}`} className="link-editorial">
                 {siteConfig.correctionsEmail}
               </a>
-              .
+              . Read our{" "}
+              <Link href="/editorial-standards" className="link-editorial">
+                editorial standards
+              </Link>{" "}
+              for the full verification workflow.
             </p>
           </div>
 

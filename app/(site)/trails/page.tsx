@@ -1,22 +1,26 @@
 import { Suspense } from "react";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
+import { HubIntro } from "@/components/hubs/HubIntro";
 import { FilterBar } from "@/components/content/FilterBar";
 import { Button } from "@/components/design-system/Button/Button";
 import { parseTrailFilters } from "@/lib/content/trail-filters";
 import { DirectoryGrid, TrailCard } from "@/components/trails/TrailCard";
 import { getHubImage } from "@/config/images";
-import { getFeaturedTrails, getPublicJurisdictions, getTrails } from "@/lib/content";
+import { getFeaturedTrails, getHub, getPublicJurisdictions, getTrails } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { buildItemListSchema } from "@/lib/seo/structured-data";
 
-export const metadata = buildPageMetadata({
-  title: "E-Bike Trails Directory",
-  description:
-    "Discover e-bike-friendly trails in Virginia, Maryland, and Washington DC with verified access policies.",
-  path: "/trails",
-});
+export async function generateMetadata() {
+  const hub = await getHub("trails");
+  if (!hub) return {};
+  return buildPageMetadata({
+    title: hub.title,
+    description: hub.description,
+    path: hub.path,
+  });
+}
 
 async function TrailsResults({
   searchParams,
@@ -63,14 +67,15 @@ export default async function TrailsPage({
 }) {
   const jurisdictions = await getPublicJurisdictions();
   const allTrails = await getTrails();
+  const hub = await getHub("trails");
 
   return (
     <>
       <PageHero
         variant="trails"
-        title="E-Bike Trails Directory"
-        description="Browse verified e-bike trail listings with access policies, difficulty, and jurisdiction filters."
-        kicker="Directory"
+        title={hub?.title ?? "E-Bike Trails Directory"}
+        description={hub?.description ?? "Browse verified e-bike trail listings."}
+        kicker={hub?.kicker ?? "Directory"}
         image={getHubImage("trails")}
         imageAlt="E-bike trails in the Mid-Atlantic"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Trails" }]}
@@ -84,6 +89,7 @@ export default async function TrailsPage({
         )}
       />
       <Container className="py-10">
+        {hub?.intro.length ? <HubIntro paragraphs={hub.intro} /> : null}
         <p className="mb-6 font-mono text-sm text-text-muted">
           {allTrails.length} verified trails across {jurisdictions.length} jurisdictions
         </p>

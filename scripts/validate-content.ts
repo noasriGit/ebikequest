@@ -1,8 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import { allTrails } from "../content/trails";
+import { getTrailGeometry } from "../content/trails/geometry";
+import { haversineMiles } from "../lib/maps/trail-map-utils";
 import { guides } from "../content/guides";
+import { hubPages } from "../content/hubs";
 import { jurisdictionLaws } from "../content/laws/jurisdictions";
+import { nationalLawHub } from "../content/laws/national-comparison";
 import { JURISDICTIONS } from "../config/jurisdictions";
 import { getAllImageLocalPaths, getImageAssetByPath } from "../content/images/manifest";
 import { marketingImages, trailPlaceholderImages } from "../config/images";
@@ -17,6 +21,14 @@ function error(message: string) {
   console.error(`ERROR: ${message}`);
 }
 
+function warn(message: string) {
+  console.warn(`WARN: ${message}`);
+}
+
+function isPublishedTrail(trail: (typeof allTrails)[number]): boolean {
+  return trail.status === "published" && !trail.seo?.noIndex;
+}
+
 function validateUniqueSlugs(items: { slug: string; id: string }[], label: string) {
   const seen = new Set<string>();
   for (const item of items) {
@@ -24,6 +36,34 @@ function validateUniqueSlugs(items: { slug: string; id: string }[], label: strin
       error(`Duplicate slug "${item.slug}" in ${label}`);
     }
     seen.add(item.slug);
+  }
+}
+
+function countWords(text: string): number {
+  return text.split(/\s+/).filter(Boolean).length;
+}
+
+function countSectionWords(
+  sections: { paragraphs: string[]; listItems?: string[] }[],
+): number {
+  let total = 0;
+  for (const section of sections) {
+    for (const paragraph of section.paragraphs) {
+      total += countWords(paragraph);
+    }
+    if (section.listItems) {
+      for (const item of section.listItems) {
+        total += countWords(item);
+      }
+    }
+  }
+  return total;
+}
+
+function validateDescriptionLength(description: string, label: string) {
+  const length = description.length;
+  if (length < 120 || length > 160) {
+    error(`${label}: description length ${length} chars (expected 120–160)`);
   }
 }
 
@@ -53,6 +93,66 @@ function validateTrails() {
     validateLocalImage(cover.src, `Trail "${trail.slug}" cover`);
     if (!getImageAssetByPath(cover.src)) {
       error(`Trail "${trail.slug}" cover missing manifest entry: ${cover.src}`);
+    }
+
+    validateDescriptionLength(trail.description, `Trail "${trail.slug}"`);
+
+    if (trail.sections?.length) {
+      if (trail.sections.length < 4) {
+        error(
+          `Trail "${trail.slug}" has ${trail.sections.length} sections (expected at least 4 when sections are present)`,
+        );
+      }
+      const wordCount = countSectionWords(trail.sections);
+      if (wordCount < 800) {
+        error(
+          `Trail "${trail.slug}" section word count ${wordCount} (expected at least 800 when sections are present)`,
+        );
+      }
+      if (!trail.faq || trail.faq.length < 4) {
+        error(
+          `Trail "${trail.slug}" has ${trail.faq?.length ?? 0} FAQ items (expected at least 4 when sections are present)`,
+        );
+      }
+    }
+  }
+}
+
+function validateTrailGeometry() {
+  for (const trail of allTrails) {
+    if (!isPublishedTrail(trail)) continue;
+
+    const geometry = getTrailGeometry(trail.jurisdiction, trail.slug);
+    if (!geometry) {
+      error(
+        `Trail "${trail.slug}" (${trail.jurisdiction}) missing geometry file at content/trails/geometry/${trail.jurisdiction}/${trail.slug}.geojson`,
+      );
+      continue;
+    }
+
+    if (geometry.geometry.type !== "LineString") {
+      error(`Trail "${trail.slug}" geometry must be a LineString`);
+      continue;
+    }
+
+    if (geometry.geometry.coordinates.length < 2) {
+      error(
+        `Trail "${trail.slug}" geometry must have at least 2 coordinates (found ${geometry.geometry.coordinates.length})`,
+      );
+      continue;
+    }
+
+    const coords = trail.location.coordinates;
+    if (!coords) continue;
+
+    const midIndex = Math.floor(geometry.geometry.coordinates.length / 2);
+    const [geoLng, geoLat] = geometry.geometry.coordinates[midIndex];
+    const distance = haversineMiles(coords, { lat: geoLat, lng: geoLng });
+
+    if (distance > 15) {
+      warn(
+        `Trail "${trail.slug}" geometry center is ${distance.toFixed(1)} mi from location.coordinates (threshold 15 mi)`,
+      );
     }
   }
 }
@@ -99,18 +199,52 @@ function validateGuides() {
     if (!guide.author?.id) error(`Guide "${guide.slug}" missing author`);
     if (!guide.reviewedBy?.reviewedAt) error(`Guide "${guide.slug}" missing reviewer`);
     if (!guide.sections.length) error(`Guide "${guide.slug}" has no sections`);
+    if (guide.sections.length < 6) {
+      error(`Guide "${guide.slug}" has ${guide.sections.length} sections (expected at least 6)`);
+    }
+    const wordCount = countSectionWords(guide.sections);
+    if (wordCount < 1000) {
+      error(`Guide "${guide.slug}" section word count ${wordCount} (expected at least 1000)`);
+    }
+    if (!guide.faq || guide.faq.length < 4) {
+      error(`Guide "${guide.slug}" has ${guide.faq?.length ?? 0} FAQ items (expected at least 4)`);
+    }
+    validateDescriptionLength(guide.description, `Guide "${guide.slug}"`);
   }
 }
 
 function validateLaws() {
   for (const law of jurisdictionLaws) {
     if (!law.author?.id) error(`Law "${law.jurisdiction}" missing author`);
-    if (law.faq.length < 5) {
-      error(`Law "${law.jurisdiction}" has fewer than 5 FAQ items (${law.faq.length})`);
+    if (law.faq.length < 8) {
+      error(`Law "${law.jurisdiction}" has fewer than 8 FAQ items (${law.faq.length})`);
     }
+    if (countWords(law.summary) < 80) {
+      error(`Law "${law.jurisdiction}" summary too short (${countWords(law.summary)} words)`);
+    }
+    if (countWords(law.trailAccess) < 80) {
+      error(`Law "${law.jurisdiction}" trailAccess too short (${countWords(law.trailAccess)} words)`);
+    }
+    validateDescriptionLength(law.description, `Law "${law.jurisdiction}"`);
     const jurisdiction = JURISDICTIONS.find((j) => j.slug === law.jurisdiction);
     if (!jurisdiction?.isPublic) {
       error(`Law "${law.jurisdiction}" references non-public jurisdiction`);
+    }
+  }
+
+  if (nationalLawHub.faq.length < 8) {
+    error(`National law hub has fewer than 8 FAQ items (${nationalLawHub.faq.length})`);
+  }
+  if (countWords(nationalLawHub.methodology) < 100) {
+    error(`National law hub methodology too short (${countWords(nationalLawHub.methodology)} words)`);
+  }
+}
+
+function validateHubs() {
+  for (const hub of hubPages) {
+    validateDescriptionLength(hub.description, `Hub "${hub.slug}"`);
+    if (hub.intro.length < 2) {
+      error(`Hub "${hub.slug}" has fewer than 2 intro paragraphs`);
     }
   }
 }
@@ -127,8 +261,10 @@ function validateJurisdictions() {
 
 validateJurisdictions();
 validateTrails();
+validateTrailGeometry();
 validateGuides();
 validateLaws();
+validateHubs();
 validateMarketingAndFallbackImages();
 
 if (hasErrors) {

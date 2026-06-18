@@ -8,12 +8,14 @@ interface HeaderChromeValue {
   tone: HeaderTone;
   progress: number;
   scrolled: boolean;
+  overlay: boolean;
 }
 
 const HeaderChromeContext = createContext<HeaderChromeValue>({
   tone: "dark",
   progress: 1,
   scrolled: true,
+  overlay: false,
 });
 
 export function HeaderChromeProvider({

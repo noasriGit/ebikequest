@@ -6,7 +6,8 @@ import { siteConfig } from "@/config/site";
 
 export const metadata = buildPageMetadata({
   title: "Privacy Policy",
-  description: "How eBikeQuest collects, uses, and protects your information.",
+  description:
+    "How eBikeQuest collects, uses, and protects your information when you browse trails, guides, and submit trail suggestions.",
   path: "/privacy",
 });
 

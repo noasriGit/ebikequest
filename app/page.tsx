@@ -9,8 +9,11 @@ import { PlatformCategoryGrid } from "@/components/navigation/PlatformCategoryGr
 import { GuideCard } from "@/components/guides/GuideCard";
 import { LawTeaserSection } from "@/components/laws/LawTeaser";
 import { TrailCard } from "@/components/trails/TrailCard";
+import { TrailMapDynamic } from "@/components/trails/map/TrailMapDynamic";
+import { getTrailMapFeatures } from "@/lib/maps/trail-map-data";
 import { Button } from "@/components/design-system/Button/Button";
 import { FadeUp } from "@/components/motion/FadeUp";
+import { ScrollHint } from "@/components/motion/ScrollHint";
 import { StaggerChildren, StaggerItem } from "@/components/motion/StaggerChildren";
 import { marketingImages } from "@/config/images";
 import { siteConfig } from "@/config/site";
@@ -20,6 +23,7 @@ import {
   getNationalLawHub,
   getPublicJurisdictions,
   getTrails,
+  getHomeEditorialContent,
 } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { getHomeHeroImage } from "@/lib/utils/images";
@@ -31,13 +35,16 @@ export const metadata = buildPageMetadata({
 });
 
 export default async function HomePage() {
-  const [featuredTrails, guides, lawHub, jurisdictions, allTrails] = await Promise.all([
-    getFeaturedTrails(6),
-    getGuides(),
-    getNationalLawHub(),
-    getPublicJurisdictions(),
-    getTrails(),
-  ]);
+  const [featuredTrails, guides, lawHub, jurisdictions, allTrails, homeContent, trailMapFeatures] =
+    await Promise.all([
+      getFeaturedTrails(6),
+      getGuides(),
+      getNationalLawHub(),
+      getPublicJurisdictions(),
+      getTrails(),
+      getHomeEditorialContent(),
+      getTrailMapFeatures(),
+    ]);
 
   const featuredGuides = guides.slice(0, 2);
   const heroImage = getHomeHeroImage();
@@ -50,17 +57,17 @@ export default async function HomePage() {
         jurisdictionCount={jurisdictions.length}
       />
 
-      <section className="bg-surface-sunken py-16 md:py-20">
-        <Container>
+      <section className="bg-surface-sunken pb-12 md:pb-16">
+        <ScrollHint />
+        <Container className="pt-2 md:pt-4">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
             <FadeUp>
               <EditorialKicker>Verified &amp; researched</EditorialKicker>
               <h2 className="mt-4 text-display-lg text-text-primary">
-                Trusted trail and law information
+                {homeContent.trustHeading}
               </h2>
               <p className="mt-4 text-body-lg text-text-secondary">
-                Every listing is researched against official sources and reviewed by our editorial
-                team before publication.
+                {homeContent.trustBody}
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Button href="/editorial-standards" variant="outline">
@@ -88,12 +95,12 @@ export default async function HomePage() {
 
       <SectionDivider from="surface-sunken" to="surface-base" />
 
-      <Container className="py-16 md:py-24">
+      <Container className="py-12 md:py-20">
         <FadeUp>
           <EditorialKicker>Explore</EditorialKicker>
           <h2 className="mt-4 text-heading-lg text-text-primary">Start exploring</h2>
           <p className="mt-2 max-w-2xl text-body-md text-text-secondary">
-            Trails, laws, and guides are live today across our launch markets.
+            {homeContent.exploreBody}
           </p>
         </FadeUp>
         <div className="mt-10">
@@ -101,16 +108,33 @@ export default async function HomePage() {
         </div>
       </Container>
 
-      <SectionDivider from="surface-base" to="surface-raised" />
+      <SectionDivider from="surface-base" to="surface-sunken" />
 
-      <section className="bg-surface-raised py-16 md:py-24">
+      <section className="bg-surface-sunken py-12 md:py-20">
+        <Container>
+          <FadeUp>
+            <EditorialKicker>Trail map</EditorialKicker>
+            <h2 className="mt-4 text-heading-lg text-text-primary">Explore trails on the map</h2>
+            <p className="mt-2 max-w-2xl text-body-md text-text-secondary">
+              Click a trail to zoom in and see distance, difficulty, and e-bike policy at a glance.
+            </p>
+          </FadeUp>
+          <div className="mt-10">
+            <TrailMapDynamic trails={trailMapFeatures} mode="explore" height={480} />
+          </div>
+        </Container>
+      </section>
+
+      <SectionDivider from="surface-sunken" to="surface-raised" />
+
+      <section className="bg-surface-raised py-12 md:py-20">
         <Container>
           <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <FadeUp>
               <EditorialKicker>Trails</EditorialKicker>
               <h2 className="mt-4 text-heading-lg text-text-primary">Featured trails</h2>
               <p className="mt-2 text-body-md text-text-secondary">
-                Verified e-bike trail listings in our launch markets
+                {homeContent.trailsBody}
               </p>
             </FadeUp>
             <Link href="/trails" className="text-sm font-semibold text-brand-accent hover:underline">
@@ -129,12 +153,12 @@ export default async function HomePage() {
 
       <SectionDivider from="surface-raised" to="surface-base" />
 
-      <Container className="py-16 md:py-24">
+      <Container className="py-12 md:py-20">
         <FadeUp>
           <EditorialKicker>Laws</EditorialKicker>
           <h2 className="mt-4 text-heading-lg text-text-primary">Know the rules before you ride</h2>
           <p className="mt-2 max-w-2xl text-body-md text-text-secondary">
-            Compare e-bike laws across Virginia, Maryland, and Washington DC
+            {homeContent.lawsBody}
           </p>
         </FadeUp>
         <div className="mt-10">
@@ -142,13 +166,13 @@ export default async function HomePage() {
         </div>
       </Container>
 
-      <section className="bg-surface-sunken py-16 md:py-24">
+      <section className="bg-surface-sunken py-12 md:py-20">
         <Container>
           <FadeUp>
             <EditorialKicker>Guides</EditorialKicker>
             <h2 className="mt-4 text-heading-lg text-text-primary">Reference for riders</h2>
             <p className="mt-2 text-body-md text-text-secondary">
-              Guides for riders new to e-bikes and Mid-Atlantic trails
+              {homeContent.guidesBody}
             </p>
           </FadeUp>
           <div className="mt-10 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
@@ -171,7 +195,7 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      <section className="relative overflow-hidden py-16 md:py-24">
+      <section className="relative overflow-hidden py-12 md:py-20">
         <ContentImage
           src={heroImage.src}
           alt=""
@@ -185,8 +209,7 @@ export default async function HomePage() {
             <EditorialKicker light>Community</EditorialKicker>
             <h2 className="mt-4 max-w-xl text-heading-lg text-white">Know a great e-bike trail?</h2>
             <p className="mt-4 max-w-xl text-body-md text-white/85">
-              Help us expand our directory with community trail suggestions in Virginia, Maryland,
-              and DC.
+              {homeContent.communityBody}
             </p>
             <Button href="/suggest-trail" className="mt-8" size="lg" variant="accent">
               Suggest a Trail

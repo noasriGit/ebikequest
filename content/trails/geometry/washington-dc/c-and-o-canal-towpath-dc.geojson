@@ -1,0 +1,40 @@
+{
+  "type": "Feature",
+  "properties": {
+    "jurisdiction": "washington-dc",
+    "slug": "c-and-o-canal-towpath-dc"
+  },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [
+        -77.075,
+        38.905
+      ],
+      [
+        -77.072,
+        38.903
+      ],
+      [
+        -77.068,
+        38.902
+      ],
+      [
+        -77.065,
+        38.9
+      ],
+      [
+        -77.062,
+        38.898
+      ],
+      [
+        -77.058,
+        38.895
+      ],
+      [
+        -77.055,
+        38.892
+      ]
+    ]
+  }
+}

@@ -19,8 +19,7 @@ interface SearchDialogProps {
 export function SearchDialog({ documents }: SearchDialogProps) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const { tone } = useHeaderChrome();
-  const light = tone === "light";
+  const { overlay } = useHeaderChrome();
 
   const results = useMemo(() => searchDocuments(documents, query), [documents, query]);
 
@@ -59,8 +58,8 @@ export function SearchDialog({ documents }: SearchDialogProps) {
         onClick={() => setOpen(true)}
         className={cn(
           "hidden items-center gap-2 rounded-[var(--radius-md)] border px-3 py-1.5 text-sm transition duration-300 md:inline-flex",
-          light
-            ? "border-white/25 bg-white/10 text-white/90 hover:border-white/40 hover:bg-white/15 hover:text-white"
+          overlay
+            ? "header-search-btn"
             : "border-[color-mix(in_srgb,var(--text-muted)_25%,transparent)] bg-surface-raised text-text-muted hover:border-brand hover:text-brand",
         )}
         aria-label="Search site"
@@ -70,7 +69,7 @@ export function SearchDialog({ documents }: SearchDialogProps) {
         <kbd
           className={cn(
             "ml-2 rounded px-1.5 py-0.5 font-mono text-[10px]",
-            light ? "bg-white/15 text-white/80" : "bg-surface-sunken text-text-muted",
+            overlay ? "header-search-kbd" : "bg-surface-sunken text-text-muted",
           )}
         >
           ⌘K
@@ -82,7 +81,7 @@ export function SearchDialog({ documents }: SearchDialogProps) {
         onClick={() => setOpen(true)}
         className={cn(
           "rounded-[var(--radius-md)] p-2 transition duration-300 md:hidden",
-          light ? "text-white/90 hover:bg-white/10" : "text-text-secondary hover:bg-surface-sunken",
+          overlay ? "header-icon-btn" : "text-text-secondary hover:bg-surface-sunken",
         )}
         aria-label="Search site"
       >

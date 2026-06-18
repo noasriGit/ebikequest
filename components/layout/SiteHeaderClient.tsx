@@ -47,6 +47,7 @@ export function SiteHeaderClient({ searchSlot }: { searchSlot: React.ReactNode }
     tone: lightTone ? ("light" as const) : ("dark" as const),
     progress: overlay ? progress : 1,
     scrolled,
+    overlay,
   };
 
   return (
@@ -61,23 +62,19 @@ export function SiteHeaderClient({ searchSlot }: { searchSlot: React.ReactNode }
       >
         <Container>
           <div className="flex h-[var(--site-header-height)] items-center justify-between gap-4">
-            <SiteLogo tone={chrome.tone} />
-            <MainNav tone={chrome.tone} />
+            <SiteLogo />
+            <MainNav />
             <div className="flex items-center gap-2">
               {searchSlot}
               <Button
                 href="/suggest-trail"
                 size="sm"
-                variant={chrome.tone === "light" ? "dark" : "primary"}
+                variant={overlay && progress < 0.55 ? "dark" : "primary"}
                 className="hidden lg:inline-flex"
               >
                 Suggest Trail
               </Button>
-              <MenuButton
-                open={mobileOpen}
-                tone={chrome.tone}
-                onClick={() => setMobileOpen((v) => !v)}
-              />
+              <MenuButton open={mobileOpen} onClick={() => setMobileOpen((v) => !v)} />
             </div>
           </div>
         </Container>

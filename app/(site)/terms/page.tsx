@@ -5,7 +5,8 @@ import { siteConfig } from "@/config/site";
 
 export const metadata = buildPageMetadata({
   title: "Terms of Service",
-  description: "Terms governing your use of the eBikeQuest platform.",
+  description:
+    "Terms governing your use of eBikeQuest trail listings, law summaries, guides, and community submission features.",
   path: "/terms",
 });
 

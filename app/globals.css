@@ -130,6 +130,131 @@ a {
   box-shadow: var(--shadow-xs);
 }
 
+.site-header--overlay .header-nav-link {
+  position: relative;
+  color: color-mix(
+    in srgb,
+    rgb(255 255 255 / 0.85) calc((1 - var(--header-progress, 0)) * 100%),
+    var(--text-secondary) calc(var(--header-progress, 0) * 100%)
+  );
+  transition: color 0.2s ease;
+}
+
+.site-header--overlay .header-nav-link:hover {
+  color: color-mix(
+    in srgb,
+    white calc((1 - var(--header-progress, 0)) * 100%),
+    var(--brand) calc(var(--header-progress, 0) * 100%)
+  );
+}
+
+.site-header--overlay .header-nav-link[aria-current="page"] {
+  color: color-mix(
+    in srgb,
+    white calc((1 - var(--header-progress, 0)) * 100%),
+    var(--text-primary) calc(var(--header-progress, 0) * 100%)
+  );
+}
+
+.site-header--overlay .header-nav-link[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--brand-accent);
+}
+
+.site-header--overlay .header-logo-title {
+  color: color-mix(
+    in srgb,
+    white calc((1 - var(--header-progress, 0)) * 100%),
+    var(--text-primary) calc(var(--header-progress, 0) * 100%)
+  );
+  transition: color 0.2s ease;
+}
+
+.site-header--overlay .header-logo-tagline {
+  color: color-mix(
+    in srgb,
+    rgb(255 255 255 / 0.7) calc((1 - var(--header-progress, 0)) * 100%),
+    var(--text-muted) calc(var(--header-progress, 0) * 100%)
+  );
+  transition: color 0.2s ease;
+}
+
+.site-header--overlay .header-icon-btn {
+  color: color-mix(
+    in srgb,
+    rgb(255 255 255 / 0.9) calc((1 - var(--header-progress, 0)) * 100%),
+    var(--text-secondary) calc(var(--header-progress, 0) * 100%)
+  );
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.site-header--overlay .header-icon-btn:hover {
+  background: color-mix(
+    in srgb,
+    rgb(255 255 255 / 0.1) calc((1 - var(--header-progress, 0)) * 100%),
+    var(--surface-sunken) calc(var(--header-progress, 0) * 100%)
+  );
+}
+
+.site-header--overlay .header-search-btn {
+  color: color-mix(
+    in srgb,
+    rgb(255 255 255 / 0.9) calc((1 - var(--header-progress, 0)) * 100%),
+    var(--text-muted) calc(var(--header-progress, 0) * 100%)
+  );
+  border-color: color-mix(
+    in srgb,
+    rgb(255 255 255 / 0.25) calc((1 - var(--header-progress, 0)) * 100%),
+    color-mix(in srgb, var(--text-muted) 25%, transparent) calc(var(--header-progress, 0) * 100%)
+  );
+  background: color-mix(
+    in srgb,
+    rgb(255 255 255 / 0.1) calc((1 - var(--header-progress, 0)) * 100%),
+    var(--surface-raised) calc(var(--header-progress, 0) * 100%)
+  );
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.site-header--overlay .header-search-btn:hover {
+  color: color-mix(
+    in srgb,
+    white calc((1 - var(--header-progress, 0)) * 100%),
+    var(--brand) calc(var(--header-progress, 0) * 100%)
+  );
+  border-color: color-mix(
+    in srgb,
+    rgb(255 255 255 / 0.4) calc((1 - var(--header-progress, 0)) * 100%),
+    var(--brand) calc(var(--header-progress, 0) * 100%)
+  );
+  background: color-mix(
+    in srgb,
+    rgb(255 255 255 / 0.15) calc((1 - var(--header-progress, 0)) * 100%),
+    var(--brand-light) calc(var(--header-progress, 0) * 100%)
+  );
+}
+
+.site-header--overlay .header-search-kbd {
+  color: color-mix(
+    in srgb,
+    rgb(255 255 255 / 0.8) calc((1 - var(--header-progress, 0)) * 100%),
+    var(--text-muted) calc(var(--header-progress, 0) * 100%)
+  );
+  background: color-mix(
+    in srgb,
+    rgb(255 255 255 / 0.15) calc((1 - var(--header-progress, 0)) * 100%),
+    var(--surface-sunken) calc(var(--header-progress, 0) * 100%)
+  );
+}
+
 #main-content {
   padding-top: var(--site-header-height);
 }
@@ -233,7 +358,7 @@ a {
 }
 
 .section-divider-gradient {
-  height: 4rem;
+  height: 3rem;
   background: linear-gradient(
     to bottom,
     var(--divider-from, var(--surface-sunken)),
