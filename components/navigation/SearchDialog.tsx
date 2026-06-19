@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Search, X } from "lucide-react";
 import { useHeaderChrome } from "@/components/layout/HeaderChromeContext";
@@ -10,6 +10,7 @@ import {
   getSearchResultLabel,
   searchDocuments,
 } from "@/lib/search/index";
+import { useFocusTrap } from "@/lib/a11y/use-focus-trap";
 import { cn } from "@/lib/utils/cn";
 
 interface SearchDialogProps {
@@ -20,32 +21,32 @@ export function SearchDialog({ documents }: SearchDialogProps) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const { overlay } = useHeaderChrome();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   const results = useMemo(() => searchDocuments(documents, query), [documents, query]);
 
   const close = useCallback(() => {
     setOpen(false);
     setQuery("");
+    triggerRef.current?.focus();
   }, []);
 
+  useFocusTrap(dialogRef, open, { onEscape: close, restoreFocus: false });
+
   useEffect(() => {
-    function onKeyDown(e: KeyboardEvent) {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
+    function onKeyDown(event: KeyboardEvent) {
+      if ((event.metaKey || event.ctrlKey) && event.key === "k") {
+        event.preventDefault();
         setOpen(true);
       }
-      if (e.key === "Escape") close();
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [close]);
+  }, []);
 
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
@@ -54,6 +55,7 @@ export function SearchDialog({ documents }: SearchDialogProps) {
   return (
     <>
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen(true)}
         className={cn(
@@ -63,8 +65,10 @@ export function SearchDialog({ documents }: SearchDialogProps) {
             : "border-[color-mix(in_srgb,var(--text-muted)_25%,transparent)] bg-surface-raised text-text-muted hover:border-brand hover:text-brand",
         )}
         aria-label="Search site"
+        aria-haspopup="dialog"
+        aria-expanded={open}
       >
-        <Search size={16} strokeWidth={1.5} />
+        <Search size={16} strokeWidth={1.5} aria-hidden />
         <span>Search</span>
         <kbd
           className={cn(
@@ -84,8 +88,10 @@ export function SearchDialog({ documents }: SearchDialogProps) {
           overlay ? "header-icon-btn" : "text-text-secondary hover:bg-surface-sunken",
         )}
         aria-label="Search site"
+        aria-haspopup="dialog"
+        aria-expanded={open}
       >
-        <Search size={20} strokeWidth={1.5} />
+        <Search size={20} strokeWidth={1.5} aria-hidden />
       </button>
 
       {open ? (
@@ -95,20 +101,26 @@ export function SearchDialog({ documents }: SearchDialogProps) {
             className="absolute inset-0 bg-[rgba(26,25,23,0.4)] backdrop-blur-sm"
             aria-label="Close search"
             onClick={close}
+            tabIndex={-1}
           />
           <div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-label="Site search"
             className="relative z-10 w-full max-w-lg overflow-hidden rounded-[var(--radius-lg)] border border-[color-mix(in_srgb,var(--text-muted)_20%,transparent)] bg-surface-raised shadow-[var(--shadow-md)]"
           >
             <div className="flex items-center gap-3 border-b border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] px-4">
-              <Search size={18} className="shrink-0 text-text-muted" strokeWidth={1.5} />
+              <Search size={18} className="shrink-0 text-text-muted" strokeWidth={1.5} aria-hidden />
+              <label htmlFor="site-search-input" className="sr-only">
+                Search trails, guides, and laws
+              </label>
               <input
+                id="site-search-input"
                 autoFocus
                 type="search"
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search trails, guides, laws…"
                 className="flex-1 border-0 bg-transparent py-4 text-body-md text-text-primary outline-none placeholder:text-text-muted"
               />
@@ -116,12 +128,15 @@ export function SearchDialog({ documents }: SearchDialogProps) {
                 type="button"
                 onClick={close}
                 className="rounded-[var(--radius-sm)] p-1.5 text-text-muted hover:bg-surface-sunken"
-                aria-label="Close"
+                aria-label="Close search"
               >
-                <X size={18} strokeWidth={1.5} />
+                <X size={18} strokeWidth={1.5} aria-hidden />
               </button>
             </div>
-            <ul className="max-h-80 overflow-y-auto py-2">
+            <ul
+              className="max-h-80 overflow-y-auto py-2"
+              aria-label={query ? `${results.length} search results` : "Search suggestions"}
+            >
               {results.length === 0 ? (
                 <li className="px-4 py-6 text-center text-sm text-text-muted">
                   {query ? "No results found." : "Start typing to search…"}
@@ -148,13 +163,5 @@ export function SearchDialog({ documents }: SearchDialogProps) {
         </div>
       ) : null}
     </>
-  );
-}
-
-export function SearchDialogTrigger({ className }: { className?: string }) {
-  return (
-    <span className={cn("sr-only", className)} aria-hidden>
-      Search
-    </span>
   );
 }

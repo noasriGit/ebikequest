@@ -1,31 +1,31 @@
 import { getTrailGeometry } from "@/content/trails/geometry";
 import { getTrails } from "@/lib/content/trails";
 import type { Trail } from "@/types/trail";
-import type { LineString } from "geojson";
 import {
+  getGeometryCenter,
+  isValidTrailPathGeometry,
   type TrailMapFeature,
 } from "./trail-map-utils";
 
-export type { LngLatBounds, TrailMapFeature } from "./trail-map-utils";
+export type { LngLatBounds, TrailMapFeature, TrailPathGeometry } from "./trail-map-utils";
 export {
   buildTrailFeatureCollection,
   boundsCenter,
   DMV_DEFAULT_BOUNDS,
   getCombinedBounds,
+  getGeometryCenter,
+  getPathPointCount,
   getTrailBounds,
   haversineMiles,
+  isValidTrailPathGeometry,
+  iteratePathCoordinates,
 } from "./trail-map-utils";
-
-function getGeometryCenter(geometry: LineString): { lat: number; lng: number } {
-  const mid = geometry.coordinates[Math.floor(geometry.coordinates.length / 2)];
-  return { lat: mid[1], lng: mid[0] };
-}
 
 export function toTrailMapFeature(trail: Trail): TrailMapFeature | null {
   const geometryFeature = getTrailGeometry(trail.jurisdiction, trail.slug);
   const geometry = geometryFeature?.geometry;
 
-  if (!geometry || geometry.coordinates.length < 2) {
+  if (!geometry || !isValidTrailPathGeometry(geometry)) {
     const point = trail.location.coordinates;
     if (!point) return null;
 

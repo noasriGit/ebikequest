@@ -82,10 +82,10 @@ export default async function AboutPage() {
                   <div className="p-4">
                     <p className="font-display text-lg text-text-primary">{j.name}</p>
                     <div className="mt-2 flex gap-3 text-sm">
-                      <Link href={`/trails/${j.slug}`} className="link-editorial">
+                      <Link href={`/trails/${j.slug}`} className="link-editorial" aria-label={`${j.name} trails`}>
                         Trails
                       </Link>
-                      <Link href={`/laws/${j.slug}`} className="link-editorial">
+                      <Link href={`/laws/${j.slug}`} className="link-editorial" aria-label={`${j.name} e-bike laws`}>
                         Laws
                       </Link>
                     </div>

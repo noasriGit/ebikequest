@@ -25,6 +25,7 @@ export const footerTrustNav: NavItem[] = [
 ];
 
 export const footerLegalNav: NavItem[] = [
+  { label: "Accessibility", href: "/accessibility" },
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
 ];

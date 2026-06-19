@@ -1,6 +1,8 @@
 import type { JurisdictionSlug } from "@/types/jurisdiction";
 import type { TrailDifficulty } from "@/types/trail";
-import type { LineString } from "geojson";
+import type { LineString, MultiLineString, Position } from "geojson";
+
+export type TrailPathGeometry = LineString | MultiLineString;
 
 export type LngLatBounds = [west: number, south: number, east: number, north: number];
 
@@ -15,14 +17,34 @@ export interface TrailMapFeature {
   distanceMiles?: number;
   ebikeAllowed: boolean;
   center: { lat: number; lng: number };
-  geometry: LineString;
+  geometry: TrailPathGeometry;
 }
 
 /** Default viewport covering Virginia, Maryland, and Washington DC. */
 export const DMV_DEFAULT_BOUNDS: LngLatBounds = [-81.05, 36.45, -75.05, 39.55];
 
+export function iteratePathCoordinates(
+  geometry: TrailPathGeometry,
+): Iterable<Position> {
+  if (geometry.type === "LineString") {
+    return geometry.coordinates;
+  }
+  return geometry.coordinates.flat();
+}
+
+export function getPathLineCount(geometry: TrailPathGeometry): number {
+  return geometry.type === "LineString" ? 1 : geometry.coordinates.length;
+}
+
+export function getPathPointCount(geometry: TrailPathGeometry): number {
+  if (geometry.type === "LineString") {
+    return geometry.coordinates.length;
+  }
+  return geometry.coordinates.reduce((sum, line) => sum + line.length, 0);
+}
+
 export function getTrailBounds(
-  geometry: LineString | { lat: number; lng: number },
+  geometry: TrailPathGeometry | { lat: number; lng: number },
 ): LngLatBounds {
   if ("coordinates" in geometry) {
     let west = Infinity;
@@ -30,7 +52,7 @@ export function getTrailBounds(
     let east = -Infinity;
     let north = -Infinity;
 
-    for (const [lng, lat] of geometry.coordinates) {
+    for (const [lng, lat] of iteratePathCoordinates(geometry)) {
       west = Math.min(west, lng);
       south = Math.min(south, lat);
       east = Math.max(east, lng);
@@ -106,4 +128,29 @@ export function getCombinedBounds(trails: TrailMapFeature[]): LngLatBounds {
   }
 
   return [west, south, east, north];
+}
+
+export function getGeometryCenter(geometry: TrailPathGeometry): { lat: number; lng: number } {
+  const lines =
+    geometry.type === "LineString"
+      ? [geometry.coordinates]
+      : geometry.coordinates;
+
+  const longest = lines.reduce((longestLine, line) =>
+    line.length >= longestLine.length ? line : longestLine,
+  );
+
+  const mid = longest[Math.floor(longest.length / 2)];
+  return { lat: mid[1], lng: mid[0] };
+}
+
+export function isValidTrailPathGeometry(geometry: TrailPathGeometry): boolean {
+  if (geometry.type === "LineString") {
+    return geometry.coordinates.length >= 2;
+  }
+
+  return (
+    geometry.coordinates.length > 0 &&
+    geometry.coordinates.every((line) => line.length >= 2)
+  );
 }

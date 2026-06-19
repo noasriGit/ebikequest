@@ -12,10 +12,10 @@ export function Badge({
   const variants = {
     default: "bg-surface-sunken text-text-secondary",
     live: "bg-brand-light text-brand",
-    soon: "bg-[color-mix(in_srgb,var(--brand-accent)_15%,white)] text-brand-accent",
+    soon: "bg-[color-mix(in_srgb,var(--brand-accent)_15%,white)] text-brand-accent-text",
     success: "bg-[color-mix(in_srgb,var(--semantic-allow)_12%,white)] text-semantic-allow",
     warning: "bg-[color-mix(in_srgb,var(--semantic-restrict)_12%,white)] text-semantic-restrict",
-    editorial: "bg-brand-accent-light text-brand-accent border border-[color-mix(in_srgb,var(--brand-accent)_25%,transparent)]",
+    editorial: "bg-brand-accent-light text-brand-accent-text border border-[color-mix(in_srgb,var(--brand-accent)_25%,transparent)]",
   };
 
   return (

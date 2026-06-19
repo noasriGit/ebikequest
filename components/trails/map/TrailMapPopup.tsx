@@ -48,7 +48,7 @@ export function TrailMapPopup({ trail, onClose }: TrailMapPopupProps) {
         href={trail.href}
         className="mt-4 inline-block text-sm font-semibold text-brand hover:underline"
       >
-        View trail →
+        View {trail.title} details →
       </Link>
     </div>
   );

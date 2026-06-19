@@ -44,7 +44,7 @@ export function FilterBar({ jurisdictions, basePath }: FilterBarProps) {
   const clearAll = () => router.push(basePath);
 
   return (
-    <ChipBar sticky>
+    <ChipBar sticky aria-label="Trail filters">
       <span className="mr-1 text-sm font-medium text-text-secondary">Filters</span>
       <FilterCount count={activeCount} />
 

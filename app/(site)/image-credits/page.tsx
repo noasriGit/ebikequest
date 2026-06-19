@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
+import { ExternalLink } from "@/components/ui/ExternalLink";
 import { imageAssets } from "@/content/images/manifest";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
@@ -52,14 +53,9 @@ export default function ImageCreditsPage() {
                 <div>
                   <dt className="inline font-medium text-text-primary">Source: </dt>
                   <dd className="inline">
-                    <a
-                      href={asset.sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="link-editorial"
-                    >
+                    <ExternalLink href={asset.sourceUrl} className="link-editorial">
                       {asset.sourceSite === "wikimedia" ? "Wikimedia Commons" : asset.sourceSite}
-                    </a>
+                    </ExternalLink>
                   </dd>
                 </div>
                 {asset.notes ? (

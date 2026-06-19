@@ -47,7 +47,7 @@ export function PlatformCategoryGrid({ compact = false }: { compact?: boolean })
                 <CardContent>
                   <h3 className="text-heading-md text-text-primary">{category.label}</h3>
                   <p className="mt-2 text-body-sm text-text-secondary">{category.description}</p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-accent">
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-accent-text">
                     Explore <ArrowRight size={14} />
                   </span>
                 </CardContent>
@@ -79,7 +79,7 @@ export function LiveCategoryLinks() {
         <Link
           key={c.id}
           href={c.href!}
-          className="text-sm font-semibold text-brand-accent hover:underline"
+          className="text-sm font-semibold text-brand-accent-text hover:underline"
         >
           {c.label}
         </Link>

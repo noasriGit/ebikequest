@@ -1,17 +1,32 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { Feature, LineString } from "geojson";
+import type { Feature, LineString, MultiLineString } from "geojson";
 import type { JurisdictionSlug } from "@/types/jurisdiction";
 
 const GEOMETRY_ROOT = path.join(process.cwd(), "content", "trails", "geometry");
 
+export type TrailGeometryProperties = {
+  jurisdiction: JurisdictionSlug;
+  slug: string;
+  source?: string;
+  fetchedAt?: string;
+  lengthMiles?: number;
+  simplifyToleranceM?: number;
+  osmRelationIds?: number[];
+  notes?: string;
+};
+
 export type TrailGeometryFeature = Feature<
-  LineString,
-  { jurisdiction: JurisdictionSlug; slug: string }
+  LineString | MultiLineString,
+  TrailGeometryProperties
 >;
 
 function geometryPath(jurisdiction: JurisdictionSlug, slug: string): string {
   return path.join(GEOMETRY_ROOT, jurisdiction, `${slug}.geojson`);
+}
+
+function isTrailGeometryType(type: string): type is "LineString" | "MultiLineString" {
+  return type === "LineString" || type === "MultiLineString";
 }
 
 export function getTrailGeometry(
@@ -24,7 +39,7 @@ export function getTrailGeometry(
   const raw = fs.readFileSync(filePath, "utf8");
   const feature = JSON.parse(raw) as TrailGeometryFeature;
 
-  if (feature.geometry?.type !== "LineString") {
+  if (!feature.geometry || !isTrailGeometryType(feature.geometry.type)) {
     throw new Error(`Invalid geometry type for ${jurisdiction}/${slug}`);
   }
 

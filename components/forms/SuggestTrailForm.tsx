@@ -79,21 +79,17 @@ export function SuggestTrailForm() {
     >
       <FormField id="trailName" label="Trail name" error={errors.trailName} required>
         <Input
-          id="trailName"
           name="trailName"
           defaultValue={prefilledTrail}
           invalid={!!errors.trailName}
-          aria-describedby={errors.trailName ? "trailName-error" : undefined}
         />
       </FormField>
 
       <FormField id="location" label="Location" error={errors.location} required>
         <Input
-          id="location"
           name="location"
           placeholder="City, park, or address"
           invalid={!!errors.location}
-          aria-describedby={errors.location ? "location-error" : undefined}
         />
       </FormField>
 
@@ -108,12 +104,10 @@ export function SuggestTrailForm() {
 
       <FormField id="submitterEmail" label="Your email" error={errors.submitterEmail} required>
         <Input
-          id="submitterEmail"
           name="submitterEmail"
           type="email"
           autoComplete="email"
           invalid={!!errors.submitterEmail}
-          aria-describedby={errors.submitterEmail ? "submitterEmail-error" : undefined}
         />
       </FormField>
 

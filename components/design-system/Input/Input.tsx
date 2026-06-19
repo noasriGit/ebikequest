@@ -1,3 +1,4 @@
+import { cloneElement, isValidElement } from "react";
 import { cn } from "@/lib/utils/cn";
 import styles from "./Input.module.css";
 
@@ -50,24 +51,55 @@ interface FormFieldProps {
   required?: boolean;
 }
 
+function mergeDescribedBy(existing: string | undefined, ...ids: (string | undefined)[]) {
+  const merged = [...(existing?.split(/\s+/).filter(Boolean) ?? []), ...ids.filter(Boolean)];
+  return merged.length ? [...new Set(merged)].join(" ") : undefined;
+}
+
 export function FormField({ id, label, error, hint, children, required }: FormFieldProps) {
   const errorId = error ? `${id}-error` : undefined;
   const hintId = hint ? `${id}-hint` : undefined;
+
+  const control = isValidElement(children)
+    ? cloneElement(
+        children as React.ReactElement<{
+          id?: string;
+          "aria-describedby"?: string;
+          "aria-required"?: boolean;
+        }>,
+        {
+          id,
+          "aria-describedby": mergeDescribedBy(
+            (children as React.ReactElement<{ "aria-describedby"?: string }>).props[
+              "aria-describedby"
+            ],
+            errorId,
+            hintId,
+          ),
+          "aria-required": required || undefined,
+        },
+      )
+    : children;
 
   return (
     <div className={styles.field}>
       <Label htmlFor={id}>
         {label}
-        {required ? " *" : null}
+        {required ? (
+          <>
+            <span aria-hidden="true"> *</span>
+            <span className="sr-only"> (required)</span>
+          </>
+        ) : null}
       </Label>
-      {children}
+      {control}
       {hint ? (
         <p id={hintId} className={styles.hint}>
           {hint}
         </p>
       ) : null}
       {error ? (
-        <p id={errorId ?? `${id}-error`} className={styles.error} role="alert">
+        <p id={errorId} className={styles.error} role="alert">
           {error}
         </p>
       ) : null}

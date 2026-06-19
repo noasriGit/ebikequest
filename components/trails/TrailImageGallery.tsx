@@ -1,4 +1,5 @@
 import { ContentImage } from "@/components/content/ContentImage";
+import { ExternalLink } from "@/components/ui/ExternalLink";
 import { Breadcrumbs, type BreadcrumbItem } from "@/components/navigation/Breadcrumbs";
 import type { ContentImageRef } from "@/lib/utils/images";
 
@@ -97,13 +98,11 @@ export function TrailMapLink({
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
 
   return (
-    <a
+    <ExternalLink
       href={mapsUrl}
-      target="_blank"
-      rel="noopener noreferrer"
       className="inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline"
     >
       Open {name} in Maps →
-    </a>
+    </ExternalLink>
   );
 }

@@ -36,7 +36,15 @@ export default async function SuggestTrailPage() {
             ))}
           </ul>
         </div>
-        <Suspense fallback={<div className="h-64 animate-pulse rounded-[var(--radius-md)] bg-surface-sunken" />}>
+        <Suspense
+          fallback={
+            <div
+              className="h-64 animate-pulse rounded-[var(--radius-md)] bg-surface-sunken"
+              role="status"
+              aria-label="Loading form"
+            />
+          }
+        >
           <SuggestTrailForm />
         </Suspense>
       </Container>

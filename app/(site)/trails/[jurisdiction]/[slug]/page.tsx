@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/layout/Container";
 import { EntityMeta } from "@/components/content/EntityMeta";
+import { ExternalLink } from "@/components/ui/ExternalLink";
 import { GuideCard, GuideSectionRenderer, GuideToc } from "@/components/guides/GuideCard";
 import { EditorialStandardsCallout } from "@/components/laws/LawComponents";
 import {
@@ -179,7 +180,7 @@ export default async function TrailDetailPage({
         />
 
         <div className="mt-8 grid gap-8 lg:grid-cols-3">
-          <div className="space-y-8 lg:col-span-2">
+          <article className="space-y-8 lg:col-span-2">
             <TrailImageGallery images={galleryImages} />
 
             {trail.highlights?.length ? (
@@ -219,14 +220,12 @@ export default async function TrailDetailPage({
               </div>
               <p className="mt-3 text-text-primary">{trail.ebikePolicy.notes}</p>
               {trail.ebikePolicy.sourceUrl ? (
-                <a
+                <ExternalLink
                   href={trail.ebikePolicy.sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="mt-3 inline-block text-sm font-semibold text-brand underline"
                 >
                   View official source
-                </a>
+                </ExternalLink>
               ) : null}
             </section>
 
@@ -272,7 +271,7 @@ export default async function TrailDetailPage({
             ) : null}
 
             <EditorialStandardsCallout />
-          </div>
+          </article>
 
           <aside className="space-y-6">
             <div className="overflow-hidden lg:sticky lg:top-20">

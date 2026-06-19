@@ -116,7 +116,8 @@ export default async function HomePage() {
             <EditorialKicker>Trail map</EditorialKicker>
             <h2 className="mt-4 text-heading-lg text-text-primary">Explore trails on the map</h2>
             <p className="mt-2 max-w-2xl text-body-md text-text-secondary">
-              Click a trail to zoom in and see distance, difficulty, and e-bike policy at a glance.
+              Select a trail from the list or map to see distance, difficulty, and e-bike policy at a
+              glance. Zoom controls and keyboard navigation are available on the map.
             </p>
           </FadeUp>
           <div className="mt-10">
@@ -137,7 +138,7 @@ export default async function HomePage() {
                 {homeContent.trailsBody}
               </p>
             </FadeUp>
-            <Link href="/trails" className="text-sm font-semibold text-brand-accent hover:underline">
+            <Link href="/trails" className="text-sm font-semibold text-brand-accent-text hover:underline">
               View all trails →
             </Link>
           </div>

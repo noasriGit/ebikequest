@@ -80,10 +80,18 @@ export async function SiteFooter() {
               {jurisdictions.map((j) => (
                 <li key={j.slug} className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
                   <span className="min-w-[120px] font-medium text-text-primary">{j.name}</span>
-                  <Link href={`/trails/${j.slug}`} className="text-text-secondary hover:text-brand">
+                  <Link
+                    href={`/trails/${j.slug}`}
+                    className="text-text-secondary hover:text-brand"
+                    aria-label={`${j.name} trails`}
+                  >
                     Trails
                   </Link>
-                  <Link href={`/laws/${j.slug}`} className="text-text-secondary hover:text-brand">
+                  <Link
+                    href={`/laws/${j.slug}`}
+                    className="text-text-secondary hover:text-brand"
+                    aria-label={`${j.name} e-bike laws`}
+                  >
                     Laws
                   </Link>
                 </li>

@@ -63,7 +63,7 @@ export default function EditorialStandardsPage() {
               key={item.step}
               className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-5 shadow-[var(--shadow-xs)]"
             >
-              <p className="font-mono text-sm text-brand-accent">{item.step}</p>
+              <p className="font-mono text-sm text-brand-accent-text">{item.step}</p>
               <p className="mt-2 font-display text-lg text-text-primary">{item.label}</p>
               <p className="mt-1 text-body-sm text-text-secondary">{item.detail}</p>
             </div>

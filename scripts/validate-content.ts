@@ -2,7 +2,14 @@ import fs from "node:fs";
 import path from "node:path";
 import { allTrails } from "../content/trails";
 import { getTrailGeometry } from "../content/trails/geometry";
-import { haversineMiles } from "../lib/maps/trail-map-utils";
+import {
+  getGeometryCenter,
+  getPathPointCount,
+  haversineMiles,
+  isValidTrailPathGeometry,
+} from "../lib/maps/trail-map-utils";
+import length from "@turf/length";
+import { lineString, multiLineString } from "@turf/helpers";
 import { guides } from "../content/guides";
 import { hubPages } from "../content/hubs";
 import { jurisdictionLaws } from "../content/laws/jurisdictions";
@@ -122,36 +129,63 @@ function validateTrailGeometry() {
   for (const trail of allTrails) {
     if (!isPublishedTrail(trail)) continue;
 
-    const geometry = getTrailGeometry(trail.jurisdiction, trail.slug);
-    if (!geometry) {
+    const geometryFeature = getTrailGeometry(trail.jurisdiction, trail.slug);
+    if (!geometryFeature) {
       error(
         `Trail "${trail.slug}" (${trail.jurisdiction}) missing geometry file at content/trails/geometry/${trail.jurisdiction}/${trail.slug}.geojson`,
       );
       continue;
     }
 
-    if (geometry.geometry.type !== "LineString") {
-      error(`Trail "${trail.slug}" geometry must be a LineString`);
+    const { geometry, properties } = geometryFeature;
+
+    if (!isValidTrailPathGeometry(geometry)) {
+      error(`Trail "${trail.slug}" geometry must be a valid LineString or MultiLineString`);
       continue;
     }
 
-    if (geometry.geometry.coordinates.length < 2) {
-      error(
-        `Trail "${trail.slug}" geometry must have at least 2 coordinates (found ${geometry.geometry.coordinates.length})`,
-      );
-      continue;
+    if (!properties.source) {
+      error(`Trail "${trail.slug}" geometry missing properties.source`);
+    }
+    if (!properties.fetchedAt) {
+      error(`Trail "${trail.slug}" geometry missing properties.fetchedAt`);
+    }
+
+    const pathLengthMiles = length(
+      geometry.type === "LineString"
+        ? lineString(geometry.coordinates)
+        : multiLineString(geometry.coordinates),
+      { units: "miles" },
+    );
+
+    if (trail.stats.distanceMiles) {
+      const delta =
+        Math.abs(pathLengthMiles - trail.stats.distanceMiles) / trail.stats.distanceMiles;
+      if (delta > 0.35) {
+        warn(
+          `Trail "${trail.slug}" geometry length ${pathLengthMiles.toFixed(1)} mi differs from stats.distanceMiles ${trail.stats.distanceMiles} mi by ${(delta * 100).toFixed(0)}% (threshold 35%)`,
+        );
+      }
+    }
+
+    if (trail.stats.distanceMiles && trail.stats.distanceMiles > 10) {
+      const pointCount = getPathPointCount(geometry);
+      if (pointCount < 50) {
+        warn(
+          `Trail "${trail.slug}" geometry has ${pointCount} points for a ${trail.stats.distanceMiles} mi trail (expected at least 50)`,
+        );
+      }
     }
 
     const coords = trail.location.coordinates;
     if (!coords) continue;
 
-    const midIndex = Math.floor(geometry.geometry.coordinates.length / 2);
-    const [geoLng, geoLat] = geometry.geometry.coordinates[midIndex];
-    const distance = haversineMiles(coords, { lat: geoLat, lng: geoLng });
+    const center = getGeometryCenter(geometry);
+    const centerDistance = haversineMiles(coords, center);
 
-    if (distance > 15) {
+    if (centerDistance > 15) {
       warn(
-        `Trail "${trail.slug}" geometry center is ${distance.toFixed(1)} mi from location.coordinates (threshold 15 mi)`,
+        `Trail "${trail.slug}" geometry center is ${centerDistance.toFixed(1)} mi from location.coordinates (threshold 15 mi)`,
       );
     }
   }

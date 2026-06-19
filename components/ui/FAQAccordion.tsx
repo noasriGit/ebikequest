@@ -36,6 +36,7 @@ export function FAQAccordion({ items }: { items: FAQItem[] }) {
                   isOpen && "rotate-180",
                 )}
                 strokeWidth={1.5}
+                aria-hidden
               />
             </button>
             <AnimatePresence initial={false}>

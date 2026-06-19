@@ -46,7 +46,7 @@ export default function RootLayout({
       >
         <MotionProvider>
           <a href="#main-content" className="skip-link">
-            Skip to content
+            Skip to main content
           </a>
           <JsonLd data={[buildOrganizationSchema(), buildWebSiteSchema()]} />
           <SiteHeader />

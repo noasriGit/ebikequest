@@ -1,0 +1,148 @@
+{
+  "virginia/washington-and-old-dominion-trail": {
+    "strategy": "osm_relation",
+    "relationId": 916095,
+    "notes": "Washington & Old Dominion Trail (NOVA Parks)"
+  },
+  "virginia/mount-vernon-trail": {
+    "strategy": "osm_relation",
+    "relationId": 1161688,
+    "notes": "Mount Vernon Trail (NPS)"
+  },
+  "virginia/powhatan-state-park-trails": {
+    "strategy": "osm_area_network",
+    "bbox": [-77.95, 37.60, -77.82, 37.70],
+    "tags": { "highway": ["path", "footway", "cycleway", "track"] },
+    "minLengthM": 200,
+    "notes": "Powhatan State Park trail network"
+  },
+  "virginia/high-bridge-trail": {
+    "strategy": "osm_way_query",
+    "names": ["High Bridge Trail"],
+    "bbox": [-78.55, 37.15, -78.25, 37.45],
+    "tags": { "highway": ["path", "cycleway", "footway"] },
+    "notes": "High Bridge Trail State Park rail-trail corridor"
+  },
+  "virginia/new-river-trail-state-park": {
+    "strategy": "osm_way_query",
+    "names": ["New River Trail"],
+    "bbox": [-81.0, 36.35, -80.35, 37.05],
+    "tags": { "highway": ["path", "cycleway", "footway", "track"] },
+    "notes": "New River Trail State Park linear corridor"
+  },
+  "virginia/james-river-park-belle-isle": {
+    "strategy": "osm_area_network",
+    "bbox": [-77.47, 37.52, -77.44, 37.54],
+    "tags": { "highway": ["path", "footway", "cycleway"] },
+    "minLengthM": 100,
+    "notes": "James River Park / Belle Isle area trails"
+  },
+  "virginia/shenandoah-valley-rail-trail": {
+    "strategy": "osm_way_query",
+    "names": ["Shenandoah Valley Rail Trail", "SVRT"],
+    "bbox": [-78.92, 38.44, -78.82, 38.48],
+    "tags": { "highway": ["path", "cycleway", "footway"] },
+    "notes": "Shenandoah Valley Rail Trail (Woodstock area)"
+  },
+  "virginia/first-landing-state-park-trails": {
+    "strategy": "osm_area_network",
+    "bbox": [-76.08, 36.88, -76.02, 36.95],
+    "tags": { "highway": ["path", "footway", "cycleway"] },
+    "minLengthM": 150,
+    "notes": "First Landing State Park trail network"
+  },
+  "maryland/baltimore-and-ohio-trail": {
+    "strategy": "osm_relation",
+    "relationId": 1772198,
+    "notes": "Baltimore & Annapolis Trail"
+  },
+  "maryland/capital-crescent-trail": {
+    "strategy": "osm_relation",
+    "relationId": 1393064,
+    "notes": "Capital Crescent Trail (full corridor)"
+  },
+  "maryland/northeast-branch-trail": {
+    "strategy": "osm_way_query",
+    "names": ["Northeast Branch Trail", "Anacostia Tributary Trail System"],
+    "bbox": [-76.98, 38.93, -76.88, 38.99],
+    "tags": { "highway": ["path", "cycleway", "footway"] },
+    "notes": "Northeast Branch Trail (PG County)"
+  },
+  "maryland/great-allegheny-passage-maryland": {
+    "strategy": "osm_way_query",
+    "names": ["Great Allegheny Passage", "Allegheny Highlands Trail"],
+    "bbox": [-79.0, 39.55, -78.55, 39.75],
+    "tags": { "highway": ["path", "cycleway", "footway", "track"] },
+    "notes": "Great Allegheny Passage (Maryland section)"
+  },
+  "maryland/patapsco-valley-state-park-trails": {
+    "strategy": "osm_area_network",
+    "bbox": [-76.78, 39.28, -76.72, 39.34],
+    "tags": { "highway": ["path", "footway", "cycleway"] },
+    "nameIncludes": ["Patapsco", "Avalon", "McKeldin", "Orange Grove"],
+    "minLengthM": 250,
+    "notes": "Patapsco Valley State Park trail network"
+  },
+  "maryland/northern-central-trail": {
+    "strategy": "osm_relation",
+    "relationId": 1772135,
+    "notes": "Torrey C. Brown / Northern Central Rail Trail"
+  },
+  "maryland/indian-head-rail-trail": {
+    "strategy": "osm_way_query",
+    "names": ["Indian Head Rail Trail", "Indian Head Railroad Trail"],
+    "bbox": [-77.22, 38.56, -77.12, 38.63],
+    "tags": { "highway": ["path", "cycleway", "footway"] },
+    "notes": "Indian Head Rail Trail (Charles County)"
+  },
+  "maryland/assateague-island-trails": {
+    "strategy": "osm_area_network",
+    "bbox": [-75.26, 38.05, -75.14, 38.14],
+    "tags": { "highway": ["path", "footway", "cycleway", "track"] },
+    "minLengthM": 80,
+    "notes": "Assateague Island trail network"
+  },
+  "washington-dc/c-and-o-canal-towpath-dc": {
+    "strategy": "osm_area_network",
+    "bbox": [-77.072, 38.899, -77.048, 38.908],
+    "tags": { "highway": ["path", "footway", "cycleway"], "towpath": ["yes"] },
+    "minLengthM": 80,
+    "notes": "C&O Canal Towpath DC section (Georgetown)"
+  },
+  "washington-dc/rock-creek-trail": {
+    "strategy": "osm_way_query",
+    "names": ["Rock Creek Trail"],
+    "bbox": [-77.07, 38.92, -77.03, 38.97],
+    "tags": { "highway": ["path", "footway", "cycleway"] },
+    "notes": "Rock Creek Trail (DC)"
+  },
+  "washington-dc/anacostia-riverwalk-trail": {
+    "strategy": "osm_way_query",
+    "names": ["Anacostia Riverwalk Trail", "Anacostia Riverwalk"],
+    "bbox": [-77.02, 38.85, -76.95, 38.90],
+    "tags": { "highway": ["path", "footway", "cycleway"] },
+    "notes": "Anacostia Riverwalk Trail (DC)"
+  },
+  "washington-dc/capital-crescent-trail-dc": {
+    "strategy": "osm_relation",
+    "relationId": 1393064,
+    "clipBbox": [-77.12, 38.895, -77.04, 38.915],
+    "notes": "Capital Crescent Trail (DC section)"
+  },
+  "washington-dc/national-mall-connector-routes": {
+    "strategy": "osm_area_network",
+    "bbox": [-77.045, 38.884, -77.015, 38.892],
+    "tags": { "highway": ["path", "footway", "cycleway"] },
+    "nameIncludes": ["Memorial", "Mall", "Capitol", "Monument", "Jefferson", "Lincoln"],
+    "minLengthM": 150,
+    "notes": "National Mall area bike/ped connector routes"
+  },
+  "washington-dc/fort-circle-trail-network": {
+    "strategy": "osm_area_network",
+    "bbox": [-76.97, 38.848, -76.93, 38.872],
+    "tags": { "highway": ["path", "footway", "cycleway"] },
+    "nameIncludes": ["Fort", "Circle", "Battery"],
+    "minLengthM": 150,
+    "notes": "Fort Circle Parks trail network"
+  }
+}

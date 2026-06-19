@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Input } from "@/components/design-system/Input/Input";
+import { FormField, Input } from "@/components/design-system/Input/Input";
 import { Button } from "@/components/design-system/Button/Button";
 
 export function NewsletterForm() {
@@ -40,17 +40,21 @@ export function NewsletterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2 sm:flex-row">
-      <Input
-        type="email"
-        name="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="you@example.com"
-        required
-        aria-label="Email address"
-        className="sm:min-w-[220px]"
-      />
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2 sm:flex-row sm:items-end">
+      <div className="flex-1">
+        <FormField id="newsletter-email" label="Email address" required>
+          <Input
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@example.com"
+            autoComplete="email"
+            required
+            className="sm:min-w-[220px]"
+          />
+        </FormField>
+      </div>
       <Button type="submit" loading={status === "loading"} size="md">
         Subscribe
       </Button>

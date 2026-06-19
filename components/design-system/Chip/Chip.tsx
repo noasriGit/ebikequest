@@ -29,13 +29,14 @@ export function ChipBar({
   children,
   sticky,
   className,
+  ...props
 }: {
   children: React.ReactNode;
   sticky?: boolean;
   className?: string;
-}) {
+} & React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn(styles.bar, sticky && styles.sticky, className)} role="group">
+    <div className={cn(styles.bar, sticky && styles.sticky, className)} role="group" {...props}>
       {children}
     </div>
   );
@@ -51,5 +52,9 @@ export function ChipClear({ onClick, children }: { onClick: () => void; children
 
 export function FilterCount({ count }: { count: number }) {
   if (count === 0) return null;
-  return <span className={styles.count}>{count} active</span>;
+  return (
+    <span className={styles.count} aria-live="polite">
+      {count} active
+    </span>
+  );
 }

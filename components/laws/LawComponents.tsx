@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { LawComparisonRow } from "@/types/law";
+import { ExternalLink } from "@/components/ui/ExternalLink";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { LawTeaserCards } from "@/components/laws/LawTeaser";
 import type { FAQItem } from "@/types/content";
@@ -15,8 +16,12 @@ function AllowIcon({ value }: { value: string }) {
     value.toLowerCase().includes("restrict") ||
     value.toLowerCase().includes("prohibit");
 
-  if (allowed) return <Check size={14} className="text-semantic-allow" strokeWidth={2} />;
-  if (restricted) return <X size={14} className="text-semantic-restrict" strokeWidth={2} />;
+  if (allowed) {
+    return <Check size={14} className="text-semantic-allow" strokeWidth={2} aria-hidden />;
+  }
+  if (restricted) {
+    return <X size={14} className="text-semantic-restrict" strokeWidth={2} aria-hidden />;
+  }
   return null;
 }
 
@@ -182,14 +187,9 @@ export function SourceCitationList({
       <ul className="mt-3 space-y-2">
         {sources.map((source) => (
           <li key={source.url} className="text-sm">
-            <a
-              href={source.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-brand hover:underline"
-            >
+            <ExternalLink href={source.url} className="text-brand hover:underline">
               {source.label}
-            </a>
+            </ExternalLink>
             {source.accessedAt ? (
               <span className="text-text-muted"> (accessed {source.accessedAt})</span>
             ) : null}

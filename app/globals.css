@@ -6,11 +6,12 @@
   --surface-sunken: #ebe8e0;
   --text-primary: #1a1917;
   --text-secondary: #5c5a54;
-  --text-muted: #8a877f;
+  --text-muted: #726f68;
   --brand: #0f6b52;
   --brand-dark: #0a5240;
   --brand-light: #e8f3ef;
   --brand-accent: #c17f3a;
+  --brand-accent-text: #865019;
   --brand-accent-light: #f5ebe0;
   --editorial-rule: #c17f3a;
   --link: #0f6b52;
@@ -42,6 +43,7 @@
   --color-brand-dark: var(--brand-dark);
   --color-brand-light: var(--brand-light);
   --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-text: var(--brand-accent-text);
   --color-brand-accent-light: var(--brand-accent-light);
   --color-editorial-rule: var(--editorial-rule);
   --color-link: var(--link);
@@ -338,7 +340,7 @@ a {
   line-height: 1.4;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--brand-accent);
+  color: var(--brand-accent-text);
   font-weight: 600;
 }
 
@@ -484,6 +486,24 @@ a {
 .skip-link:focus {
   left: 1rem;
   top: 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+a:focus-visible {
+  outline: none;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 0 2px var(--surface-base), 0 0 0 4px var(--brand);
 }
 
 @media (prefers-reduced-motion: reduce) {

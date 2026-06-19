@@ -88,26 +88,28 @@ export default async function GuideDetailPage({
         ]}
       />
       <Container className="py-10">
-        <EntityMeta
-          author={guide.author}
-          reviewedBy={guide.reviewedBy}
-          publishedAt={guide.publishedAt}
-          updatedAt={guide.updatedAt}
-        />
-        <div className="mt-8 grid gap-8 lg:grid-cols-[240px_1fr]">
-          <GuideToc sections={guide.sections} />
-          <div>
-            <GuideSectionRenderer sections={guide.sections} />
-            {guide.faq?.length ? (
-              <section className="mt-12">
-                <h2 className="text-heading-editorial">FAQ</h2>
-                <div className="mt-4">
-                  <FAQAccordion items={guide.faq} />
-                </div>
-              </section>
-            ) : null}
+        <article>
+          <EntityMeta
+            author={guide.author}
+            reviewedBy={guide.reviewedBy}
+            publishedAt={guide.publishedAt}
+            updatedAt={guide.updatedAt}
+          />
+          <div className="mt-8 grid gap-8 lg:grid-cols-[240px_1fr]">
+            <GuideToc sections={guide.sections} />
+            <div>
+              <GuideSectionRenderer sections={guide.sections} />
+              {guide.faq?.length ? (
+                <section className="mt-12">
+                  <h2 className="text-heading-editorial">FAQ</h2>
+                  <div className="mt-4">
+                    <FAQAccordion items={guide.faq} />
+                  </div>
+                </section>
+              ) : null}
+            </div>
           </div>
-        </div>
+        </article>
         {related.length ? (
           <section className="mt-14 border-t border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] pt-10">
             <p className="text-kicker mb-4">Related</p>

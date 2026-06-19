@@ -52,7 +52,7 @@ export function LawTeaserCards({ rows }: { rows: LawComparisonRow[] }) {
                   </dd>
                 </div>
               </dl>
-              <span className="mt-4 inline-block text-sm font-semibold text-brand-accent">
+              <span className="mt-4 inline-block text-sm font-semibold text-brand-accent-text">
                 View laws →
               </span>
             </div>

@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useRef } from "react";
 import { Menu, X } from "lucide-react";
 import { useHeaderChrome } from "@/components/layout/HeaderChromeContext";
 import { primaryNav } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
 import { Button } from "@/components/design-system/Button/Button";
 import { LogoMark } from "@/components/navigation/LogoMark";
+import { useFocusTrap } from "@/lib/a11y/use-focus-trap";
 import { cn } from "@/lib/utils/cn";
 
 function NavLink({
@@ -72,14 +73,9 @@ export function MobileNav({
   open: boolean;
   onClose: () => void;
 }) {
-  useEffect(() => {
-    if (!open) return;
-    function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
-    }
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open, onClose]);
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  useFocusTrap(panelRef, open, { onEscape: onClose, restoreFocus: true });
 
   if (!open) return null;
 
@@ -90,8 +86,16 @@ export function MobileNav({
         className="fixed inset-0 z-[60] bg-[rgba(26,25,23,0.4)] backdrop-blur-sm md:hidden"
         aria-label="Close menu"
         onClick={onClose}
+        tabIndex={-1}
       />
-      <div className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-sm flex-col bg-surface-raised shadow-[var(--shadow-md)] md:hidden">
+      <div
+        ref={panelRef}
+        id="mobile-nav-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site menu"
+        className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-sm flex-col bg-surface-raised shadow-[var(--shadow-md)] md:hidden"
+      >
         <div className="flex items-center justify-between border-b border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] px-4 py-4">
           <SiteLogo compact />
           <button
@@ -100,7 +104,7 @@ export function MobileNav({
             aria-label="Close menu"
             onClick={onClose}
           >
-            <X size={22} strokeWidth={1.5} />
+            <X size={22} strokeWidth={1.5} aria-hidden />
           </button>
         </div>
         <nav className="flex flex-1 flex-col gap-1 p-4" aria-label="Mobile primary">
@@ -129,7 +133,11 @@ export function SiteLogo({ compact }: { compact?: boolean }) {
   const { overlay } = useHeaderChrome();
 
   return (
-    <Link href="/" className="flex shrink-0 items-center gap-2.5 leading-tight">
+    <Link
+      href="/"
+      className="flex shrink-0 items-center gap-2.5 leading-tight"
+      aria-label={`${siteConfig.name} home`}
+    >
       <LogoMark size={compact ? 28 : 32} />
       <span className="flex flex-col">
         <span
@@ -173,9 +181,10 @@ export function MenuButton({
       )}
       aria-label={open ? "Close menu" : "Open menu"}
       aria-expanded={open}
+      aria-controls="mobile-nav-panel"
       onClick={onClick}
     >
-      {open ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
+      {open ? <X size={22} strokeWidth={1.5} aria-hidden /> : <Menu size={22} strokeWidth={1.5} aria-hidden />}
     </button>
   );
 }
