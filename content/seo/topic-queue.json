@@ -1,0 +1,495 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-25",
+  "topics": [
+    {
+      "id": "throttle-ebikes-mount-vernon-trail",
+      "targetKeyword": "are throttle e-bikes legal on mount vernon trail",
+      "secondaryKeywords": [
+        "class 2 e-bike mount vernon trail",
+        "nps e-bike throttle rules",
+        "mount vernon trail e-bike rules"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "Are Throttle E-Bikes Legal on the Mount Vernon Trail?",
+      "proposedSlug": "throttle-ebikes-mount-vernon-trail",
+      "category": "regulations",
+      "jurisdictions": ["virginia"],
+      "priority": 95,
+      "status": "queued",
+      "rationale": "High-intent trail-specific query where NPS compendium rules differ from Virginia state defaults—eBikeQuest can cite primary sources and link the trail page.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "mid-atlantic-trail-etiquette"
+        ],
+        "trails": [{ "jurisdiction": "virginia", "slug": "mount-vernon-trail" }],
+        "laws": ["virginia"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "NPS George Washington Memorial Parkway compendium",
+        "Virginia Code § 46.2-904.1",
+        "PeopleForBikes Class 2 definition"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null
+    },
+    {
+      "id": "riding-ebikes-in-washington-dc",
+      "targetKeyword": "riding e-bikes in washington dc",
+      "secondaryKeywords": [
+        "dc e-bike laws",
+        "motorized bicycle dc",
+        "e-bike trails washington dc"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "Riding E-Bikes in Washington DC: Local Tips",
+      "proposedSlug": "riding-ebikes-in-washington-dc",
+      "category": "local-riding",
+      "jurisdictions": ["washington-dc"],
+      "priority": 92,
+      "status": "queued",
+      "rationale": "Fills the missing DC local-riding guide gap—VA and MD have dedicated pages but DC riders need jurisdiction-specific statute and trail guidance.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-virginia",
+          "riding-ebikes-in-maryland"
+        ],
+        "trails": [
+          { "jurisdiction": "washington-dc", "slug": "c-and-o-canal-towpath-dc" },
+          { "jurisdiction": "washington-dc", "slug": "capital-crescent-trail-dc" },
+          { "jurisdiction": "washington-dc", "slug": "rock-creek-trail" }
+        ],
+        "laws": ["washington-dc"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "D.C. Code § 50-2201.02(11A)",
+        "18 DCMR § 1200.10",
+        "DDOT bicycle program guidance"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null
+    },
+    {
+      "id": "ebike-helmet-laws-virginia-maryland-dc",
+      "targetKeyword": "e-bike helmet laws virginia maryland dc",
+      "secondaryKeywords": [
+        "class 3 helmet requirement virginia",
+        "e-bike helmet age maryland",
+        "dc motorized bicycle helmet"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Helmet Laws: Virginia vs Maryland vs DC",
+      "proposedSlug": "ebike-helmet-laws-virginia-maryland-dc",
+      "category": "regulations",
+      "jurisdictions": ["virginia", "maryland", "washington-dc"],
+      "priority": 90,
+      "status": "queued",
+      "rationale": "Side-by-side comparison of three jurisdictions' helmet rules by class and age—high search volume and strong internal links to law pages and class guide.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": ["ebike-classes-explained", "ebike-regulations-overview"],
+        "trails": [],
+        "laws": ["virginia", "maryland", "washington-dc"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "Virginia Code § 46.2-904.1(G)",
+        "Maryland § 21-1207.1",
+        "D.C. Code § 50-1605"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null
+    },
+    {
+      "id": "class-3-ebike-bike-lane-rules-northern-virginia",
+      "targetKeyword": "class 3 e-bike bike lane rules northern virginia",
+      "secondaryKeywords": [
+        "speed pedelec bike lane virginia",
+        "class 3 e-bike arlington",
+        "28 mph e-bike road rules"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "Class 3 E-Bike Bike Lane Rules in Northern Virginia",
+      "proposedSlug": "class-3-ebike-bike-lane-rules-northern-virginia",
+      "category": "regulations",
+      "jurisdictions": ["virginia"],
+      "priority": 88,
+      "status": "queued",
+      "rationale": "Commuters search for Class 3 legality on NOVA bike lanes and shared paths—statute-backed guide with links to VA law and W&OD access rules.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-virginia"
+        ],
+        "trails": [
+          { "jurisdiction": "virginia", "slug": "washington-and-old-dominion-trail" }
+        ],
+        "laws": ["virginia"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "Virginia Code § 46.2-904.1(F)(2)",
+        "Virginia Code § 46.2-908.1",
+        "Arlington County bike program ordinances"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null
+    },
+    {
+      "id": "class-3-ebikes-washington-and-old-dominion-trail",
+      "targetKeyword": "class 3 e-bikes w&od trail",
+      "secondaryKeywords": [
+        "speed pedelec wod trail",
+        "class 3 e-bike NOVA parks",
+        "w&od trail e-bike speed limit"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "Can You Ride Class 3 E-Bikes on the W&OD Trail?",
+      "proposedSlug": "class-3-ebikes-washington-and-old-dominion-trail",
+      "category": "regulations",
+      "jurisdictions": ["virginia"],
+      "priority": 87,
+      "status": "queued",
+      "rationale": "W&OD is the region's busiest rail-trail—Class 3 access is a frequent rider question where state law and NOVA Parks policy must be reconciled.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "mid-atlantic-trail-etiquette"
+        ],
+        "trails": [
+          { "jurisdiction": "virginia", "slug": "washington-and-old-dominion-trail" }
+        ],
+        "laws": ["virginia"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "NOVA Parks W&OD Trail rules",
+        "Virginia Code § 46.2-904.1(F)(2)",
+        "Northern Virginia Regional Park Authority ordinances"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null
+    },
+    {
+      "id": "ebike-rules-co-canal-towpath",
+      "targetKeyword": "e-bike rules c&o canal towpath",
+      "secondaryKeywords": [
+        "c&o canal e-bike allowed",
+        "towpath class 2 e-bike",
+        "nps c&o canal bicycle rules"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Rules on the C&O Canal Towpath",
+      "proposedSlug": "ebike-rules-co-canal-towpath",
+      "category": "regulations",
+      "jurisdictions": ["washington-dc", "maryland"],
+      "priority": 86,
+      "status": "queued",
+      "rationale": "Cross-jurisdiction NPS trail spanning DC and Maryland—riders need federal compendium rules plus state context, with links to both trail segments.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "mid-atlantic-trail-etiquette"
+        ],
+        "trails": [
+          { "jurisdiction": "washington-dc", "slug": "c-and-o-canal-towpath-dc" }
+        ],
+        "laws": ["washington-dc", "maryland"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "NPS Chesapeake & Ohio Canal NMP superintendent's compendium",
+        "Maryland Transportation Article § 21-1205.2",
+        "NPS e-bike policy memorandum"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null
+    },
+    {
+      "id": "capital-crescent-trail-ebike-access",
+      "targetKeyword": "capital crescent trail e-bike access",
+      "secondaryKeywords": [
+        "class 3 capital crescent trail",
+        "e-bike rules capital crescent",
+        "montgomery county trail e-bike"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "Capital Crescent Trail E-Bike Access Rules",
+      "proposedSlug": "capital-crescent-trail-ebike-access",
+      "category": "regulations",
+      "jurisdictions": ["maryland", "washington-dc"],
+      "priority": 85,
+      "status": "queued",
+      "rationale": "Popular commuter corridor crossing MD and DC segments—trail-specific access rules differ by manager and segment, ideal for eBikeQuest trail data.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-maryland"
+        ],
+        "trails": [
+          { "jurisdiction": "maryland", "slug": "capital-crescent-trail" },
+          { "jurisdiction": "washington-dc", "slug": "capital-crescent-trail-dc" }
+        ],
+        "laws": ["maryland", "washington-dc"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "Montgomery Parks Capital Crescent Trail rules",
+        "Maryland § 21-1205.2(a)(2)",
+        "NPS Georgetown waterfront segment compendium"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null
+    },
+    {
+      "id": "ebike-lighting-requirements-mid-atlantic",
+      "targetKeyword": "e-bike lighting requirements mid-atlantic",
+      "secondaryKeywords": [
+        "e-bike headlight virginia",
+        "bicycle light law maryland",
+        "dc e-bike reflectors"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Lighting Requirements in the Mid-Atlantic",
+      "proposedSlug": "ebike-lighting-requirements-mid-atlantic",
+      "category": "regulations",
+      "jurisdictions": ["virginia", "maryland", "washington-dc"],
+      "priority": 82,
+      "status": "queued",
+      "rationale": "Commuters and night riders search equipment rules by state—statute-backed comparison with links to three law pages and the regulations overview.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": ["ebike-regulations-overview", "riding-ebikes-in-virginia"],
+        "trails": [],
+        "laws": ["virginia", "maryland", "washington-dc"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "Virginia Code § 46.2-1015",
+        "Maryland § 21-1207",
+        "18 DCMR bicycle equipment rules"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null
+    },
+    {
+      "id": "rail-trail-speed-limits-ebikes-mid-atlantic",
+      "targetKeyword": "rail trail speed limits e-bikes mid-atlantic",
+      "secondaryKeywords": [
+        "e-bike speed limit shared use path",
+        "trail speed etiquette e-bike",
+        "w&od trail speed limit"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "Rail-Trail Speed Limits for E-Bikes in the Mid-Atlantic",
+      "proposedSlug": "rail-trail-speed-limits-ebikes-mid-atlantic",
+      "category": "riding-skills",
+      "jurisdictions": [],
+      "priority": 81,
+      "status": "queued",
+      "rationale": "Bridges etiquette and regulations—posted speed limits vary by trail manager and eBikeQuest can cite NOVA Parks, NPS, and state path rules.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "mid-atlantic-trail-etiquette",
+          "ebike-classes-explained",
+          "ebike-regulations-overview"
+        ],
+        "trails": [
+          { "jurisdiction": "virginia", "slug": "washington-and-old-dominion-trail" },
+          { "jurisdiction": "maryland", "slug": "baltimore-and-ohio-trail" }
+        ],
+        "laws": ["virginia", "maryland"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "NOVA Parks trail regulations",
+        "NPS GWMP trail compendium",
+        "Maryland shared-use path ordinances"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null
+    },
+    {
+      "id": "ebike-insurance-requirements-virginia-maryland-dc",
+      "targetKeyword": "e-bike insurance requirements virginia maryland dc",
+      "secondaryKeywords": [
+        "do e-bikes need insurance virginia",
+        "e-bike liability maryland",
+        "motorized bicycle insurance dc"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Insurance Requirements: Virginia, Maryland, and DC",
+      "proposedSlug": "ebike-insurance-requirements-virginia-maryland-dc",
+      "category": "regulations",
+      "jurisdictions": ["virginia", "maryland", "washington-dc"],
+      "priority": 80,
+      "status": "queued",
+      "rationale": "Riders confuse e-bike insurance mandates with mopeds—clear statute citations per jurisdiction reduce misinformation and link to law hubs.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": ["ebike-regulations-overview", "buying-your-first-ebike"],
+        "trails": [],
+        "laws": ["virginia", "maryland", "washington-dc"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "Virginia Code § 46.2-904.1(B)",
+        "Maryland Transportation Article § 21-1205.2",
+        "D.C. Code motor vehicle insurance title"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null
+    },
+    {
+      "id": "winter-ebike-battery-storage-mid-atlantic",
+      "targetKeyword": "winter e-bike battery storage mid-atlantic",
+      "secondaryKeywords": [
+        "e-bike battery cold weather",
+        "lithium battery storage garage",
+        "e-bike battery winter virginia"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "Winter E-Bike Battery Storage in the Mid-Atlantic",
+      "proposedSlug": "winter-ebike-battery-storage-mid-atlantic",
+      "category": "maintenance",
+      "jurisdictions": [],
+      "priority": 78,
+      "status": "queued",
+      "rationale": "Seasonal maintenance query for humid continental winters—extends the battery care guide with regional storage guidance without duplicating it.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": ["ebike-battery-care", "buying-your-first-ebike"],
+        "trails": [],
+        "laws": []
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "Manufacturer battery storage guidelines (Bosch, Shimano, Yamaha)",
+        "UL 2271 battery safety standards",
+        "PeopleForBikes battery safety resources"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null
+    },
+    {
+      "id": "ebike-range-flat-rail-trails-mid-atlantic",
+      "targetKeyword": "e-bike range flat rail trails",
+      "secondaryKeywords": [
+        "how far e-bike rail trail",
+        "e-bike battery range w&od",
+        "class 1 range flat terrain"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Range on Flat Rail-Trails in the Mid-Atlantic",
+      "proposedSlug": "ebike-range-flat-rail-trails-mid-atlantic",
+      "category": "riding-skills",
+      "jurisdictions": [],
+      "priority": 76,
+      "status": "queued",
+      "rationale": "Practical range planning for long rail-trail rides—links to W&OD, B&A, and C&O trail pages with realistic watt-hour and assist-level guidance.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": ["ebike-battery-care", "ebike-classes-explained"],
+        "trails": [
+          { "jurisdiction": "virginia", "slug": "washington-and-old-dominion-trail" },
+          { "jurisdiction": "maryland", "slug": "baltimore-and-ohio-trail" }
+        ],
+        "laws": []
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "Manufacturer range estimates by assist level",
+        "Levy et al. e-bike energy consumption studies",
+        "Trail mileage from eBikeQuest trail listings"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null
+    },
+    {
+      "id": "used-ebike-inspection-checklist-mid-atlantic",
+      "targetKeyword": "used e-bike inspection checklist",
+      "secondaryKeywords": [
+        "buy used e-bike what to check",
+        "secondhand e-bike battery health",
+        "used e-bike mid-atlantic"
+      ],
+      "searchIntent": "commercial",
+      "proposedTitle": "Used E-Bike Inspection Checklist for Mid-Atlantic Buyers",
+      "proposedSlug": "used-ebike-inspection-checklist-mid-atlantic",
+      "category": "buying-guide",
+      "jurisdictions": [],
+      "priority": 74,
+      "status": "queued",
+      "rationale": "Commercial-intent buyers need a practical inspection framework—complements the first-time buyer guide without overlapping its scope.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": ["buying-your-first-ebike", "ebike-classes-explained", "ebike-battery-care"],
+        "trails": [],
+        "laws": []
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "Class label requirements Virginia § 46.2-904.1(C)",
+        "Battery cycle count diagnostics from major OEMs",
+        "CPSC bicycle/e-bike recall database"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null
+    },
+    {
+      "id": "class-2-vs-class-3-ebike-commuting-mid-atlantic",
+      "targetKeyword": "class 2 vs class 3 e-bike commuting",
+      "secondaryKeywords": [
+        "class 2 or class 3 commuter e-bike",
+        "throttle vs speed pedelec commute",
+        "best e-bike class for bike lane"
+      ],
+      "searchIntent": "commercial",
+      "proposedTitle": "Class 2 vs Class 3 E-Bikes for Mid-Atlantic Commuting",
+      "proposedSlug": "class-2-vs-class-3-ebike-commuting-mid-atlantic",
+      "category": "buying-guide",
+      "jurisdictions": [],
+      "priority": 73,
+      "status": "queued",
+      "rationale": "Purchase-decision query tied to Mid-Atlantic path and bike-lane access rules—links class guide, regulations, and local riding pages.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "buying-your-first-ebike",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-virginia"
+        ],
+        "trails": [
+          { "jurisdiction": "virginia", "slug": "mount-vernon-trail" }
+        ],
+        "laws": ["virginia", "maryland", "washington-dc"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "PeopleForBikes class definitions",
+        "Virginia and Maryland path access statutes",
+        "DC motorized bicycle speed cap D.C. Code § 50-2201.02"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-25",
+  "keywords": [
+    {
+      "targetKeyword": "e-bike classes explained",
+      "slug": "ebike-classes-explained",
+      "title": "E-Bike Classes Explained: Class 1, 2, and 3",
+      "category": "getting-started",
+      "publishedAt": "2026-06-01",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "e-bike trail etiquette mid-atlantic",
+      "slug": "mid-atlantic-trail-etiquette",
+      "title": "E-Bike Trail Etiquette in the Mid-Atlantic",
+      "category": "riding-skills",
+      "publishedAt": "2026-06-01",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "buying your first e-bike",
+      "slug": "buying-your-first-ebike",
+      "title": "Buying Your First E-Bike",
+      "category": "buying-guide",
+      "publishedAt": "2026-06-01",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "e-bike battery care storage",
+      "slug": "ebike-battery-care",
+      "title": "E-Bike Battery Care and Storage",
+      "category": "maintenance",
+      "publishedAt": "2026-06-01",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "riding e-bikes virginia",
+      "slug": "riding-ebikes-in-virginia",
+      "title": "Riding E-Bikes in Virginia: Local Tips",
+      "category": "local-riding",
+      "publishedAt": "2026-06-01",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "riding e-bikes maryland",
+      "slug": "riding-ebikes-in-maryland",
+      "title": "Riding E-Bikes in Maryland: Local Tips",
+      "category": "local-riding",
+      "publishedAt": "2026-06-01",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "e-bike regulations overview",
+      "slug": "ebike-regulations-overview",
+      "title": "E-Bike Regulations Overview",
+      "category": "regulations",
+      "publishedAt": "2026-06-01",
+      "source": "guide"
+    }
+  ]
+}

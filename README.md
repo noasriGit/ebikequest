@@ -23,7 +23,10 @@ npm run dev
 
 ```bash
 npm run validate:content
+npm run validate:seo
 ```
+
+Build runs both validators automatically via `vercel.json`.
 
 ## Adding photos
 
