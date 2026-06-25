@@ -18,7 +18,8 @@ function MapLoadingState({ height }: { height: number | string }) {
         aria-hidden
       />
       <div
-        className="hidden min-h-[480px] animate-pulse rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-sunken lg:block"
+        className="hidden max-h-[var(--trail-list-height)] animate-pulse rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-sunken lg:block"
+        style={{ "--trail-list-height": typeof height === "number" ? `${height}px` : height } as React.CSSProperties}
         aria-hidden
       />
       <span className="sr-only">Loading trail map…</span>

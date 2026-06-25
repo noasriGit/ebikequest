@@ -10,6 +10,11 @@ interface TrailMapTrailListProps {
   onSelect: (trail: TrailMapFeature) => void;
   listId: string;
   labelId: string;
+  mapHeight?: number | string;
+}
+
+function toCssHeight(height: number | string) {
+  return typeof height === "number" ? `${height}px` : height;
 }
 
 export function TrailMapTrailList({
@@ -18,20 +23,29 @@ export function TrailMapTrailList({
   onSelect,
   listId,
   labelId,
+  mapHeight = 480,
 }: TrailMapTrailListProps) {
   const sortedTrails = [...trails].sort((a, b) => a.title.localeCompare(b.title));
 
   return (
-    <nav aria-labelledby={labelId} className="flex min-h-0 flex-col">
-      <p id={labelId} className="text-label text-text-primary">
+    <nav
+      aria-labelledby={labelId}
+      className={cn(
+        "flex min-h-0 flex-col",
+        "max-h-64 sm:max-h-72",
+        "lg:max-h-[var(--trail-list-height)]",
+      )}
+      style={{ "--trail-list-height": toCssHeight(mapHeight) } as React.CSSProperties}
+    >
+      <p id={labelId} className="shrink-0 text-label text-text-primary">
         Trail list
       </p>
-      <p className="mt-1 text-body-sm text-text-secondary">
+      <p className="mt-1 shrink-0 text-body-sm text-text-secondary">
         Select a trail to highlight it on the map and view quick details.
       </p>
       <ul
         id={listId}
-        className="mt-3 max-h-80 flex-1 space-y-1 overflow-y-auto rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-1 lg:max-h-none lg:min-h-[480px]"
+        className="mt-3 min-h-0 flex-1 space-y-1 overflow-y-auto overscroll-contain rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-1"
         role="listbox"
         aria-label="Trails on map"
       >
@@ -63,7 +77,7 @@ export function TrailMapTrailList({
           );
         })}
       </ul>
-      <p className="mt-3 text-body-sm text-text-secondary">
+      <p className="mt-3 shrink-0 text-body-sm text-text-secondary">
         Prefer a full directory?{" "}
         <Link href="/trails" className="link-editorial">
           Browse all trails

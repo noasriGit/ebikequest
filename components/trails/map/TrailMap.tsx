@@ -204,7 +204,11 @@ export function TrailMap({
       </p>
 
       <div
-        className={mode === "explore" ? "grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(220px,280px)]" : undefined}
+        className={
+          mode === "explore"
+            ? "grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(220px,280px)]"
+            : undefined
+        }
       >
         <div
           className="relative overflow-hidden rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] shadow-[var(--shadow-xs)]"
@@ -371,6 +375,7 @@ export function TrailMap({
             onSelect={selectTrail}
             listId={listId}
             labelId={listLabelId}
+            mapHeight={height}
           />
         ) : null}
       </div>
