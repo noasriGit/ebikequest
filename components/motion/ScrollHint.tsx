@@ -48,25 +48,29 @@ export function ScrollHint({ className }: ScrollHintProps) {
   return (
     <div
       className={cn(
-        "flex flex-col items-center gap-3 px-4 pb-8 pt-5 md:pb-10 md:pt-6",
+        "flex min-h-[5.75rem] flex-col items-center justify-center gap-3 bg-[#1a1917] px-4 py-8 md:min-h-[6.25rem] md:py-9",
         className,
       )}
       aria-hidden={!visible}
     >
       <motion.div
-        className="flex flex-col items-center gap-3"
+        className="flex flex-col items-center justify-center gap-3"
         initial={false}
         animate={{ opacity: visible ? 1 : 0 }}
         transition={{ duration: duration.base, ease: easing }}
       >
-        <div className="relative h-5 overflow-hidden" aria-live={visible ? "polite" : undefined} aria-atomic="true">
+        <div
+          className="flex h-5 items-center justify-center overflow-hidden"
+          aria-live={visible ? "polite" : undefined}
+          aria-atomic="true"
+        >
         {shouldReduce ? (
-          <p className="text-label text-text-muted">{MESSAGES[0]}</p>
+          <p className="text-label text-white/75">{MESSAGES[0]}</p>
         ) : (
           <AnimatePresence mode="wait">
             <motion.p
               key={message}
-              className="text-label text-text-muted"
+              className="text-label text-white/75"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
@@ -79,7 +83,7 @@ export function ScrollHint({ className }: ScrollHintProps) {
       </div>
 
       <motion.span
-        className="text-brand-accent"
+        className="inline-flex text-white/70"
         aria-hidden
         animate={shouldReduce ? undefined : { y: [0, 5, 0] }}
         transition={
