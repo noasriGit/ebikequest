@@ -130,6 +130,10 @@ function validateTopicSchema(topic: TopicQueueItem, label: string) {
     error(`${label}: scheduledFor must be null or ISO date YYYY-MM-DD`);
   }
 
+  if (topic.publishedAt !== null && !isIsoDate(topic.publishedAt)) {
+    error(`${label}: publishedAt must be null or ISO date YYYY-MM-DD`);
+  }
+
   if (!topic.internalLinks || typeof topic.internalLinks !== "object") {
     error(`${label}: missing internalLinks object`);
     return;
@@ -256,6 +260,9 @@ function validateStatusConsistency(
   }
 
   if (topic.status === "published") {
+    if (topic.publishedAt === null) {
+      error(`${label}: published topics must have publishedAt set`);
+    }
     const isLiveGuide = guideSlugs.has(topic.proposedSlug);
     const isPublishedKeyword = publishedKeywordSlugs.has(topic.proposedSlug);
     if (!isLiveGuide && !isPublishedKeyword) {
@@ -263,6 +270,17 @@ function validateStatusConsistency(
         `${label}: published topics must have proposedSlug in published-keywords.json or live guides`,
       );
     }
+  }
+
+  if (
+    (topic.status === "queued" ||
+      topic.status === "in-progress" ||
+      topic.status === "rejected") &&
+    topic.publishedAt !== null
+  ) {
+    error(
+      `${label}: publishedAt must be null when status is ${topic.status}`,
+    );
   }
 }
 
@@ -336,7 +354,10 @@ function validateTopicQueue() {
       warn(`${label}: id "${topic.id}" differs from proposedSlug "${topic.proposedSlug}"`);
     }
 
-    if (guideSlugs.has(topic.proposedSlug)) {
+    if (
+      guideSlugs.has(topic.proposedSlug) &&
+      topic.status !== "published"
+    ) {
       error(
         `${label}: proposedSlug "${topic.proposedSlug}" conflicts with an existing live guide`,
       );

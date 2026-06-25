@@ -72,6 +72,10 @@ Every Monday, the **eBikeQuest Weekly Topic Planner** automation:
 
 Import the automation in Cursor via [`automation-draft.json`](automation-draft.json) (cron: Mondays 09:00 UTC — adjust for Eastern Time in the editor).
 
+## Guide writer automation
+
+Every Tuesday and Friday, the **eBikeQuest Guide Writer** automation picks a scheduled topic, writes a guide to `content/guides/entries/{slug}.ts`, updates the queue, and opens a PR. See [`article-automation.md`](article-automation.md) for the full playbook. Import via [`automation-draft-guide-writer.json`](automation-draft-guide-writer.json) (cron: Tue/Fri 10:00 UTC).
+
 ## Manual workflow when a guide ships
 
 1. Move the topic's `status` to `published` in `topic-queue.json`
@@ -88,4 +92,4 @@ Checks unique IDs/slugs, valid categories and jurisdictions, no conflicts with l
 
 ## Future improvement
 
-Split [`content/guides/index.ts`](../guides/index.ts) into per-guide files so automation PRs produce smaller, reviewable diffs.
+Guides are split into [`content/guides/entries/`](../guides/entries/) for automation-friendly diffs.

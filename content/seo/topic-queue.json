@@ -35,7 +35,8 @@
         "PeopleForBikes Class 2 definition"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null
+      "scheduledFor": null,
+      "publishedAt": null
     },
     {
       "id": "riding-ebikes-in-washington-dc",
@@ -51,7 +52,7 @@
       "category": "local-riding",
       "jurisdictions": ["washington-dc"],
       "priority": 92,
-      "status": "queued",
+      "status": "published",
       "rationale": "Fills the missing DC local-riding guide gap—VA and MD have dedicated pages but DC riders need jurisdiction-specific statute and trail guidance.",
       "primaryUrlOwner": "new-guide",
       "internalLinks": {
@@ -75,7 +76,8 @@
         "DDOT bicycle program guidance"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null
+      "scheduledFor": null,
+      "publishedAt": "2026-06-25"
     },
     {
       "id": "ebike-helmet-laws-virginia-maryland-dc",
@@ -106,7 +108,8 @@
         "D.C. Code § 50-1605"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null
+      "scheduledFor": null,
+      "publishedAt": null
     },
     {
       "id": "class-3-ebike-bike-lane-rules-northern-virginia",
@@ -143,7 +146,8 @@
         "Arlington County bike program ordinances"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null
+      "scheduledFor": null,
+      "publishedAt": null
     },
     {
       "id": "class-3-ebikes-washington-and-old-dominion-trail",
@@ -180,7 +184,8 @@
         "Northern Virginia Regional Park Authority ordinances"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null
+      "scheduledFor": null,
+      "publishedAt": null
     },
     {
       "id": "ebike-rules-co-canal-towpath",
@@ -217,7 +222,8 @@
         "NPS e-bike policy memorandum"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null
+      "scheduledFor": null,
+      "publishedAt": null
     },
     {
       "id": "capital-crescent-trail-ebike-access",
@@ -255,7 +261,8 @@
         "NPS Georgetown waterfront segment compendium"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null
+      "scheduledFor": null,
+      "publishedAt": null
     },
     {
       "id": "ebike-lighting-requirements-mid-atlantic",
@@ -286,7 +293,8 @@
         "18 DCMR bicycle equipment rules"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null
+      "scheduledFor": null,
+      "publishedAt": null
     },
     {
       "id": "rail-trail-speed-limits-ebikes-mid-atlantic",
@@ -324,7 +332,8 @@
         "Maryland shared-use path ordinances"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null
+      "scheduledFor": null,
+      "publishedAt": null
     },
     {
       "id": "ebike-insurance-requirements-virginia-maryland-dc",
@@ -355,7 +364,8 @@
         "D.C. Code motor vehicle insurance title"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null
+      "scheduledFor": null,
+      "publishedAt": null
     },
     {
       "id": "winter-ebike-battery-storage-mid-atlantic",
@@ -386,7 +396,8 @@
         "PeopleForBikes battery safety resources"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null
+      "scheduledFor": null,
+      "publishedAt": null
     },
     {
       "id": "ebike-range-flat-rail-trails-mid-atlantic",
@@ -420,7 +431,8 @@
         "Trail mileage from eBikeQuest trail listings"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null
+      "scheduledFor": null,
+      "publishedAt": null
     },
     {
       "id": "used-ebike-inspection-checklist-mid-atlantic",
@@ -451,7 +463,8 @@
         "CPSC bicycle/e-bike recall database"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null
+      "scheduledFor": null,
+      "publishedAt": null
     },
     {
       "id": "class-2-vs-class-3-ebike-commuting-mid-atlantic",
@@ -489,7 +502,8 @@
         "DC motorized bicycle speed cap D.C. Code § 50-2201.02"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null
+      "scheduledFor": null,
+      "publishedAt": null
     }
   ]
 }

@@ -35,6 +35,7 @@ export interface TopicQueueItem {
   sourceHints: string[];
   addedAt: string;
   scheduledFor: string | null;
+  publishedAt: string | null;
 }
 
 export interface TopicQueueFile {

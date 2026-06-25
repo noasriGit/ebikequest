@@ -1,0 +1,31 @@
+{
+  "name": "eBikeQuest Guide Writer (Tue/Fri)",
+  "description": "Every Tuesday and Friday, pick the next scheduled guide topic, write a publication-ready guide, validate, update the topic queue, and open a PR for human review.",
+  "workflow": {
+    "triggers": [
+      {
+        "cron": {
+          "cron": "0 10 * * 2"
+        }
+      },
+      {
+        "cron": {
+          "cron": "0 10 * * 5"
+        }
+      }
+    ],
+    "actions": [],
+    "prompts": [
+      "You are the eBikeQuest guide writer. Write one new guide per run.\n\n## Pick a topic\n1. Read content/seo/topic-queue.json.\n2. Select the highest-priority item where status is \"queued\" AND (scheduledFor is today or earlier OR scheduledFor is null).\n3. If none available, stop and open a PR that only adds a comment/issue note: \"No queued topics — run topic planner first.\" Do not invent a topic without queue entry.\n4. Immediately set status to \"in-progress\" in topic-queue.json and commit that first (prevents duplicate picks).\n\n## Research & write\n5. Read content/seo/article-automation.md, content/editorial/editorial-standards.ts, and one existing guide in content/guides/entries/ as a style reference.\n6. Research using primary sources named in sourceHints. For legal claims, cite specific statutes (e.g. Virginia § 46.2-904.1) or official agency pages — never forums alone.\n7. Create content/guides/entries/{proposedSlug}.ts following the Guide type exactly.\n8. Include all internal links specified in the topic's internalLinks (reference trails as relatedTrails slugs, link to related guides in prose and relatedGuides array).\n9. Write description exactly 120–160 characters.\n10. Set readingTimeMinutes based on word count (~200 wpm).\n\n## Finalize\n11. Register the new guide in content/guides/index.ts imports/array.\n12. Update topic-queue.json: status → \"published\", set publishedAt to today's date.\n13. Append targetKeyword + slug to content/seo/published-keywords.json.\n14. Run npm run validate:seo && npm run validate:content && npm run build — fix all errors.\n15. Open PR titled \"guide: {title}\" with:\n    - Target keyword\n    - Word count\n    - Internal links added\n    - Sources cited\n    - Note: \"Needs human review before merge — verify legal claims\"\n    - Label: seo-automation\n\nDo not merge to main. Do not publish content that fails validation."
+    ],
+    "model": "",
+    "agentOptions": {
+      "skipInstall": false
+    },
+    "memoryEnabled": true,
+    "gitConfig": {
+      "repo": "noasriGit/ebikequest",
+      "branch": "main"
+    }
+  }
+}

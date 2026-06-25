@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import path from "node:path";
 
 const d1 = JSON.parse(fs.readFileSync("content/_draft-guides.json", "utf8"));
 const d2 = JSON.parse(fs.readFileSync("scripts/_draft-guides-output.json", "utf8"));
@@ -58,6 +59,13 @@ const meta = {
   },
 };
 
+function slugToExportName(slug) {
+  return slug
+    .split("-")
+    .map((part, i) => (i === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
+    .join("");
+}
+
 function serialize(value, indent = 4) {
   const pad = " ".repeat(indent);
   const padIn = " ".repeat(indent + 2);
@@ -89,24 +97,41 @@ const guides = all.map((g) => {
   };
 });
 
-let out = `import type { Guide } from "@/types/guide";
-import { EDITORIAL_DEFAULTS } from "../_shared/defaults";
+const entriesDir = path.join("content/guides/entries");
+fs.mkdirSync(entriesDir, { recursive: true });
 
-export const guides: Guide[] = [
-`;
+const imports = [];
+const arrayItems = [];
 
 for (const g of guides) {
-  out += `  {\n    ...EDITORIAL_DEFAULTS,\n`;
+  const exportName = slugToExportName(g.slug);
+  let entry = `import type { Guide } from "@/types/guide";
+import { EDITORIAL_DEFAULTS } from "../../_shared/defaults";
+
+export const ${exportName}: Guide = {
+  ...EDITORIAL_DEFAULTS,
+`;
   const { jurisdictions, ...rest } = g;
   for (const [key, value] of Object.entries(rest)) {
-    out += `    ${key}: ${serialize(value, 4)},\n`;
+    entry += `  ${key}: ${serialize(value, 2)},\n`;
   }
   if (jurisdictions) {
-    out += `    jurisdictions: ${serialize(jurisdictions, 4)},\n`;
+    entry += `  jurisdictions: ${serialize(jurisdictions, 2)},\n`;
   }
-  out += `  },\n`;
+  entry += "};\n";
+
+  const entryPath = path.join(entriesDir, `${g.slug}.ts`);
+  fs.writeFileSync(entryPath, entry);
+  imports.push(`import { ${exportName} } from "./entries/${g.slug}";`);
+  arrayItems.push(`  ${exportName},`);
 }
 
-out += "];\n";
-fs.writeFileSync("content/guides/index.ts", out);
-console.log("Written", guides.length, "guides");
+const indexSource = `${imports.join("\n")}
+
+export const guides = [
+${arrayItems.join("\n")}
+];
+`;
+
+fs.writeFileSync("content/guides/index.ts", indexSource);
+console.log("Written", guides.length, "guide entries");
