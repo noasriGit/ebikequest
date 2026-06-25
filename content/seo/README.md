@@ -70,6 +70,8 @@ Every Monday, the **eBikeQuest Weekly Topic Planner** automation:
 7. Runs `npm run validate:seo`
 8. Opens a PR titled `seo: refresh topic queue YYYY-MM-DD` — **does not merge**
 
+Import the automation in Cursor via [`automation-draft.json`](automation-draft.json) (cron: Mondays 09:00 UTC — adjust for Eastern Time in the editor).
+
 ## Manual workflow when a guide ships
 
 1. Move the topic's `status` to `published` in `topic-queue.json`
