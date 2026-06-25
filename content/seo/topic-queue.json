@@ -15,7 +15,7 @@
       "proposedSlug": "throttle-ebikes-mount-vernon-trail",
       "category": "regulations",
       "jurisdictions": ["virginia"],
-      "priority": 95,
+      "priority": 96,
       "status": "queued",
       "rationale": "High-intent trail-specific query where NPS compendium rules differ from Virginia state defaults—eBikeQuest can cite primary sources and link the trail page.",
       "primaryUrlOwner": "new-guide",
@@ -35,7 +35,7 @@
         "PeopleForBikes Class 2 definition"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null,
+      "scheduledFor": "2026-06-27",
       "publishedAt": null
     },
     {
@@ -92,7 +92,7 @@
       "proposedSlug": "ebike-helmet-laws-virginia-maryland-dc",
       "category": "regulations",
       "jurisdictions": ["virginia", "maryland", "washington-dc"],
-      "priority": 90,
+      "priority": 91,
       "status": "queued",
       "rationale": "Side-by-side comparison of three jurisdictions' helmet rules by class and age—high search volume and strong internal links to law pages and class guide.",
       "primaryUrlOwner": "new-guide",
@@ -108,7 +108,7 @@
         "D.C. Code § 50-1605"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": null,
+      "scheduledFor": "2026-07-01",
       "publishedAt": null
     },
     {
@@ -348,7 +348,7 @@
       "proposedSlug": "ebike-insurance-requirements-virginia-maryland-dc",
       "category": "regulations",
       "jurisdictions": ["virginia", "maryland", "washington-dc"],
-      "priority": 80,
+      "priority": 79,
       "status": "queued",
       "rationale": "Riders confuse e-bike insurance mandates with mopeds—clear statute citations per jurisdiction reduce misinformation and link to law hubs.",
       "primaryUrlOwner": "new-guide",
@@ -380,7 +380,7 @@
       "proposedSlug": "winter-ebike-battery-storage-mid-atlantic",
       "category": "maintenance",
       "jurisdictions": [],
-      "priority": 78,
+      "priority": 77,
       "status": "queued",
       "rationale": "Seasonal maintenance query for humid continental winters—extends the battery care guide with regional storage guidance without duplicating it.",
       "primaryUrlOwner": "new-guide",
@@ -500,6 +500,296 @@
         "PeopleForBikes class definitions",
         "Virginia and Maryland path access statutes",
         "DC motorized bicycle speed cap D.C. Code § 50-2201.02"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "rock-creek-trail-ebike-access",
+      "targetKeyword": "rock creek trail e-bike rules",
+      "secondaryKeywords": [
+        "e-bike rock creek park",
+        "class 3 rock creek trail",
+        "nps rock creek e-bike speed limit"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "Rock Creek Trail E-Bike Rules: What DC Riders Need to Know",
+      "proposedSlug": "rock-creek-trail-ebike-access",
+      "category": "regulations",
+      "jurisdictions": ["washington-dc"],
+      "priority": 89,
+      "status": "queued",
+      "rationale": "NPS Rock Creek Park compendium defines paved-trail e-bike access and 15 mph limits—high DC commuter intent with a dedicated trail page on eBikeQuest.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-washington-dc",
+          "mid-atlantic-trail-etiquette"
+        ],
+        "trails": [{ "jurisdiction": "washington-dc", "slug": "rock-creek-trail" }],
+        "laws": ["washington-dc"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "NPS Rock Creek Park Superintendent's Compendium",
+        "NPS Biking in Rock Creek Park page",
+        "D.C. Code § 50-2201.02(11A)"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "ebike-sidewalk-rules-washington-dc-cbd",
+      "targetKeyword": "e-bike sidewalk rules washington dc",
+      "secondaryKeywords": [
+        "dc cbd sidewalk bike ban",
+        "can you ride e-bike on sidewalk dc",
+        "central business district e-bike"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Sidewalk Rules in Washington DC (Including the CBD Ban)",
+      "proposedSlug": "ebike-sidewalk-rules-washington-dc-cbd",
+      "category": "regulations",
+      "jurisdictions": ["washington-dc"],
+      "priority": 84,
+      "status": "queued",
+      "rationale": "DC's CBD sidewalk ban catches commuters who ride Class 2/3 downtown—statute-backed guide linking DCMR rules, DDOT CBD map, and the DC riding guide.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-regulations-overview",
+          "riding-ebikes-in-washington-dc",
+          "ebike-classes-explained"
+        ],
+        "trails": [],
+        "laws": ["washington-dc"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "18 DCMR § 18-1201",
+        "DDOT District of Columbia E-Bike Guide",
+        "WABA Pocket Guide to DC Bike Laws"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "anacostia-riverwalk-trail-ebike-rules",
+      "targetKeyword": "anacostia riverwalk trail e-bike rules",
+      "secondaryKeywords": [
+        "anacostia river trail e-bike",
+        "class 3 anacostia riverwalk",
+        "nace e-bike compendium"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "Anacostia Riverwalk Trail E-Bike Rules",
+      "proposedSlug": "anacostia-riverwalk-trail-ebike-rules",
+      "category": "regulations",
+      "jurisdictions": ["washington-dc"],
+      "priority": 78,
+      "status": "queued",
+      "rationale": "Anacostia Riverwalk spans DDOT and NPS segments with different Class 3 rules—trail-specific compendium guide linking the DC trail and law pages.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-washington-dc"
+        ],
+        "trails": [{ "jurisdiction": "washington-dc", "slug": "anacostia-riverwalk-trail" }],
+        "laws": ["washington-dc"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "NPS National Capital Parks-East Superintendent's Compendium",
+        "DDOT off-street trail motorized bicycle rulemaking",
+        "D.C. Code § 50-2201.02"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "great-allegheny-passage-ebike-rules-maryland",
+      "targetKeyword": "great allegheny passage e-bike rules maryland",
+      "secondaryKeywords": [
+        "gap trail e-bike class 3",
+        "allegany county gap trail motorized",
+        "e-bike cumberland gap trail"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Rules on the Great Allegheny Passage (Maryland Section)",
+      "proposedSlug": "great-allegheny-passage-ebike-rules-maryland",
+      "category": "regulations",
+      "jurisdictions": ["maryland"],
+      "priority": 77,
+      "status": "queued",
+      "rationale": "GAP riders search Maryland Class 3 restrictions and county motorized-vehicle bans—links GAP trail page, MD statute § 21-1205.2, and riding guide.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-maryland"
+        ],
+        "trails": [{ "jurisdiction": "maryland", "slug": "great-allegheny-passage-maryland" }],
+        "laws": ["maryland"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "Maryland Transportation Article § 21-1205.2",
+        "Allegany County GAP Rules and Guidelines",
+        "GAP Trail Consortium rules and safety page"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "new-river-trail-ebike-virginia",
+      "targetKeyword": "new river trail e-bike rules virginia",
+      "secondaryKeywords": [
+        "class 3 new river trail",
+        "new river trail state park e-bike",
+        "dcr e-bike policy new river"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Rules on the New River Trail in Virginia",
+      "proposedSlug": "new-river-trail-ebike-virginia",
+      "category": "regulations",
+      "jurisdictions": ["virginia"],
+      "priority": 75,
+      "status": "queued",
+      "rationale": "57-mile New River Trail is a flagship VA state-park rail-trail with Class 1/2-only policy—long-tail query linking DCR rules and the trail listing.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-virginia"
+        ],
+        "trails": [{ "jurisdiction": "virginia", "slug": "new-river-trail-state-park" }],
+        "laws": ["virginia"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "Virginia DCR e-bike policy for state parks",
+        "FHWA Virginia State Parks e-bike case study",
+        "Virginia Code § 46.2-904.1"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "high-bridge-trail-ebike-virginia",
+      "targetKeyword": "high bridge trail e-bike rules virginia",
+      "secondaryKeywords": [
+        "class 3 high bridge trail",
+        "high bridge trail state park e-bike",
+        "farmville e-bike trail"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Rules on High Bridge Trail in Virginia",
+      "proposedSlug": "high-bridge-trail-ebike-virginia",
+      "category": "regulations",
+      "jurisdictions": ["virginia"],
+      "priority": 72,
+      "status": "queued",
+      "rationale": "High Bridge Trail draws e-bike tourists to central Virginia—DCR allows Class 1/2 on designated paths; links trail page and VA regulations.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-virginia"
+        ],
+        "trails": [{ "jurisdiction": "virginia", "slug": "high-bridge-trail" }],
+        "laws": ["virginia"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "Virginia DCR High Bridge Trail State Park policies",
+        "FHWA Virginia State Parks e-bike case study",
+        "Virginia Code § 46.2-904.1(F)(2)"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "ebike-registration-license-virginia-maryland-dc",
+      "targetKeyword": "e-bike registration virginia maryland dc",
+      "secondaryKeywords": [
+        "do e-bikes need license plate virginia",
+        "maryland e-bike registration sb 14",
+        "dc e-bike title requirements"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Registration and License Rules: Virginia, Maryland, and DC",
+      "proposedSlug": "ebike-registration-license-virginia-maryland-dc",
+      "category": "regulations",
+      "jurisdictions": ["virginia", "maryland", "washington-dc"],
+      "priority": 71,
+      "status": "queued",
+      "rationale": "Riders confuse e-bike registration with moped rules after Maryland SB 14 headlines—statute comparison clarifying VA exemptions and current MD status.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-regulations-overview",
+          "riding-ebikes-in-virginia",
+          "riding-ebikes-in-maryland",
+          "riding-ebikes-in-washington-dc"
+        ],
+        "trails": [],
+        "laws": ["virginia", "maryland", "washington-dc"]
+      },
+      "competingUrlsOnSite": ["ebike-insurance-requirements-virginia-maryland-dc"],
+      "sourceHints": [
+        "Virginia Code § 46.2-904.1(B)",
+        "Maryland SB 14 (2025 session, withdrawn)",
+        "DDOT E-Bike Guide registration section"
+      ],
+      "addedAt": "2026-06-25",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "patapsco-valley-state-park-ebike-rules",
+      "targetKeyword": "patapsco valley state park e-bike rules",
+      "secondaryKeywords": [
+        "class 1 e-bike patapsco",
+        "maryland dnr e-bike natural surface",
+        "patapsco trail e-bike allowed"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Rules at Patapsco Valley State Park",
+      "proposedSlug": "patapsco-valley-state-park-ebike-rules",
+      "category": "regulations",
+      "jurisdictions": ["maryland"],
+      "priority": 70,
+      "status": "queued",
+      "rationale": "Patapsco's Class 1-only DNR policy on select trails confuses Baltimore-area riders—trail-specific guide linking MD DNR FAQ and the park listing.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-maryland"
+        ],
+        "trails": [{ "jurisdiction": "maryland", "slug": "patapsco-valley-state-park-trails" }],
+        "laws": ["maryland"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "Maryland DNR Bike and E-bike Regulation FAQ",
+        "Maryland Transportation Article § 21-1205.2(a)(2)(iii)",
+        "Patapsco Valley State Park trail use policies"
       ],
       "addedAt": "2026-06-25",
       "scheduledFor": null,
