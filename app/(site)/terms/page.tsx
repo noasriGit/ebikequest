@@ -84,8 +84,8 @@ export default function TermsPage() {
           <h2>Contact</h2>
           <p>
             Questions? Contact{" "}
-            <a href={`mailto:${siteConfig.correctionsEmail}`} className="text-brand underline">
-              {siteConfig.correctionsEmail}
+            <a href={`mailto:${siteConfig.helpEmail}`} className="text-brand underline">
+              {siteConfig.helpEmail}
             </a>
             .
           </p>

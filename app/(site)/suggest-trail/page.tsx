@@ -1,9 +1,11 @@
-import { Suspense } from "react";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
-import { SuggestTrailForm } from "@/components/forms/SuggestTrailForm";
+import { Button } from "@/components/design-system/Button/Button";
+import { siteConfig } from "@/config/site";
 import { getSuggestTrailPageContent } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+
+const suggestTrailMailto = `mailto:${siteConfig.helpEmail}?subject=${encodeURIComponent("Trail suggestion")}&body=${encodeURIComponent("Trail name:\nLocation (city, park, or jurisdiction):\nWhy you recommend it:\nOfficial policy link (if available):\n")}`;
 
 export async function generateMetadata() {
   const content = await getSuggestTrailPageContent();
@@ -36,17 +38,19 @@ export default async function SuggestTrailPage() {
             ))}
           </ul>
         </div>
-        <Suspense
-          fallback={
-            <div
-              className="h-64 animate-pulse rounded-[var(--radius-md)] bg-surface-sunken"
-              role="status"
-              aria-label="Loading form"
-            />
-          }
-        >
-          <SuggestTrailForm />
-        </Suspense>
+        <div className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-6 shadow-[var(--shadow-xs)]">
+          <h2 className="text-heading-sm text-text-primary">Email your suggestion</h2>
+          <p className="mt-3 text-body-md text-text-secondary">
+            Send trail name, location, and any official policy links to{" "}
+            <a href={`mailto:${siteConfig.helpEmail}`} className="link-editorial">
+              {siteConfig.helpEmail}
+            </a>
+            . Our editorial team will review your message and follow up if we need more detail.
+          </p>
+          <Button href={suggestTrailMailto} className="mt-6">
+            Email {siteConfig.helpEmail}
+          </Button>
+        </div>
       </Container>
     </>
   );

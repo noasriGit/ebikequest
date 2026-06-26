@@ -75,8 +75,8 @@ export default async function HomePage() {
                 </Button>
                 <span className="text-body-sm text-text-muted">
                   Questions?{" "}
-                  <a href={`mailto:${siteConfig.correctionsEmail}`} className="link-editorial">
-                    {siteConfig.correctionsEmail}
+                  <a href={`mailto:${siteConfig.helpEmail}`} className="link-editorial">
+                    {siteConfig.helpEmail}
                   </a>
                 </span>
               </div>

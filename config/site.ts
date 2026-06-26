@@ -4,7 +4,7 @@ export const siteConfig = {
   description:
     "National e-bike discovery platform for trails, laws, guides, shops, rentals, and more. Launching in Virginia, Maryland, and Washington DC.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://ebikequest.com",
-  correctionsEmail: "corrections@ebikequest.com",
+  helpEmail: "help@ebikequest.com",
   locale: "en-US",
 } as const;
 

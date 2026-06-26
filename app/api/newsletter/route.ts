@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { siteConfig } from "@/config/site";
 
 export async function POST(request: Request) {
   try {
@@ -9,7 +10,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "A valid email is required" }, { status: 400 });
     }
 
-    console.info("[newsletter]", { email, subscribedAt: new Date().toISOString() });
+    console.info("[newsletter]", {
+      destination: siteConfig.helpEmail,
+      email,
+      subscribedAt: new Date().toISOString(),
+    });
 
     return NextResponse.json({ ok: true });
   } catch {

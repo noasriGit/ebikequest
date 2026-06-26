@@ -17,7 +17,7 @@ export const aboutPageContent = {
       heading: "How we verify information",
       paragraphs: [
         "Trail pages document e-bike policies with last-verified dates and links to land-manager publications. Law pages cite statutory sections with access dates and distinguish statewide defaults from park and federal trail restrictions. When policies are ambiguous, we say so rather than guessing.",
-        "Every page carries author, reviewer, and update metadata. Significant corrections are acknowledged through our editorial standards and corrections email. Community trail suggestions feed our research queue but never publish without independent verification.",
+        "Every page carries author, reviewer, and update metadata. Significant corrections are acknowledged through our editorial standards and help email. Community trail suggestions feed our research queue but never publish without independent verification.",
       ],
     },
     {
@@ -38,10 +38,10 @@ export const suggestTrailPageContent = {
   heroDescription:
     "Help us grow the directory with trails you ride. We review every suggestion against land-manager policies before publication.",
   instructions: [
-    "Tell us the trail name, jurisdiction, and why you believe e-bikes are permitted. Include a link to an official park, county, or state policy page if you have one.",
-    "We verify class allowances (Class 1, 2, or 3), surface type, and managing agency before publishing. Submissions without a citable source may take longer to review.",
+    "Email help@ebikequest.com with the trail name, jurisdiction, and why you believe e-bikes are permitted. Include a link to an official park, county, or state policy page if you have one.",
+    "We verify class allowances (Class 1, 2, or 3), surface type, and managing agency before publishing. Suggestions without a citable source may take longer to review.",
     "We do not publish user-submitted content verbatim. Editorial staff researches each trail independently and may contact you for clarification.",
-    "To report an error on an existing listing, use the report link on that trail's page or email corrections with the page URL and supporting source.",
+    "To report an error on an existing listing, use the report link on that trail's page or email help@ebikequest.com with the page URL and supporting source.",
   ],
 };
 

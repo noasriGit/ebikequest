@@ -50,9 +50,9 @@ export default async function AboutPage() {
               directory data designed for discovery.
             </PullQuote>
             <p className="text-body-md text-text-secondary">
-              Questions or corrections? Email{" "}
-              <a href={`mailto:${siteConfig.correctionsEmail}`} className="link-editorial">
-                {siteConfig.correctionsEmail}
+              Questions? Email{" "}
+              <a href={`mailto:${siteConfig.helpEmail}`} className="link-editorial">
+                {siteConfig.helpEmail}
               </a>
               . Read our{" "}
               <Link href="/editorial-standards" className="link-editorial">

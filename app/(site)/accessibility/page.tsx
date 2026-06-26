@@ -78,8 +78,8 @@ export default function AccessibilityPage() {
             </ul>
             <p>
               Email:{" "}
-              <a href={`mailto:${siteConfig.correctionsEmail}`} className="link-editorial">
-                {siteConfig.correctionsEmail}
+              <a href={`mailto:${siteConfig.helpEmail}`} className="link-editorial">
+                {siteConfig.helpEmail}
               </a>
             </p>
             <p>

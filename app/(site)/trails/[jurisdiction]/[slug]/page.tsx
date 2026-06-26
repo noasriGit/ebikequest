@@ -15,6 +15,7 @@ import { getTrailMapFeatures } from "@/lib/maps/trail-map-data";
 import { TrailCard } from "@/components/trails/TrailCard";
 import { Badge } from "@/components/ui/Badge";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
+import { siteConfig } from "@/config/site";
 import {
   assertPublicJurisdiction,
   getGuide,
@@ -324,12 +325,12 @@ export default async function TrailDetailPage({
                   lng={trail.location.coordinates?.lng}
                   name={trail.location.name}
                 />
-                <Link
-                  href={`/suggest-trail?trail=${encodeURIComponent(trail.title)}`}
+                <a
+                  href={`mailto:${siteConfig.helpEmail}?subject=${encodeURIComponent(`Trail correction: ${trail.title}`)}&body=${encodeURIComponent(`Page URL:\nIssue:\nSupporting source:\n`)}`}
                   className="block text-sm text-text-muted hover:text-brand"
                 >
                   Report incorrect info
-                </Link>
+                </a>
               </div>
             </div>
           </aside>

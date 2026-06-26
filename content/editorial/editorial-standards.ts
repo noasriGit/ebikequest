@@ -70,7 +70,7 @@ export const editorialStandards: EditorialStandardsContent = {
       id: "corrections",
       heading: "Correction policy",
       paragraphs: [
-        `Report errors to ${siteConfig.correctionsEmail} with the page URL and a supporting source.`,
+        `Report errors to ${siteConfig.helpEmail} with the page URL and a supporting source.`,
         "We aim to acknowledge corrections within 2 business days and publish verified fixes within 5 business days.",
         "Significant corrections are noted in page changelogs where applicable.",
       ],
@@ -93,9 +93,9 @@ export const editorialStandards: EditorialStandardsContent = {
     },
     {
       id: "contact",
-      heading: "Contact for corrections",
+      heading: "Contact us",
       paragraphs: [
-        `Email ${siteConfig.correctionsEmail} or use our Suggest a Trail form for trail recommendations.`,
+        `Email ${siteConfig.helpEmail} to suggest a trail or report a correction.`,
         "We welcome source-backed corrections from riders, land managers, and legal professionals.",
       ],
     },

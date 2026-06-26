@@ -76,8 +76,8 @@ export default function PrivacyPage() {
             <p>
               You may unsubscribe from emails at any time. You may request access to or deletion of
               personal data by contacting{" "}
-              <a href={`mailto:${siteConfig.correctionsEmail}`} className="link-editorial">
-                {siteConfig.correctionsEmail}
+              <a href={`mailto:${siteConfig.helpEmail}`} className="link-editorial">
+                {siteConfig.helpEmail}
               </a>
               .
             </p>
@@ -87,8 +87,8 @@ export default function PrivacyPage() {
             <h2>Contact</h2>
             <p>
               Questions about this policy? Email{" "}
-              <a href={`mailto:${siteConfig.correctionsEmail}`} className="link-editorial">
-                {siteConfig.correctionsEmail}
+              <a href={`mailto:${siteConfig.helpEmail}`} className="link-editorial">
+                {siteConfig.helpEmail}
               </a>
               .
             </p>

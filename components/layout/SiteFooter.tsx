@@ -27,9 +27,9 @@ export async function SiteFooter() {
             </div>
             <p className="mt-3 max-w-md text-body-sm text-text-secondary">{siteConfig.description}</p>
             <p className="mt-4 text-body-sm text-text-muted">
-              Content last reviewed {month}. Corrections:{" "}
-              <a href={`mailto:${siteConfig.correctionsEmail}`} className="link-editorial">
-                {siteConfig.correctionsEmail}
+              Content last reviewed {month}. Help:{" "}
+              <a href={`mailto:${siteConfig.helpEmail}`} className="link-editorial">
+                {siteConfig.helpEmail}
               </a>
             </p>
           </div>
