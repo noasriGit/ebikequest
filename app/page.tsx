@@ -59,7 +59,7 @@ export default async function HomePage() {
 
       <section className="bg-surface-sunken pb-12 md:pb-16">
         <ScrollHint />
-        <Container className="pt-2 md:pt-4">
+        <Container className="pt-8 md:pt-10">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
             <FadeUp>
               <EditorialKicker>Verified &amp; researched</EditorialKicker>
