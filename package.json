@@ -9,6 +9,7 @@
     "lint": "eslint",
     "validate:content": "tsx scripts/validate-content.ts",
     "validate:seo": "tsx scripts/validate-topic-queue.ts",
+    "validate:affiliate": "tsx scripts/validate-affiliate.ts",
     "fetch:trail-geometry": "node scripts/fetch-trail-geometry.mjs",
     "download:images": "tsx scripts/download-images.ts"
   },

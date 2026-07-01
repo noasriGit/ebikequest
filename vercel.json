@@ -1,4 +1,4 @@
 {
   "framework": "nextjs",
-  "buildCommand": "npm run validate:content && npm run validate:seo && npm run build"
+  "buildCommand": "npm run validate:content && npm run validate:seo && npm run validate:affiliate && npm run build"
 }

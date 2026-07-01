@@ -21,7 +21,7 @@ export default function PrivacyPage() {
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Privacy" }]}
       />
       <Container className="max-w-3xl py-10">
-        <p className="text-body-sm text-text-muted">Last updated: June 2026</p>
+        <p className="text-body-sm text-text-muted">Last updated: July 2026</p>
 
         <div className="prose-editorial mt-8">
           <section>
@@ -61,6 +61,42 @@ export default function PrivacyPage() {
               <li>Send optional email updates you have subscribed to</li>
               <li>Understand aggregate usage patterns</li>
             </ul>
+          </section>
+
+          <section>
+            <h2>Analytics and cookies</h2>
+            <p>
+              We use analytics services to understand aggregate traffic patterns and improve the
+              site. These tools may use cookies or similar technologies to collect usage data such
+              as pages visited, browser type, and referring URLs.
+            </p>
+            <p>
+              You can control cookies through your browser settings. Disabling cookies may affect
+              certain site features.
+            </p>
+          </section>
+
+          <section>
+            <h2>Outbound and affiliate links</h2>
+            <p>
+              {siteConfig.name} links to external websites, including land managers, government
+              resources, retailers, and other third-party destinations. When you follow an outbound
+              link, you leave our site and become subject to that site&apos;s terms and privacy
+              practices.
+            </p>
+            <p>
+              Some future pages may include affiliate links. If you purchase through an affiliate
+              link, we may earn a commission at no extra cost to you. Affiliate relationships are
+              described in our{" "}
+              <Link href="/affiliate-disclosure" className="link-editorial">
+                Affiliate Disclosure
+              </Link>
+              .
+            </p>
+            <p>
+              Please review the privacy policies of third-party retailers and services when you
+              leave {siteConfig.name}.
+            </p>
           </section>
 
           <section>

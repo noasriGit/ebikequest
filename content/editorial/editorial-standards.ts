@@ -16,8 +16,8 @@ export const editorialStandards: EditorialStandardsContent = {
   description:
     "How eBikeQuest researches, verifies, updates, and corrects trail and law information, our commitment to accuracy and transparency.",
   author: EDITORIAL_TEAM,
-  reviewedBy: withReviewDate("2026-06-01"),
-  updatedAt: "2026-06-01",
+  reviewedBy: withReviewDate("2026-07-01"),
+  updatedAt: "2026-07-01",
   sections: [
     {
       id: "mission",
@@ -81,6 +81,22 @@ export const editorialStandards: EditorialStandardsContent = {
       paragraphs: [
         "Content is authored and reviewed by the eBikeQuest Editorial Team. As we grow, guest experts and regional contributors will be identified by name with relevant credentials.",
         "Contributors must disclose conflicts of interest. We do not accept payment for favorable trail or business listings.",
+      ],
+    },
+    {
+      id: "affiliate-policy",
+      heading: "Affiliate and monetization policy",
+      paragraphs: [
+        "eBikeQuest may use affiliate links, including Amazon Associates links, to help support the site. Affiliate relationships do not determine what we cover or recommend.",
+        "Product and gear suggestions will be based on usefulness, specifications, rider needs, research, and editorial judgment — not commission rates.",
+        "We will only claim hands-on testing, formal reviews, or lab results when that work was actually performed. Sponsored or affiliate relationships will be disclosed clearly.",
+        "See our Affiliate Disclosure page for program details and the Amazon Associates statement required on applicable pages.",
+      ],
+      listItems: [
+        "Affiliate income does not control editorial recommendations",
+        "Disclose affiliate relationships on pages with affiliate links",
+        "Do not copy Amazon prices, ratings, reviews, or product descriptions",
+        "Use approved Amazon tools or owned assets for Amazon product media after approval",
       ],
     },
     {

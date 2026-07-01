@@ -24,9 +24,35 @@ npm run dev
 ```bash
 npm run validate:content
 npm run validate:seo
+npm run validate:affiliate
 ```
 
-Build runs both validators automatically via `vercel.json`.
+Build runs all validators automatically via `vercel.json`.
+
+## Affiliate and Amazon Associates readiness
+
+eBikeQuest is prepared for future affiliate content (buying guides, gear recommendations, comparison pages) but does **not** yet publish product pages or affiliate links.
+
+Before adding affiliate links:
+
+- Include clear disclosures using components in `components/affiliate/`
+- Publish the full policy at `/affiliate-disclosure`
+- On pages with Amazon affiliate links, include: *"As an Amazon Associate I earn from qualifying purchases."*
+
+**Amazon content rules (do not violate):**
+
+- Do **not** scrape Amazon product pages
+- Do **not** manually copy Amazon product images, prices, star ratings, review counts, or customer review text into content files
+- Use Amazon assets only through approved Amazon Associates tools, the Product Advertising API, SiteStripe, or separately licensed/owned assets
+- Pair any Amazon assets with substantial original editorial content on each page
+
+Run affiliate safeguards with:
+
+```bash
+npm run validate:affiliate
+```
+
+Future gear/product content belongs under `content/gear/` or `content/products/` and should use types in `types/gear.ts`.
 
 ## Adding photos
 
