@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-25",
+  "updatedAt": "2026-06-29",
   "topics": [
     {
       "id": "throttle-ebikes-mount-vernon-trail",
@@ -35,7 +35,7 @@
         "PeopleForBikes Class 2 definition"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": "2026-06-27",
+      "scheduledFor": "2026-07-01",
       "publishedAt": null
     },
     {
@@ -108,7 +108,7 @@
         "D.C. Code § 50-1605"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": "2026-07-01",
+      "scheduledFor": null,
       "publishedAt": null
     },
     {
@@ -126,7 +126,7 @@
       "jurisdictions": ["virginia"],
       "priority": 88,
       "status": "queued",
-      "rationale": "Commuters search for Class 3 legality on NOVA bike lanes and shared paths—statute-backed guide with links to VA law and W&OD access rules.",
+      "rationale": "Commuters search Class 3 legality on NOVA bike lanes and shared paths—statute-backed guide linking VA law pages and W&OD trail access rules.",
       "primaryUrlOwner": "new-guide",
       "internalLinks": {
         "guides": [
@@ -162,7 +162,7 @@
       "proposedSlug": "class-3-ebikes-washington-and-old-dominion-trail",
       "category": "regulations",
       "jurisdictions": ["virginia"],
-      "priority": 87,
+      "priority": 86,
       "status": "queued",
       "rationale": "W&OD is the region's busiest rail-trail—Class 3 access is a frequent rider question where state law and NOVA Parks policy must be reconciled.",
       "primaryUrlOwner": "new-guide",
@@ -200,7 +200,7 @@
       "proposedSlug": "ebike-rules-co-canal-towpath",
       "category": "regulations",
       "jurisdictions": ["washington-dc", "maryland"],
-      "priority": 86,
+      "priority": 85,
       "status": "queued",
       "rationale": "Cross-jurisdiction NPS trail spanning DC and Maryland—riders need federal compendium rules plus state context, with links to both trail segments.",
       "primaryUrlOwner": "new-guide",
@@ -238,7 +238,7 @@
       "proposedSlug": "capital-crescent-trail-ebike-access",
       "category": "regulations",
       "jurisdictions": ["maryland", "washington-dc"],
-      "priority": 85,
+      "priority": 84,
       "status": "queued",
       "rationale": "Popular commuter corridor crossing MD and DC segments—trail-specific access rules differ by manager and segment, ideal for eBikeQuest trail data.",
       "primaryUrlOwner": "new-guide",
@@ -277,7 +277,7 @@
       "proposedSlug": "ebike-lighting-requirements-mid-atlantic",
       "category": "regulations",
       "jurisdictions": ["virginia", "maryland", "washington-dc"],
-      "priority": 82,
+      "priority": 81,
       "status": "queued",
       "rationale": "Commuters and night riders search equipment rules by state—statute-backed comparison with links to three law pages and the regulations overview.",
       "primaryUrlOwner": "new-guide",
@@ -309,7 +309,7 @@
       "proposedSlug": "rail-trail-speed-limits-ebikes-mid-atlantic",
       "category": "riding-skills",
       "jurisdictions": [],
-      "priority": 81,
+      "priority": 80,
       "status": "queued",
       "rationale": "Bridges etiquette and regulations—posted speed limits vary by trail manager and eBikeQuest can cite NOVA Parks, NPS, and state path rules.",
       "primaryUrlOwner": "new-guide",
@@ -555,7 +555,7 @@
       "proposedSlug": "ebike-sidewalk-rules-washington-dc-cbd",
       "category": "regulations",
       "jurisdictions": ["washington-dc"],
-      "priority": 84,
+      "priority": 83,
       "status": "queued",
       "rationale": "DC's CBD sidewalk ban catches commuters who ride Class 2/3 downtown—statute-backed guide linking DCMR rules, DDOT CBD map, and the DC riding guide.",
       "primaryUrlOwner": "new-guide",
@@ -792,6 +792,303 @@
         "Patapsco Valley State Park trail use policies"
       ],
       "addedAt": "2026-06-25",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "montgomery-parks-class-1-ebike-natural-surface-trails",
+      "targetKeyword": "montgomery parks class 1 e-bike natural surface trails",
+      "secondaryKeywords": [
+        "class 1 e-bike montgomery county parks",
+        "m-ncppc e-bike natural surface directive",
+        "montgomery parks e-bike enforcement 2026"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "Montgomery Parks Class 1 E-Bike Rules on Natural Surface Trails",
+      "proposedSlug": "montgomery-parks-class-1-ebike-natural-surface-trails",
+      "category": "regulations",
+      "jurisdictions": ["maryland"],
+      "priority": 94,
+      "status": "queued",
+      "rationale": "June 2026 MC-26-001 directive opens natural-surface trails to Class 1 e-bikes—timely query linking Montgomery Parks policy, Capital Crescent, and MD law.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-maryland"
+        ],
+        "trails": [
+          { "jurisdiction": "maryland", "slug": "capital-crescent-trail" }
+        ],
+        "laws": ["maryland"]
+      },
+      "competingUrlsOnSite": ["capital-crescent-trail-ebike-access"],
+      "sourceHints": [
+        "M-NCPPC Park Directive MC-26-001 (June 18, 2026)",
+        "Montgomery Parks e-bike natural surface trails announcement",
+        "Maryland Transportation Article § 21-1205.2"
+      ],
+      "addedAt": "2026-06-29",
+      "scheduledFor": "2026-07-04",
+      "publishedAt": null
+    },
+    {
+      "id": "ba-trail-ebike-rules-anne-arundel",
+      "targetKeyword": "b&a trail e-bike rules anne arundel",
+      "secondaryKeywords": [
+        "baltimore annapolis trail e-bike speed limit",
+        "anne arundel county e-bike trails",
+        "class 3 e-bike b&a trail"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Rules on the B&A Trail in Anne Arundel County",
+      "proposedSlug": "ba-trail-ebike-rules-anne-arundel",
+      "category": "regulations",
+      "jurisdictions": ["maryland"],
+      "priority": 78,
+      "status": "queued",
+      "rationale": "Anne Arundel's 15 mph trail cap and Class 1–3 allowance on the B&A differ from DNR rail-trails—trail-specific guide linking county rules and MD statute.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-maryland",
+          "mid-atlantic-trail-etiquette"
+        ],
+        "trails": [{ "jurisdiction": "maryland", "slug": "baltimore-and-ohio-trail" }],
+        "laws": ["maryland"]
+      },
+      "competingUrlsOnSite": ["rail-trail-speed-limits-ebikes-mid-atlantic"],
+      "sourceHints": [
+        "Anne Arundel County Recreation and Parks trail rules",
+        "Maryland Transportation Article § 21-1205.2",
+        "B&A Trail safety and ethics page"
+      ],
+      "addedAt": "2026-06-29",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "northern-central-trail-ebike-rules-maryland",
+      "targetKeyword": "torrey c brown trail e-bike rules",
+      "secondaryKeywords": [
+        "northern central trail class 2 e-bike ban",
+        "ncr trail e-bike maryland dnr",
+        "class 3 e-bike torrey c brown"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Rules on the Torrey C. Brown (Northern Central) Trail",
+      "proposedSlug": "northern-central-trail-ebike-rules-maryland",
+      "category": "regulations",
+      "jurisdictions": ["maryland"],
+      "priority": 82,
+      "status": "queued",
+      "rationale": "DNR's Torrey C. Brown Trail allows Class 1/3 pedal-assist but bans Class 2 throttle—a nuanced policy riders search before Baltimore County rides.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-maryland"
+        ],
+        "trails": [{ "jurisdiction": "maryland", "slug": "northern-central-trail" }],
+        "laws": ["maryland"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "Maryland DNR Bike and E-bike Regulation FAQ",
+        "Maryland Transportation Article § 21-1205.2",
+        "Torrey C. Brown Rail Trail park page"
+      ],
+      "addedAt": "2026-06-29",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "national-mall-ebike-rules-washington-dc",
+      "targetKeyword": "e-bike national mall washington dc rules",
+      "secondaryKeywords": [
+        "can you ride e-bike on national mall",
+        "nps e-bike memorial parks dc",
+        "class 3 e-bike national mall"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Rules for National Mall Connector Routes in DC",
+      "proposedSlug": "national-mall-ebike-rules-washington-dc",
+      "category": "regulations",
+      "jurisdictions": ["washington-dc"],
+      "priority": 87,
+      "status": "queued",
+      "rationale": "Tourists and commuters search NPS vs DDOT rules on Mall connectors—federal record of determination plus DC's 20 mph cap and Class 3 ban need a clear guide.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-washington-dc",
+          "mid-atlantic-trail-etiquette"
+        ],
+        "trails": [{ "jurisdiction": "washington-dc", "slug": "national-mall-connector-routes" }],
+        "laws": ["washington-dc"]
+      },
+      "competingUrlsOnSite": ["ebike-sidewalk-rules-washington-dc-cbd"],
+      "sourceHints": [
+        "NPS National Mall and Memorial Parks record of determination",
+        "D.C. Code § 50-2201.02(11A)",
+        "DDOT bicycle facilities and cycle track guidance"
+      ],
+      "addedAt": "2026-06-29",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "james-river-park-ebike-rules-richmond",
+      "targetKeyword": "james river park e-bike rules richmond",
+      "secondaryKeywords": [
+        "belle isle e-bike allowed",
+        "richmond jrps motorized trail ban",
+        "class 1 e-mtb james river park"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Rules at James River Park in Richmond, Virginia",
+      "proposedSlug": "james-river-park-ebike-rules-richmond",
+      "category": "regulations",
+      "jurisdictions": ["virginia"],
+      "priority": 76,
+      "status": "queued",
+      "rationale": "JRPS posts no motorized vehicles on trails while Virginia statute treats e-bikes as bicycles—ambiguous local policy riders need clarified with primary sources.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-virginia"
+        ],
+        "trails": [{ "jurisdiction": "virginia", "slug": "james-river-park-belle-isle" }],
+        "laws": ["virginia"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "James River Park System trail rules (jamesriverpark.org)",
+        "Belle Isle Skills Area non-motorized bicycle rule",
+        "Virginia Code § 46.2-904.1"
+      ],
+      "addedAt": "2026-06-29",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "northeast-branch-trail-ebike-rules",
+      "targetKeyword": "northeast branch trail e-bike rules",
+      "secondaryKeywords": [
+        "prince georges county e-bike trails",
+        "anacostia tributary trail e-bike",
+        "pg parks e-bike 500 watt limit"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "Northeast Branch Trail E-Bike Rules in Prince George's County",
+      "proposedSlug": "northeast-branch-trail-ebike-rules",
+      "category": "regulations",
+      "jurisdictions": ["maryland"],
+      "priority": 74,
+      "status": "queued",
+      "rationale": "PG Parks Directive PG-23-01 caps e-bikes at 500 watts on tributary trails—riders need the wattage and Class 3 limits before linking to the Anacostia network.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-maryland"
+        ],
+        "trails": [{ "jurisdiction": "maryland", "slug": "northeast-branch-trail" }],
+        "laws": ["maryland"]
+      },
+      "competingUrlsOnSite": ["anacostia-riverwalk-trail-ebike-rules"],
+      "sourceHints": [
+        "PG Parks Park Directive PG-23-01",
+        "Maryland Transportation Article § 21-1205.2(a)(2)",
+        "M-NCPPC Prince George's County Parks trail rules"
+      ],
+      "addedAt": "2026-06-29",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "class-2-ebike-restrictions-maryland-rail-trails",
+      "targetKeyword": "class 2 e-bike banned maryland rail trails",
+      "secondaryKeywords": [
+        "throttle e-bike maryland dnr trails",
+        "western maryland rail trail class 2",
+        "torrey c brown class 2 ban"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "Where Class 2 E-Bikes Are Banned on Maryland Rail-Trails",
+      "proposedSlug": "class-2-ebike-restrictions-maryland-rail-trails",
+      "category": "regulations",
+      "jurisdictions": ["maryland"],
+      "priority": 79,
+      "status": "queued",
+      "rationale": "DNR rail-trails restrict throttle-assist Class 2 bikes while county paved paths allow them—comparison guide linking NCR, WMRT policy, and MD statute.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-maryland"
+        ],
+        "trails": [
+          { "jurisdiction": "maryland", "slug": "northern-central-trail" },
+          { "jurisdiction": "maryland", "slug": "baltimore-and-ohio-trail" }
+        ],
+        "laws": ["maryland"]
+      },
+      "competingUrlsOnSite": ["northern-central-trail-ebike-rules-maryland"],
+      "sourceHints": [
+        "Maryland DNR Bike and E-bike Regulation FAQ",
+        "Western Maryland Rail Trail e-bike policy",
+        "Maryland Transportation Article § 21-1205.2"
+      ],
+      "addedAt": "2026-06-29",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "ebike-minimum-age-virginia-maryland-dc",
+      "targetKeyword": "e-bike minimum age virginia maryland dc",
+      "secondaryKeywords": [
+        "how old to ride class 3 e-bike virginia",
+        "maryland e-bike age limit class 3",
+        "dc e-bike operator age 16"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Minimum Age Rules: Virginia, Maryland, and DC",
+      "proposedSlug": "ebike-minimum-age-virginia-maryland-dc",
+      "category": "regulations",
+      "jurisdictions": ["virginia", "maryland", "washington-dc"],
+      "priority": 72,
+      "status": "queued",
+      "rationale": "Families search age limits by class and jurisdiction—Class 3 under-16 bans and DC's 16+ operator rule differ from helmet laws and need a dedicated guide.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-virginia",
+          "riding-ebikes-in-maryland",
+          "riding-ebikes-in-washington-dc"
+        ],
+        "trails": [],
+        "laws": ["virginia", "maryland", "washington-dc"]
+      },
+      "competingUrlsOnSite": ["ebike-helmet-laws-virginia-maryland-dc"],
+      "sourceHints": [
+        "Virginia Code § 46.2-904.1(H)",
+        "Maryland Transportation Article § 21-1205.2(b)",
+        "D.C. Code § 50-2201.02 operator age provision"
+      ],
+      "addedAt": "2026-06-29",
       "scheduledFor": null,
       "publishedAt": null
     }
