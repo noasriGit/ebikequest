@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-29",
+  "updatedAt": "2026-07-06",
   "topics": [
     {
       "id": "throttle-ebikes-mount-vernon-trail",
@@ -35,7 +35,7 @@
         "PeopleForBikes Class 2 definition"
       ],
       "addedAt": "2026-06-25",
-      "scheduledFor": "2026-07-01",
+      "scheduledFor": "2026-07-07",
       "publishedAt": null
     },
     {
@@ -162,7 +162,7 @@
       "proposedSlug": "class-3-ebikes-washington-and-old-dominion-trail",
       "category": "regulations",
       "jurisdictions": ["virginia"],
-      "priority": 86,
+      "priority": 85,
       "status": "queued",
       "rationale": "W&OD is the region's busiest rail-trail—Class 3 access is a frequent rider question where state law and NOVA Parks policy must be reconciled.",
       "primaryUrlOwner": "new-guide",
@@ -200,7 +200,7 @@
       "proposedSlug": "ebike-rules-co-canal-towpath",
       "category": "regulations",
       "jurisdictions": ["washington-dc", "maryland"],
-      "priority": 85,
+      "priority": 86,
       "status": "queued",
       "rationale": "Cross-jurisdiction NPS trail spanning DC and Maryland—riders need federal compendium rules plus state context, with links to both trail segments.",
       "primaryUrlOwner": "new-guide",
@@ -518,7 +518,7 @@
       "proposedSlug": "rock-creek-trail-ebike-access",
       "category": "regulations",
       "jurisdictions": ["washington-dc"],
-      "priority": 89,
+      "priority": 90,
       "status": "queued",
       "rationale": "NPS Rock Creek Park compendium defines paved-trail e-bike access and 15 mph limits—high DC commuter intent with a dedicated trail page on eBikeQuest.",
       "primaryUrlOwner": "new-guide",
@@ -830,7 +830,7 @@
         "Maryland Transportation Article § 21-1205.2"
       ],
       "addedAt": "2026-06-29",
-      "scheduledFor": "2026-07-04",
+      "scheduledFor": null,
       "publishedAt": null
     },
     {
@@ -1089,6 +1089,269 @@
         "D.C. Code § 50-2201.02 operator age provision"
       ],
       "addedAt": "2026-06-29",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "maryland-dnr-class-1-ebike-state-trails-2026",
+      "targetKeyword": "maryland dnr class 1 e-bike state trails 2026",
+      "secondaryKeywords": [
+        "maryland state park e-bike rules july 2026",
+        "class 1 pedal assist maryland dnr trails",
+        "maryland natural surface e-bike allowed"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "Maryland DNR Class 1 E-Bike Rules on State Trails (2026 Update)",
+      "proposedSlug": "maryland-dnr-class-1-ebike-state-trails-2026",
+      "category": "regulations",
+      "jurisdictions": ["maryland"],
+      "priority": 95,
+      "status": "queued",
+      "rationale": "July 2026 DNR rules open Maryland state multi-use trails to Class 1 pedal-assist e-bikes statewide—timely guide linking DNR FAQ, WMRT, and MD statute.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-maryland"
+        ],
+        "trails": [
+          { "jurisdiction": "maryland", "slug": "northern-central-trail" },
+          { "jurisdiction": "maryland", "slug": "patapsco-valley-state-park-trails" }
+        ],
+        "laws": ["maryland"]
+      },
+      "competingUrlsOnSite": [
+        "class-2-ebike-restrictions-maryland-rail-trails",
+        "montgomery-parks-class-1-ebike-natural-surface-trails"
+      ],
+      "sourceHints": [
+        "Maryland DNR July 1, 2026 state trails e-bike announcement",
+        "DNR Bike and E-bike Regulation FAQ Sheet",
+        "Maryland Transportation Article § 21-1205.2"
+      ],
+      "addedAt": "2026-07-06",
+      "scheduledFor": "2026-07-10",
+      "publishedAt": null
+    },
+    {
+      "id": "western-maryland-rail-trail-ebike-rules",
+      "targetKeyword": "western maryland rail trail e-bike rules",
+      "secondaryKeywords": [
+        "class 1 wmrt e-bike allowed",
+        "western maryland rail trail throttle ban",
+        "wmrt c&o canal e-bike connector"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Rules on the Western Maryland Rail Trail",
+      "proposedSlug": "western-maryland-rail-trail-ebike-rules",
+      "category": "regulations",
+      "jurisdictions": ["maryland"],
+      "priority": 78,
+      "status": "queued",
+      "rationale": "WMRT was the original Maryland DNR Class 1 rail-trail—riders still search throttle bans and C&O towpath connector rules before Potomac Valley trips.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-maryland"
+        ],
+        "trails": [
+          { "jurisdiction": "maryland", "slug": "northern-central-trail" },
+          { "jurisdiction": "maryland", "slug": "great-allegheny-passage-maryland" }
+        ],
+        "laws": ["maryland"]
+      },
+      "competingUrlsOnSite": ["class-2-ebike-restrictions-maryland-rail-trails"],
+      "sourceHints": [
+        "Maryland DNR Western Maryland Rail Trail park page",
+        "DNR Bike and E-bike Regulation FAQ Sheet",
+        "Maryland Transportation Article § 21-1205.2"
+      ],
+      "addedAt": "2026-07-06",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "indian-head-rail-trail-ebike-rules",
+      "targetKeyword": "indian head rail trail e-bike rules",
+      "secondaryKeywords": [
+        "charles county e-bike trails",
+        "ihrt e-bike class 3 allowed",
+        "indian head rail trail motorized vehicle"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Rules on the Indian Head Rail Trail in Charles County",
+      "proposedSlug": "indian-head-rail-trail-ebike-rules",
+      "category": "regulations",
+      "jurisdictions": ["maryland"],
+      "priority": 72,
+      "status": "queued",
+      "rationale": "Charles County's 13-mile IHRT allows all MD e-bike classes but county motorized-vehicle rules confuse riders—statute-backed guide with trail links.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-maryland",
+          "mid-atlantic-trail-etiquette"
+        ],
+        "trails": [{ "jurisdiction": "maryland", "slug": "indian-head-rail-trail" }],
+        "laws": ["maryland"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "Charles County Recreation, Parks, and Tourism facility rules",
+        "Maryland Transportation Article § 21-1205.2",
+        "Maryland § 11-117.1 e-bike definition"
+      ],
+      "addedAt": "2026-07-06",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "fort-circle-trail-ebike-rules-dc",
+      "targetKeyword": "fort circle trail e-bike rules dc",
+      "secondaryKeywords": [
+        "civil war defenses washington e-bike",
+        "fort stanton hiker biker trail e-bike",
+        "nps fort circle class 1 only"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "Fort Circle Trail E-Bike Rules in Washington DC",
+      "proposedSlug": "fort-circle-trail-ebike-rules-dc",
+      "category": "regulations",
+      "jurisdictions": ["washington-dc"],
+      "priority": 70,
+      "status": "queued",
+      "rationale": "NPS Fort Circle hiker-biker trail permits Class 1 e-bikes on select mixed tread while natural fort paths ban bikes—ambiguous DC federal rules need clarity.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-washington-dc",
+          "mid-atlantic-trail-etiquette"
+        ],
+        "trails": [{ "jurisdiction": "washington-dc", "slug": "fort-circle-trail-network" }],
+        "laws": ["washington-dc"]
+      },
+      "competingUrlsOnSite": ["anacostia-riverwalk-trail-ebike-rules"],
+      "sourceHints": [
+        "NPS National Capital Parks-East Superintendent's Compendium",
+        "NPS Civil War Defenses of Washington trail guide",
+        "D.C. Code § 50-2201.02(11A)"
+      ],
+      "addedAt": "2026-07-06",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "assateague-island-ebike-trails-maryland",
+      "targetKeyword": "assateague island e-bike trails maryland",
+      "secondaryKeywords": [
+        "assateague bayberry drive bike path e-bike",
+        "nps assateague e-bike beach rules",
+        "class 2 e-bike assateague island"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Rules on Assateague Island Trails in Maryland",
+      "proposedSlug": "assateague-island-ebike-trails-maryland",
+      "category": "regulations",
+      "jurisdictions": ["maryland"],
+      "priority": 68,
+      "status": "queued",
+      "rationale": "Assateague NPS limits e-bikes to Bayberry Drive bike path—not beaches or sand—coastal riders need federal compendium rules before summer trips.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-maryland"
+        ],
+        "trails": [{ "jurisdiction": "maryland", "slug": "assateague-island-trails" }],
+        "laws": ["maryland"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "NPS Assateague Island National Seashore bicycle regulations",
+        "NPS e-bike policy memorandum",
+        "Maryland Transportation Article § 21-1205.2"
+      ],
+      "addedAt": "2026-07-06",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "powhatan-state-park-ebike-rules-virginia",
+      "targetKeyword": "powhatan state park e-bike rules",
+      "secondaryKeywords": [
+        "class 1 e-mtb powhatan state park",
+        "james river e-bike trails virginia",
+        "dcr e-bike designated bike trails"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Rules at Powhatan State Park in Virginia",
+      "proposedSlug": "powhatan-state-park-ebike-rules-virginia",
+      "category": "regulations",
+      "jurisdictions": ["virginia"],
+      "priority": 67,
+      "status": "queued",
+      "rationale": "Powhatan allows Class 1/2 e-bikes only on bike-designated trails—not hiking routes—Richmond-area riders search DCR maps before James River rides.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-virginia"
+        ],
+        "trails": [{ "jurisdiction": "virginia", "slug": "powhatan-state-park-trails" }],
+        "laws": ["virginia"]
+      },
+      "competingUrlsOnSite": ["james-river-park-ebike-rules-richmond"],
+      "sourceHints": [
+        "Virginia DCR state parks e-bike policy PDF",
+        "4VAC5-30-276 Virginia State Parks bicycle regulations",
+        "Powhatan State Park trail guide"
+      ],
+      "addedAt": "2026-07-06",
+      "scheduledFor": null,
+      "publishedAt": null
+    },
+    {
+      "id": "first-landing-state-park-ebike-rules-virginia",
+      "targetKeyword": "first landing state park e-bike rules",
+      "secondaryKeywords": [
+        "cape henry trail e-bike allowed",
+        "virginia beach state park e-bike",
+        "live oak trail e-bike first landing"
+      ],
+      "searchIntent": "informational",
+      "proposedTitle": "E-Bike Rules at First Landing State Park in Virginia Beach",
+      "proposedSlug": "first-landing-state-park-ebike-rules-virginia",
+      "category": "regulations",
+      "jurisdictions": ["virginia"],
+      "priority": 66,
+      "status": "queued",
+      "rationale": "First Landing restricts e-bikes to Cape Henry and Live Oak trails only—Virginia Beach tourists search which boardwalks ban bikes before coastal visits.",
+      "primaryUrlOwner": "new-guide",
+      "internalLinks": {
+        "guides": [
+          "ebike-classes-explained",
+          "ebike-regulations-overview",
+          "riding-ebikes-in-virginia"
+        ],
+        "trails": [{ "jurisdiction": "virginia", "slug": "first-landing-state-park-trails" }],
+        "laws": ["virginia"]
+      },
+      "competingUrlsOnSite": [],
+      "sourceHints": [
+        "Virginia DCR First Landing State Park trail guide",
+        "Virginia DCR state parks e-bike policy PDF",
+        "4VAC5-30-276 Virginia State Parks bicycle regulations"
+      ],
+      "addedAt": "2026-07-06",
       "scheduledFor": null,
       "publishedAt": null
     }
