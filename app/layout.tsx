@@ -55,6 +55,12 @@ export default function RootLayout({
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
+        <Script
+          async
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="nEzffqPpaS32Kom8wFqW9g"
+          strategy="afterInteractive"
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} bg-paper-texture min-h-screen antialiased`}
