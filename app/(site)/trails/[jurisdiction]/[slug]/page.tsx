@@ -50,11 +50,14 @@ export async function generateMetadata({
   const trail = await getTrail(jurisdiction, slug);
   if (!trail) return {};
   const pageTitle = trail.seo?.title ?? buildTrailPageTitle(trail.title, jurisdiction);
+  const coverImage = getTrailCoverImage(trail);
   return buildPageMetadata({
     title: pageTitle,
     description: trail.description,
     path: `/trails/${jurisdiction}/${slug}`,
     type: trail.sections?.length ? "article" : "website",
+    ogImage: coverImage.src,
+    ogImageAlt: coverImage.alt,
   });
 }
 

@@ -46,6 +46,8 @@ export async function generateMetadata({
     title: `${name} E-Bike Laws, Classes, Trails & Rules`,
     description: law.description,
     path: `/laws/${jurisdiction}`,
+    ogImage: getJurisdictionImage(jurisdiction as JurisdictionSlug),
+    ogImageAlt: `${name} e-bike laws`,
   });
 }
 

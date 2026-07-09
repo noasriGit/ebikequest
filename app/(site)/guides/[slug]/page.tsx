@@ -35,6 +35,8 @@ export async function generateMetadata({
     description: guide.description,
     path: `/guides/${slug}`,
     type: "article",
+    ogImage: getGuideImage(guide.category),
+    ogImageAlt: guide.title,
   });
 }
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { marketingImages } from "@/config/images";
 import { siteConfig } from "@/config/site";
 
 interface BuildMetadataOptions {
@@ -6,9 +7,12 @@ interface BuildMetadataOptions {
   description: string;
   path: string;
   ogImage?: string;
+  ogImageAlt?: string;
   noIndex?: boolean;
   type?: "website" | "article";
 }
+
+const DEFAULT_OG_IMAGE = marketingImages.hero;
 
 export function buildCanonical(path: string): string {
   const base = siteConfig.url.replace(/\/$/, "");
@@ -16,15 +20,23 @@ export function buildCanonical(path: string): string {
   return `${base}${normalized}`;
 }
 
+export function buildAbsoluteAssetUrl(assetPath: string): string {
+  if (assetPath.startsWith("http")) return assetPath;
+  return buildCanonical(assetPath);
+}
+
 export function buildPageMetadata({
   title,
   description,
   path,
   ogImage,
+  ogImageAlt,
   noIndex = false,
   type = "website",
 }: BuildMetadataOptions): Metadata {
   const canonical = buildCanonical(path);
+  const ogImageUrl = buildAbsoluteAssetUrl(ogImage ?? DEFAULT_OG_IMAGE);
+  const images = [{ url: ogImageUrl, alt: ogImageAlt ?? title }];
 
   return {
     title,
@@ -37,12 +49,13 @@ export function buildPageMetadata({
       url: canonical,
       siteName: siteConfig.name,
       type,
-      images: ogImage ? [{ url: ogImage }] : undefined,
+      images,
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [ogImageUrl],
     },
   };
 }
