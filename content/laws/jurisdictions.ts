@@ -6,7 +6,7 @@ export const virginiaLaw: JurisdictionLaw = {
   slug: "virginia",
   title: "Virginia E-Bike Laws",
   description:
-    "Virginia three-class e-bike statutes under Va. Code § 46.2-904.1: Class 3 helmet rules, age 14+ limits, trail access, and registration requirements explained.",
+    "Virginia e-bike laws explained: Class 1–3 rules, where e-bikes can ride, trail access policies, helmet requirements for Class 3, and source-backed FAQ.",
   ...EDITORIAL_DEFAULTS,
   updatedAt: "2026-06-18",
   jurisdiction: "virginia",
@@ -147,7 +147,7 @@ export const marylandLaw: JurisdictionLaw = {
   slug: "maryland",
   title: "Maryland E-Bike Laws",
   description:
-    "Maryland three-class e-bike law: Class 3 age 16+, path bans, helmets under 16, and HB 375 sidewalk riding rules effective October 2025 statewide.",
+    "Maryland e-bike laws explained: Class 1–3 rules, local trail access, rider age and helmet requirements, sidewalk riding updates, and source-backed FAQ.",
   ...EDITORIAL_DEFAULTS,
   updatedAt: "2026-06-18",
   jurisdiction: "maryland",

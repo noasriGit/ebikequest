@@ -23,7 +23,7 @@ export function TrailCard({ trail }: { trail: Trail }) {
           src={cover.src}
           alt={cover.alt}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          preset="cardGrid"
           className="transition duration-300 group-hover:scale-[1.03]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[rgba(26,25,23,0.45)] via-transparent to-transparent" />

@@ -29,7 +29,7 @@ export function HomeHero({ image, trailCount, jurisdictionCount }: HomeHeroProps
           alt={image.alt}
           fill
           priority
-          sizes="100vw"
+          preset="hero"
           className="object-cover object-center brightness-[0.88] saturate-[1.08] contrast-[1.02]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[rgba(26,25,23,0.88)] via-[rgba(26,25,23,0.5)] to-[rgba(26,25,23,0.2)]" />

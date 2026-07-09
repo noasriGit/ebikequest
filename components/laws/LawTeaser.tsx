@@ -23,7 +23,7 @@ export function LawTeaserCards({ rows }: { rows: LawComparisonRow[] }) {
                 src={getJurisdictionImage(row.jurisdiction)}
                 alt=""
                 fill
-                sizes="(max-width: 640px) 100vw, 33vw"
+                preset="cardGrid"
                 className="object-cover transition duration-300 group-hover:scale-[1.03]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[rgba(26,25,23,0.55)] to-transparent" />

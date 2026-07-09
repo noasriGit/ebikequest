@@ -78,6 +78,7 @@ export default async function GuideDetailPage({
             updatedAt: guide.updatedAt,
             author: guide.author,
             reviewedBy: guide.reviewedBy,
+            imagePath: getGuideImage(guide.category),
           }),
           buildBreadcrumbSchema([
             { name: "Home", path: "/" },

@@ -36,7 +36,7 @@ export function PlatformCategoryGrid({ compact = false }: { compact?: boolean })
                     src={imageSrc}
                     alt=""
                     fill
-                    sizes="(max-width: 640px) 100vw, 33vw"
+                    preset="cardGrid"
                     className="object-cover transition duration-300 group-hover:scale-[1.03]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[rgba(26,25,23,0.5)] to-transparent" />

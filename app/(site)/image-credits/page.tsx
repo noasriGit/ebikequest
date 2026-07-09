@@ -7,7 +7,8 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildPageMetadata({
   title: "Image Credits",
-  description: "Photo attributions and licenses for images used on eBikeQuest.",
+  description:
+    "Image sources, licensing notes, and attribution details for photos used across eBikeQuest trail guides, law pages, and editorial content.",
   path: "/image-credits",
 });
 

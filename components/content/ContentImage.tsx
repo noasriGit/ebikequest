@@ -1,5 +1,8 @@
 import Image from "next/image";
+import { IMAGE_QUALITY, IMAGE_SIZES } from "@/lib/seo/image-presets";
 import { cn } from "@/lib/utils/cn";
+
+type ImagePreset = "hero" | "hubBanner" | "pageHeroStrip" | "cardGrid" | "halfWidth" | "editorial";
 
 interface ContentImageProps {
   src: string;
@@ -10,6 +13,23 @@ interface ContentImageProps {
   priority?: boolean;
   className?: string;
   sizes?: string;
+  quality?: number;
+  preset?: ImagePreset;
+}
+
+function resolveSizes(preset?: ImagePreset, sizes?: string): string {
+  if (sizes) return sizes;
+  if (preset) return IMAGE_SIZES[preset];
+  return IMAGE_SIZES.editorial;
+}
+
+function resolveQuality(preset?: ImagePreset, quality?: number): number {
+  if (quality != null) return quality;
+  if (preset === "hero" || preset === "hubBanner" || preset === "pageHeroStrip") {
+    return IMAGE_QUALITY.hero;
+  }
+  if (preset === "cardGrid") return IMAGE_QUALITY.card;
+  return IMAGE_QUALITY.default;
 }
 
 export function ContentImage({
@@ -20,8 +40,13 @@ export function ContentImage({
   height,
   priority = false,
   className,
-  sizes = "(max-width: 768px) 100vw, 50vw",
+  sizes,
+  quality,
+  preset,
 }: ContentImageProps) {
+  const resolvedSizes = resolveSizes(preset, sizes);
+  const resolvedQuality = resolveQuality(preset, quality);
+
   if (fill) {
     return (
       <Image
@@ -29,7 +54,8 @@ export function ContentImage({
         alt={alt}
         fill
         priority={priority}
-        sizes={sizes}
+        sizes={resolvedSizes}
+        quality={resolvedQuality}
         className={cn("object-cover", className)}
       />
     );
@@ -42,7 +68,8 @@ export function ContentImage({
       width={width ?? 1200}
       height={height ?? 675}
       priority={priority}
-      sizes={sizes}
+      sizes={resolvedSizes}
+      quality={resolvedQuality}
       className={cn("h-auto w-full object-cover", className)}
     />
   );

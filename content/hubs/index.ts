@@ -75,8 +75,8 @@ export const hubPages: HubPage[] = [
     jurisdiction: "washington-dc",
     intro: [
       "Washington DC packs an extraordinary amount of bike infrastructure into a compact urban footprint. Rock Creek Trail, the Anacostia Riverwalk, and C&O Canal segments connect neighborhoods to regional rail-trail networks in Maryland and Virginia.",
-      "DC recognizes Class 1, 2, and 3 e-bikes on most bike lanes and trails, but National Park Service corridors and certain federal lands may apply different rules than District-managed paths.",
-      "Trail listings below note which classes are permitted and link to managing agencies. Review DC e-bike regulations and NPS policies when routes cross federal park boundaries.",
+      "DC recognizes Class 1 and Class 2 e-bikes on most bike lanes and trails, but National Park Service corridors and certain federal lands may apply different rules than District-managed paths.",
+      "Trail listings below note which classes are permitted and link to managing agencies. Review DC e-bike regulations and our riding e-bikes in Washington DC guide when routes cross federal park boundaries.",
     ],
   },
 ];

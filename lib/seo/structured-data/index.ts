@@ -1,14 +1,36 @@
 import { siteConfig } from "@/config/site";
 import type { Author, FAQItem, Reviewer } from "@/types/content";
 
+const CANONICAL_SITE_URL = "https://www.ebikequest.com";
+
+function absoluteUrl(path: string): string {
+  const base = siteConfig.url.replace(/\/$/, "");
+  if (!path.startsWith("/")) return `${base}/${path}`;
+  return `${base}${path}`;
+}
+
+function absoluteImageUrl(imagePath: string): string {
+  if (imagePath.startsWith("http")) return imagePath;
+  return absoluteUrl(imagePath);
+}
+
+export function buildOrganizationEntity() {
+  return {
+    "@type": "Organization" as const,
+    name: siteConfig.name,
+    url: CANONICAL_SITE_URL,
+    description: siteConfig.description,
+  };
+}
+
 export function buildOrganizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: siteConfig.name,
-    url: siteConfig.url,
+    url: CANONICAL_SITE_URL,
     description: siteConfig.description,
-    publishingPrinciples: `${siteConfig.url}/editorial-standards`,
+    publishingPrinciples: `${CANONICAL_SITE_URL}/editorial-standards`,
   };
 }
 
@@ -17,7 +39,7 @@ export function buildWebSiteSchema() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: siteConfig.name,
-    url: siteConfig.url,
+    url: CANONICAL_SITE_URL,
     description: siteConfig.description,
   };
 }
@@ -32,7 +54,7 @@ export function buildBreadcrumbSchema(
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `${siteConfig.url}${item.path}`,
+      item: absoluteUrl(item.path),
     })),
   };
 }
@@ -71,35 +93,49 @@ export function buildArticleSchema(options: {
   updatedAt: string;
   author: Author;
   reviewedBy: Reviewer;
+  imagePath?: string;
 }) {
+  const imageUrl = absoluteImageUrl(options.imagePath ?? "/images/hero.jpg");
+
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: options.title,
     description: options.description,
-    url: `${siteConfig.url}${options.path}`,
+    url: absoluteUrl(options.path),
     datePublished: options.publishedAt,
     dateModified: options.updatedAt,
     author: buildPersonSchema(options.author),
     reviewedBy: buildPersonSchema(options.reviewedBy),
-    publisher: buildOrganizationSchema(),
+    publisher: buildOrganizationEntity(),
+    image: [imageUrl],
+    mainEntityOfPage: absoluteUrl(options.path),
   };
 }
 
-export function buildTrailSchema(options: {
+export function buildTrailPlaceSchema(options: {
   title: string;
   description: string;
   path: string;
+  locationName?: string;
   lat?: number;
   lng?: number;
 }) {
   return {
     "@context": "https://schema.org",
-    "@type": "SportsActivityLocation",
+    "@type": "Place",
     name: options.title,
     description: options.description,
-    url: `${siteConfig.url}${options.path}`,
-    ...(options.lat && options.lng
+    url: absoluteUrl(options.path),
+    ...(options.locationName
+      ? {
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: options.locationName,
+          },
+        }
+      : {}),
+    ...(options.lat != null && options.lng != null
       ? {
           geo: {
             "@type": "GeoCoordinates",
@@ -110,6 +146,9 @@ export function buildTrailSchema(options: {
       : {}),
   };
 }
+
+/** @deprecated Use buildTrailPlaceSchema */
+export const buildTrailSchema = buildTrailPlaceSchema;
 
 export function buildLawDatasetSchema(options: {
   title: string;
@@ -122,9 +161,9 @@ export function buildLawDatasetSchema(options: {
     "@type": "Dataset",
     name: options.title,
     description: options.description,
-    url: `${siteConfig.url}${options.path}`,
+    url: absoluteUrl(options.path),
     dateModified: options.lastUpdated,
-    creator: buildOrganizationSchema(),
+    creator: buildOrganizationEntity(),
   };
 }
 
@@ -138,7 +177,7 @@ export function buildItemListSchema(
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      url: `${siteConfig.url}${item.path}`,
+      url: absoluteUrl(item.path),
     })),
   };
 }
@@ -153,7 +192,7 @@ export function buildAboutPageSchema(options: {
     "@type": "AboutPage",
     name: options.title,
     description: options.description,
-    url: `${siteConfig.url}${options.path}`,
-    publisher: buildOrganizationSchema(),
+    url: absoluteUrl(options.path),
+    publisher: buildOrganizationEntity(),
   };
 }

@@ -25,7 +25,7 @@ export function TrailHero({
         alt={image.alt}
         fill
         priority
-        sizes="100vw"
+        preset="hero"
         className="object-cover brightness-[0.88] saturate-[1.05]"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[rgba(26,25,23,0.9)] via-[rgba(26,25,23,0.5)] to-[rgba(26,25,23,0.2)]" />
@@ -59,7 +59,7 @@ export function TrailImageGallery({ images }: { images: ContentImageRef[] }) {
             key={image.src}
             className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-md)] bg-surface-sunken"
           >
-            <ContentImage src={image.src} alt={image.alt} fill sizes="(max-width: 640px) 100vw, 50vw" />
+            <ContentImage src={image.src} alt={image.alt} fill preset="halfWidth" />
           </div>
         ))}
       </div>
@@ -76,7 +76,7 @@ export function TrailCoverHero({ image }: { image: ContentImageRef }) {
         alt={image.alt}
         fill
         priority
-        sizes="100vw"
+        preset="hero"
         className="brightness-95 saturate-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />

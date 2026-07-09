@@ -201,7 +201,7 @@ export default async function HomePage() {
           src={heroImage.src}
           alt=""
           fill
-          sizes="100vw"
+          preset="hero"
           className="object-cover brightness-[0.55] saturate-[1.05]"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[rgba(26,25,23,0.85)] to-[rgba(26,25,23,0.6)]" />

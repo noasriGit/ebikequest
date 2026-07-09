@@ -34,7 +34,7 @@ export function PhotoFrame({
           alt={alt}
           fill
           priority={priority}
-          sizes="(max-width: 768px) 100vw, 50vw"
+          preset="editorial"
           className={cn("object-cover", imageClassName)}
         />
       </div>

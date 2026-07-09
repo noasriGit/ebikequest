@@ -40,6 +40,7 @@ export const washingtonDcTrails: Trail[] = [
       "riverfront"
     ],
     relatedGuideSlugs: [
+      "riding-ebikes-in-washington-dc",
       "ebike-classes-explained",
       "mid-atlantic-trail-etiquette",
       "ebike-regulations-overview"
@@ -201,6 +202,7 @@ export const washingtonDcTrails: Trail[] = [
       "park"
     ],
     relatedGuideSlugs: [
+      "riding-ebikes-in-washington-dc",
       "ebike-classes-explained",
       "mid-atlantic-trail-etiquette",
       "ebike-regulations-overview"
@@ -364,6 +366,7 @@ export const washingtonDcTrails: Trail[] = [
       "commuter"
     ],
     relatedGuideSlugs: [
+      "riding-ebikes-in-washington-dc",
       "ebike-classes-explained",
       "mid-atlantic-trail-etiquette",
       "ebike-regulations-overview"
@@ -525,6 +528,7 @@ export const washingtonDcTrails: Trail[] = [
       "commuter"
     ],
     relatedGuideSlugs: [
+      "riding-ebikes-in-washington-dc",
       "ebike-classes-explained",
       "mid-atlantic-trail-etiquette",
       "ebike-regulations-overview"
@@ -684,6 +688,7 @@ export const washingtonDcTrails: Trail[] = [
       "landmarks"
     ],
     relatedGuideSlugs: [
+      "riding-ebikes-in-washington-dc",
       "ebike-classes-explained",
       "mid-atlantic-trail-etiquette",
       "ebike-regulations-overview"
@@ -844,6 +849,7 @@ export const washingtonDcTrails: Trail[] = [
       "mixed-surface"
     ],
     relatedGuideSlugs: [
+      "riding-ebikes-in-washington-dc",
       "ebike-classes-explained",
       "mid-atlantic-trail-etiquette",
       "ebike-regulations-overview"

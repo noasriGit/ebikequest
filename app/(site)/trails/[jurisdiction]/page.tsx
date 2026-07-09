@@ -73,12 +73,31 @@ export default async function JurisdictionTrailsPage({
           { label: name },
         ]}
       >
-        <Link href={`/laws/${jurisdiction}`} className="text-sm font-semibold link-editorial">
-          View {name} e-bike laws →
-        </Link>
+        <div className="flex flex-wrap gap-x-6 gap-y-2">
+          <Link href={`/laws/${jurisdiction}`} className="text-sm font-semibold link-editorial">
+            View {name} e-bike laws →
+          </Link>
+          {jurisdiction === "washington-dc" ? (
+            <Link
+              href="/guides/riding-ebikes-in-washington-dc"
+              className="text-sm font-semibold link-editorial"
+            >
+              Riding e-bikes in Washington DC →
+            </Link>
+          ) : null}
+        </div>
       </PageHero>
       <Container className="py-10">
         {hub?.intro.length ? <HubIntro paragraphs={hub.intro} /> : null}
+        {jurisdiction === "washington-dc" ? (
+          <p className="mb-10 max-w-3xl text-body-md text-text-secondary">
+            Planning a ride in the District? Read our{" "}
+            <Link href="/guides/riding-ebikes-in-washington-dc" className="link-editorial">
+              DC e-bike rules and local riding tips
+            </Link>{" "}
+            for helmet, age, and cross-jurisdiction guidance.
+          </p>
+        ) : null}
         <HubBanner image={hubImage} title={`${name} trail listings`} />
         <DirectoryGrid>
           {trails.map((trail) => (

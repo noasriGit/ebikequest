@@ -25,6 +25,7 @@ import {
   getTrails,
 } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+import { buildTrailPageTitle } from "@/lib/seo/titles";
 import { getTrailCoverImage, getTrailGalleryImages } from "@/lib/utils/images";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
@@ -48,9 +49,9 @@ export async function generateMetadata({
   if (!assertPublicJurisdiction(jurisdiction)) return {};
   const trail = await getTrail(jurisdiction, slug);
   if (!trail) return {};
-  const name = getJurisdictionName(jurisdiction);
+  const pageTitle = trail.seo?.title ?? buildTrailPageTitle(trail.title, jurisdiction);
   return buildPageMetadata({
-    title: trail.seo?.title ?? `${trail.title} E-Bike Trail, ${name}`,
+    title: pageTitle,
     description: trail.description,
     path: `/trails/${jurisdiction}/${slug}`,
     type: trail.sections?.length ? "article" : "website",
@@ -90,6 +91,7 @@ export default async function TrailDetailPage({
       title: trail.title,
       description: trail.description,
       path,
+      locationName: trail.location.name,
       lat: trail.location.coordinates?.lat,
       lng: trail.location.coordinates?.lng,
     }),
@@ -109,6 +111,7 @@ export default async function TrailDetailPage({
             updatedAt: trail.updatedAt,
             author: trail.author,
             reviewedBy: trail.reviewedBy,
+            imagePath: coverImage.src,
           }),
         ]
       : []),
@@ -320,6 +323,14 @@ export default async function TrailDetailPage({
                 >
                   View {jurisdictionName} e-bike laws →
                 </Link>
+                {jurisdiction === "washington-dc" ? (
+                  <Link
+                    href="/guides/riding-ebikes-in-washington-dc"
+                    className="block text-sm font-semibold text-brand hover:underline"
+                  >
+                    DC e-bike rules and local riding tips →
+                  </Link>
+                ) : null}
                 <TrailMapLink
                   lat={trail.location.coordinates?.lat}
                   lng={trail.location.coordinates?.lng}

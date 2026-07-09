@@ -13,7 +13,7 @@ export function HubBanner({ image, title }: HubBannerProps) {
         src={image.src}
         alt={image.alt}
         fill
-        sizes="100vw"
+        preset="hubBanner"
         className="object-cover brightness-95 saturate-[1.05]"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[rgba(26,25,23,0.55)] via-[rgba(26,25,23,0.15)] to-transparent" />

@@ -46,7 +46,7 @@ export function PageHero({
             alt={imageAlt ?? title}
             fill
             priority
-            sizes="100vw"
+            preset="pageHeroStrip"
             className="object-cover brightness-[0.9] saturate-[1.05]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[rgba(26,25,23,0.7)] to-transparent" />
@@ -90,7 +90,7 @@ export function PageHero({
               alt={imageAlt ?? title}
               fill
               priority
-              sizes="(max-width: 1024px) 100vw, 40vw"
+              preset="halfWidth"
               className="object-cover"
             />
           </div>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
@@ -38,10 +39,12 @@ export async function generateMetadata({
 }) {
   const { jurisdiction } = await params;
   if (!assertPublicJurisdiction(jurisdiction)) return {};
+  const law = await getLaw(jurisdiction);
+  if (!law) return {};
   const name = getJurisdictionName(jurisdiction);
   return buildPageMetadata({
     title: `${name} E-Bike Laws, Classes, Trails & Rules`,
-    description: `Comprehensive ${name} e-bike law guide with Class 1, 2, and 3 rules, trail access, and FAQ.`,
+    description: law.description,
     path: `/laws/${jurisdiction}`,
   });
 }
@@ -76,7 +79,16 @@ export default async function JurisdictionLawPage({
           { label: "Laws", href: "/laws" },
           { label: name },
         ]}
-      />
+      >
+        {jurisdiction === "washington-dc" ? (
+          <Link
+            href="/guides/riding-ebikes-in-washington-dc"
+            className="text-sm font-semibold link-editorial"
+          >
+            Washington DC e-bike riding tips →
+          </Link>
+        ) : null}
+      </PageHero>
       <JsonLd
         data={[
           buildArticleSchema({
@@ -87,6 +99,7 @@ export default async function JurisdictionLawPage({
             updatedAt: law.updatedAt,
             author: law.author,
             reviewedBy: law.reviewedBy,
+            imagePath: getJurisdictionImage(slug),
           }),
           buildFaqSchema(law.faq),
           buildBreadcrumbSchema([

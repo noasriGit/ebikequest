@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Guide, GuideSection } from "@/types/guide";
 import { Clock } from "lucide-react";
 import { getGuideImage } from "@/config/images";
@@ -27,13 +28,10 @@ export function GuideCard({
 }) {
   const accent = CATEGORY_ACCENTS[guide.category] ?? "border-l-brand";
   const coverImage = getGuideImage(guide.category);
+  const href = `/guides/${guide.slug}`;
 
   return (
-    <Card
-      href={`/guides/${guide.slug}`}
-      photo
-      className={cn("h-full", featured && "border-l-[3px]", accent)}
-    >
+    <Card photo className={cn("group relative h-full", featured && "border-l-[3px]", accent)}>
       <div
         className={cn(
           "relative overflow-hidden bg-surface-sunken",
@@ -44,7 +42,7 @@ export function GuideCard({
           src={coverImage}
           alt=""
           fill
-          sizes="(max-width: 640px) 100vw, 50vw"
+          preset="cardGrid"
           className="object-cover transition duration-300 group-hover:scale-[1.03]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[rgba(26,25,23,0.35)] to-transparent" />
@@ -52,9 +50,11 @@ export function GuideCard({
           <Badge variant="editorial">{GUIDE_CATEGORY_LABELS[guide.category]}</Badge>
         </div>
       </div>
-      <CardContent className={cn(large && "!pt-6")}>
+      <CardContent className={cn("relative", large && "!pt-6")}>
         <h3 className={cn("text-text-primary", large ? "text-display-lg" : "text-heading-md")}>
-          {guide.title}
+          <Link href={href} className="link-editorial after:absolute after:inset-0 after:content-['']">
+            {guide.title}
+          </Link>
         </h3>
         <p
           className={cn(
@@ -65,7 +65,7 @@ export function GuideCard({
           {guide.description}
         </p>
         <p className="mt-4 flex items-center gap-1.5 text-sm text-text-muted">
-          <Clock size={14} strokeWidth={1.5} />
+          <Clock size={14} strokeWidth={1.5} aria-hidden />
           {guide.readingTimeMinutes} min read
         </p>
       </CardContent>
