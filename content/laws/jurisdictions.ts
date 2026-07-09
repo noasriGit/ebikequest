@@ -305,12 +305,7 @@ export const washingtonDcLaw: JurisdictionLaw = {
       accessedAt: "2026-06-18",
     },
     {
-      label: "DCMR § 18-1201 – Safe operation of bicycles and motorized bicycles",
-      url: "https://dcrules.elaws.us/dcmr/18-1201",
-      accessedAt: "2026-06-18",
-    },
-    {
-      label: "DDOT E-Bike Guide – District compliance and safety",
+      label: "DDOT E-Bike Guide – District compliance, sidewalk rules, and safety",
       url: "https://ddot.dc.gov/sites/default/files/dc/sites/ddot/E-Bike%20Guide_FINAL%20%281%29.pdf",
       accessedAt: "2026-06-18",
     },

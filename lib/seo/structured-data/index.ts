@@ -2,6 +2,8 @@ import { siteConfig } from "@/config/site";
 import type { Author, FAQItem, Reviewer } from "@/types/content";
 
 const CANONICAL_SITE_URL = "https://www.ebikequest.com";
+const DEFAULT_IMAGE_PATH = "/images/hero.jpg";
+const PUBLISHER_LOGO_URL = `${CANONICAL_SITE_URL}/apple-touch-icon.png`;
 
 function absoluteUrl(path: string): string {
   const base = siteConfig.url.replace(/\/$/, "");
@@ -14,12 +16,43 @@ function absoluteImageUrl(imagePath: string): string {
   return absoluteUrl(imagePath);
 }
 
+function toIsoDateTime(date: string): string {
+  return date.includes("T") ? date : `${date}T00:00:00.000Z`;
+}
+
+function buildImageObject(imagePath: string, caption?: string) {
+  return {
+    "@type": "ImageObject",
+    url: absoluteImageUrl(imagePath),
+    ...(caption ? { caption } : {}),
+  };
+}
+
+function buildWebPageRef(path: string, name?: string) {
+  return {
+    "@type": "WebPage",
+    "@id": absoluteUrl(path),
+    ...(name ? { name } : {}),
+  };
+}
+
 export function buildOrganizationEntity() {
   return {
     "@type": "Organization" as const,
     name: siteConfig.name,
     url: CANONICAL_SITE_URL,
-    description: siteConfig.description,
+  };
+}
+
+function buildPublisherEntity() {
+  return {
+    "@type": "Organization" as const,
+    name: siteConfig.name,
+    url: CANONICAL_SITE_URL,
+    logo: {
+      "@type": "ImageObject",
+      url: PUBLISHER_LOGO_URL,
+    },
   };
 }
 
@@ -31,6 +64,10 @@ export function buildOrganizationSchema() {
     url: CANONICAL_SITE_URL,
     description: siteConfig.description,
     publishingPrinciples: `${CANONICAL_SITE_URL}/editorial-standards`,
+    logo: {
+      "@type": "ImageObject",
+      url: PUBLISHER_LOGO_URL,
+    },
   };
 }
 
@@ -54,7 +91,7 @@ export function buildBreadcrumbSchema(
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: absoluteUrl(item.path),
+      item: buildWebPageRef(item.path, item.name),
     })),
   };
 }
@@ -95,7 +132,7 @@ export function buildArticleSchema(options: {
   reviewedBy: Reviewer;
   imagePath?: string;
 }) {
-  const imageUrl = absoluteImageUrl(options.imagePath ?? "/images/hero.jpg");
+  const imagePath = options.imagePath ?? DEFAULT_IMAGE_PATH;
 
   return {
     "@context": "https://schema.org",
@@ -103,13 +140,13 @@ export function buildArticleSchema(options: {
     headline: options.title,
     description: options.description,
     url: absoluteUrl(options.path),
-    datePublished: options.publishedAt,
-    dateModified: options.updatedAt,
+    datePublished: toIsoDateTime(options.publishedAt),
+    dateModified: toIsoDateTime(options.updatedAt),
     author: buildPersonSchema(options.author),
     reviewedBy: buildPersonSchema(options.reviewedBy),
-    publisher: buildOrganizationEntity(),
-    image: [imageUrl],
-    mainEntityOfPage: absoluteUrl(options.path),
+    publisher: buildPublisherEntity(),
+    image: buildImageObject(imagePath, options.title),
+    mainEntityOfPage: buildWebPageRef(options.path),
   };
 }
 
@@ -132,6 +169,7 @@ export function buildTrailPlaceSchema(options: {
           address: {
             "@type": "PostalAddress",
             addressLocality: options.locationName,
+            addressCountry: "US",
           },
         }
       : {}),
@@ -162,7 +200,7 @@ export function buildLawDatasetSchema(options: {
     name: options.title,
     description: options.description,
     url: absoluteUrl(options.path),
-    dateModified: options.lastUpdated,
+    dateModified: toIsoDateTime(options.lastUpdated),
     creator: buildOrganizationEntity(),
   };
 }
@@ -193,6 +231,22 @@ export function buildAboutPageSchema(options: {
     name: options.title,
     description: options.description,
     url: absoluteUrl(options.path),
-    publisher: buildOrganizationEntity(),
+    publisher: buildPublisherEntity(),
+  };
+}
+
+export function toJsonLdDocument(
+  data: Record<string, unknown> | Record<string, unknown>[],
+): Record<string, unknown> {
+  if (!Array.isArray(data)) {
+    return data;
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": data.map((entry) => {
+      const { "@context": _context, ...rest } = entry;
+      return rest;
+    }),
   };
 }

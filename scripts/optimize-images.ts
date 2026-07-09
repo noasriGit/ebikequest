@@ -4,8 +4,8 @@ import sharp from "sharp";
 
 const root = path.join(process.cwd());
 const imagesDir = path.join(root, "public", "images");
-const MAX_WIDTH = 1920;
-const JPEG_QUALITY = 82;
+const MAX_WIDTH = 1280;
+const JPEG_QUALITY = 75;
 
 async function optimizeImage(filePath: string) {
   const relative = path.relative(path.join(root, "public"), filePath).replace(/\\/g, "/");
@@ -16,7 +16,7 @@ async function optimizeImage(filePath: string) {
   const needsResize = (metadata.width ?? 0) > MAX_WIDTH;
   const isJpeg = /\.jpe?g$/i.test(filePath);
 
-  if (!needsResize && isJpeg && before < 400 * 1024) {
+  if (!needsResize && isJpeg && before < 280 * 1024) {
     console.log(`skip: /${relative} (${Math.round(before / 1024)} KB)`);
     return;
   }

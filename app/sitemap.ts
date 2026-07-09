@@ -36,6 +36,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: `${base}/image-credits`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.3,
+    },
     { url: `${base}/suggest-trail`, lastModified: now, changeFrequency: "monthly", priority: 0.4 },
   ];
 

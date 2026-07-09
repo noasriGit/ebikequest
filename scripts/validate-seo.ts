@@ -8,6 +8,7 @@ import {
   buildBreadcrumbSchema,
   buildFaqSchema,
   buildTrailPlaceSchema,
+  toJsonLdDocument,
 } from "../lib/seo/structured-data";
 import { buildTrailPageTitle, SEO_TITLE_MAX_LENGTH } from "../lib/seo/titles";
 import { buildCanonical } from "../lib/seo/metadata";
@@ -48,6 +49,7 @@ function collectEmptyFields(value: unknown, pathPrefix = ""): string[] {
     if (value.trim() === "") return [pathPrefix];
     if (
       (pathPrefix.endsWith("url") ||
+        pathPrefix.endsWith("@id") ||
         pathPrefix.endsWith("item") ||
         pathPrefix.endsWith("image") ||
         pathPrefix.endsWith("mainEntityOfPage")) &&
@@ -80,6 +82,10 @@ function validateJsonLd(label: string, schema: Record<string, unknown>) {
   }
 }
 
+function validatePageGraph(label: string, schemas: Record<string, unknown>[]) {
+  validateJsonLd(label, toJsonLdDocument(schemas));
+}
+
 function validateCanonical(pathname: string, label: string) {
   const canonical = buildCanonical(pathname);
   if (!canonical.startsWith(CANONICAL_PREFIX)) {
@@ -101,8 +107,7 @@ function validateTrails() {
     validateCanonical(`/trails/${trail.jurisdiction}/${trail.slug}`, label);
 
     const path = `/trails/${trail.jurisdiction}/${trail.slug}`;
-    validateJsonLd(
-      `${label} place schema`,
+    const pageSchemas: Record<string, unknown>[] = [
       buildTrailPlaceSchema({
         title: trail.title,
         description: trail.description,
@@ -111,11 +116,10 @@ function validateTrails() {
         lat: trail.location.coordinates?.lat,
         lng: trail.location.coordinates?.lng,
       }),
-    );
+    ];
 
     if (trail.sections?.length) {
-      validateJsonLd(
-        `${label} article schema`,
+      pageSchemas.push(
         buildArticleSchema({
           title: trail.title,
           description: trail.description,
@@ -130,8 +134,10 @@ function validateTrails() {
     }
 
     if (trail.faq?.length) {
-      validateJsonLd(`${label} faq schema`, buildFaqSchema(trail.faq));
+      pageSchemas.push(buildFaqSchema(trail.faq));
     }
+
+    validatePageGraph(`${label} page graph`, pageSchemas);
   }
 }
 
@@ -146,8 +152,7 @@ function validateGuides() {
     validateCanonical(`/guides/${guide.slug}`, label);
 
     const path = `/guides/${guide.slug}`;
-    validateJsonLd(
-      `${label} article schema`,
+    validatePageGraph(`${label} page graph`, [
       buildArticleSchema({
         title: guide.title,
         description: guide.description,
@@ -156,8 +161,9 @@ function validateGuides() {
         updatedAt: guide.updatedAt,
         author: guide.author,
         reviewedBy: guide.reviewedBy,
+        imagePath: undefined,
       }),
-    );
+    ]);
   }
 }
 
@@ -168,8 +174,7 @@ function validateLaws() {
     validateCanonical(`/laws/${law.jurisdiction}`, label);
 
     const path = `/laws/${law.jurisdiction}`;
-    validateJsonLd(
-      `${label} article schema`,
+    validatePageGraph(`${label} page graph`, [
       buildArticleSchema({
         title: law.title,
         description: law.description,
@@ -179,16 +184,13 @@ function validateLaws() {
         author: law.author,
         reviewedBy: law.reviewedBy,
       }),
-    );
-    validateJsonLd(`${label} faq schema`, buildFaqSchema(law.faq));
-    validateJsonLd(
-      `${label} breadcrumb schema`,
+      buildFaqSchema(law.faq),
       buildBreadcrumbSchema([
         { name: "Home", path: "/" },
         { name: "Laws", path: "/laws" },
         { name: law.title, path },
       ]),
-    );
+    ]);
   }
 }
 
