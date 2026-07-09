@@ -1,9 +1,17 @@
+function canonicalSiteUrl(url: string): string {
+  const parsed = new URL(url);
+  if (parsed.hostname === "ebikequest.com") {
+    parsed.hostname = "www.ebikequest.com";
+  }
+  return parsed.toString().replace(/\/$/, "");
+}
+
 export const siteConfig = {
   name: "eBikeQuest",
   tagline: "Everything E-Bike. One Quest.",
   description:
     "National e-bike discovery platform for trails, laws, guides, shops, rentals, and more. Launching in Virginia, Maryland, and Washington DC.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.ebikequest.com",
+  url: canonicalSiteUrl(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.ebikequest.com"),
   helpEmail: "help@ebikequest.com",
   locale: "en-US",
 } as const;
