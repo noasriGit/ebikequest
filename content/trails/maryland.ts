@@ -43,7 +43,9 @@ export const marylandTrails: Trail[] = [
     relatedGuideSlugs: [
       "ebike-classes-explained",
       "mid-atlantic-trail-etiquette",
-      "riding-ebikes-in-maryland"
+      "riding-ebikes-in-maryland",
+      "best-paved-ebike-trails-in-maryland",
+      "best-beginner-ebike-trails-near-dc",
     ],
     images: [trailCoverImages["baltimore-and-ohio-trail"]],
     sections: [
@@ -209,7 +211,11 @@ export const marylandTrails: Trail[] = [
     relatedGuideSlugs: [
       "ebike-classes-explained",
       "mid-atlantic-trail-etiquette",
-      "riding-ebikes-in-maryland"
+      "riding-ebikes-in-maryland",
+      "best-paved-ebike-trails-in-maryland",
+      "best-ebike-trails-near-washington-dc",
+      "best-beginner-ebike-trails-near-dc",
+      "riding-ebikes-in-bethesda",
     ],
     images: [trailCoverImages["capital-crescent-trail"]],
     sections: [
@@ -377,7 +383,9 @@ export const marylandTrails: Trail[] = [
     relatedGuideSlugs: [
       "ebike-classes-explained",
       "mid-atlantic-trail-etiquette",
-      "riding-ebikes-in-maryland"
+      "riding-ebikes-in-maryland",
+      "best-paved-ebike-trails-in-maryland",
+      "best-ebike-trails-near-washington-dc",
     ],
     images: [trailCoverImages["northeast-branch-trail"]],
     sections: [
@@ -546,7 +554,8 @@ export const marylandTrails: Trail[] = [
     relatedGuideSlugs: [
       "ebike-classes-explained",
       "mid-atlantic-trail-etiquette",
-      "riding-ebikes-in-maryland"
+      "riding-ebikes-in-maryland",
+      "best-long-distance-ebike-trails-va-md-dc",
     ],
     images: [trailCoverImages["great-allegheny-passage-maryland"]],
     sections: [
@@ -715,7 +724,7 @@ export const marylandTrails: Trail[] = [
     relatedGuideSlugs: [
       "ebike-classes-explained",
       "mid-atlantic-trail-etiquette",
-      "riding-ebikes-in-maryland"
+      "riding-ebikes-in-maryland",
     ],
     images: [trailCoverImages["patapsco-valley-state-park-trails"]],
     sections: [
@@ -884,7 +893,8 @@ export const marylandTrails: Trail[] = [
     relatedGuideSlugs: [
       "ebike-classes-explained",
       "mid-atlantic-trail-etiquette",
-      "riding-ebikes-in-maryland"
+      "riding-ebikes-in-maryland",
+      "best-long-distance-ebike-trails-va-md-dc",
     ],
     images: [trailCoverImages["northern-central-trail"]],
     sections: [
@@ -1055,7 +1065,8 @@ export const marylandTrails: Trail[] = [
     relatedGuideSlugs: [
       "ebike-classes-explained",
       "mid-atlantic-trail-etiquette",
-      "riding-ebikes-in-maryland"
+      "riding-ebikes-in-maryland",
+      "best-paved-ebike-trails-in-maryland",
     ],
     images: [trailCoverImages["indian-head-rail-trail"]],
     sections: [
@@ -1225,7 +1236,7 @@ export const marylandTrails: Trail[] = [
     relatedGuideSlugs: [
       "ebike-classes-explained",
       "mid-atlantic-trail-etiquette",
-      "riding-ebikes-in-maryland"
+      "riding-ebikes-in-maryland",
     ],
     images: [trailCoverImages["assateague-island-trails"]],
     sections: [

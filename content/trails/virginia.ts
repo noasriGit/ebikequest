@@ -50,7 +50,13 @@ export const virginiaTrails: Trail[] = [
     ],
     relatedGuideSlugs: [
       "ebike-classes-explained",
-      "mid-atlantic-trail-etiquette"
+      "mid-atlantic-trail-etiquette",
+      "best-ebike-trails-in-northern-virginia",
+      "best-ebike-trails-near-washington-dc",
+      "best-long-distance-ebike-trails-va-md-dc",
+      "riding-ebikes-in-northern-virginia",
+      "riding-ebikes-in-arlington",
+      "riding-ebikes-in-leesburg",
     ],
     images: [trailCoverImages["washington-and-old-dominion-trail"]],
     sections: [
@@ -229,7 +235,11 @@ export const virginiaTrails: Trail[] = [
     ],
     relatedGuideSlugs: [
       "ebike-classes-explained",
-      "mid-atlantic-trail-etiquette"
+      "mid-atlantic-trail-etiquette",
+      "best-ebike-trails-near-washington-dc",
+      "best-ebike-trails-in-northern-virginia",
+      "riding-ebikes-in-alexandria",
+      "riding-ebikes-in-arlington",
     ],
     images: [trailCoverImages["mount-vernon-trail"]],
     sections: [
@@ -571,7 +581,9 @@ export const virginiaTrails: Trail[] = [
     ],
     relatedGuideSlugs: [
       "ebike-classes-explained",
-      "mid-atlantic-trail-etiquette"
+      "mid-atlantic-trail-etiquette",
+      "best-long-distance-ebike-trails-va-md-dc",
+      "riding-ebikes-in-virginia",
     ],
     images: [trailCoverImages["high-bridge-trail"]],
     sections: [

@@ -89,6 +89,20 @@ export default async function JurisdictionLawPage({
           >
             Washington DC e-bike riding tips →
           </Link>
+        ) : jurisdiction === "virginia" ? (
+          <Link
+            href="/guides/riding-ebikes-in-northern-virginia"
+            className="text-sm font-semibold link-editorial"
+          >
+            Northern Virginia e-bike riding guide →
+          </Link>
+        ) : jurisdiction === "maryland" ? (
+          <Link
+            href="/guides/riding-ebikes-in-bethesda"
+            className="text-sm font-semibold link-editorial"
+          >
+            Bethesda & Montgomery County riding tips →
+          </Link>
         ) : null}
       </PageHero>
       <JsonLd
@@ -120,6 +134,39 @@ export default async function JurisdictionLawPage({
           lastVerified={law.lastVerified}
         />
         <LegalDisclaimer />
+        <section className="prose-editorial max-w-none">
+          <h2 className="text-heading-editorial">Related regulatory guides</h2>
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-text-secondary">
+            <li>
+              <Link href="/guides/where-can-you-ride-an-ebike" className="link-editorial">
+                Where e-bikes are allowed to ride
+              </Link>
+            </li>
+            <li>
+              <Link href="/guides/do-you-need-a-license-for-an-ebike" className="link-editorial">
+                Whether e-bikes need a license
+              </Link>
+            </li>
+            <li>
+              <Link href="/guides/are-class-3-ebikes-allowed-on-trails" className="link-editorial">
+                Class 3 e-bike trail access
+              </Link>
+            </li>
+            <li>
+              <Link href="/guides/can-you-ride-an-ebike-on-the-sidewalk" className="link-editorial">
+                E-bike sidewalk rules
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/guides/do-ebikes-need-insurance-or-registration"
+                className="link-editorial"
+              >
+                E-bike insurance and registration
+              </Link>
+            </li>
+          </ul>
+        </section>
         <section className="prose-editorial max-w-none">
           <h2 className="text-heading-editorial">Summary</h2>
           <p className="mt-4">{law.summary}</p>

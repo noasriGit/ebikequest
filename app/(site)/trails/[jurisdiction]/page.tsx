@@ -84,6 +84,20 @@ export default async function JurisdictionTrailsPage({
             >
               Riding e-bikes in Washington DC →
             </Link>
+          ) : jurisdiction === "virginia" ? (
+            <Link
+              href="/guides/riding-ebikes-in-northern-virginia"
+              className="text-sm font-semibold link-editorial"
+            >
+              Northern Virginia e-bike riding guide →
+            </Link>
+          ) : jurisdiction === "maryland" ? (
+            <Link
+              href="/guides/best-paved-ebike-trails-in-maryland"
+              className="text-sm font-semibold link-editorial"
+            >
+              Best paved e-bike trails in Maryland →
+            </Link>
           ) : null}
         </div>
       </PageHero>
@@ -96,6 +110,30 @@ export default async function JurisdictionTrailsPage({
               DC e-bike rules and local riding tips
             </Link>{" "}
             for helmet, age, and cross-jurisdiction guidance.
+          </p>
+        ) : jurisdiction === "virginia" ? (
+          <p className="mb-10 max-w-3xl text-body-md text-text-secondary">
+            Compare trails across Arlington, Alexandria, and Loudoun in our{" "}
+            <Link href="/guides/best-ebike-trails-in-northern-virginia" className="link-editorial">
+              Northern Virginia e-bike trail roundup
+            </Link>{" "}
+            and{" "}
+            <Link href="/guides/riding-ebikes-in-northern-virginia" className="link-editorial">
+              local riding guide
+            </Link>
+            .
+          </p>
+        ) : jurisdiction === "maryland" ? (
+          <p className="mb-10 max-w-3xl text-body-md text-text-secondary">
+            Choosing a paved path near DC? See our{" "}
+            <Link href="/guides/best-paved-ebike-trails-in-maryland" className="link-editorial">
+              best paved e-bike trails in Maryland
+            </Link>{" "}
+            roundup and{" "}
+            <Link href="/guides/riding-ebikes-in-bethesda" className="link-editorial">
+              Bethesda riding guide
+            </Link>
+            .
           </p>
         ) : null}
         <HubBanner image={hubImage} title={`${name} trail listings`} />

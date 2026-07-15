@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-25",
+  "updatedAt": "2026-07-15",
   "keywords": [
     {
       "targetKeyword": "e-bike classes explained",
@@ -64,6 +64,126 @@
       "title": "Riding E-Bikes in Washington DC: Local Tips",
       "category": "local-riding",
       "publishedAt": "2026-06-25",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "best e-bike trails near washington dc",
+      "slug": "best-ebike-trails-near-washington-dc",
+      "title": "Best E-Bike Trails Near Washington DC",
+      "category": "riding-skills",
+      "publishedAt": "2026-07-15",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "best e-bike trails northern virginia",
+      "slug": "best-ebike-trails-in-northern-virginia",
+      "title": "Best E-Bike Trails in Northern Virginia",
+      "category": "riding-skills",
+      "publishedAt": "2026-07-15",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "best paved e-bike trails maryland",
+      "slug": "best-paved-ebike-trails-in-maryland",
+      "title": "Best Paved E-Bike Trails in Maryland",
+      "category": "riding-skills",
+      "publishedAt": "2026-07-15",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "best beginner e-bike trails near dc",
+      "slug": "best-beginner-ebike-trails-near-dc",
+      "title": "Best Beginner E-Bike Trails Near DC",
+      "category": "riding-skills",
+      "publishedAt": "2026-07-15",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "best long distance e-bike trails va md dc",
+      "slug": "best-long-distance-ebike-trails-va-md-dc",
+      "title": "Best Long-Distance E-Bike Trails in VA, MD & DC",
+      "category": "riding-skills",
+      "publishedAt": "2026-07-15",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "do you need a license for an e-bike",
+      "slug": "do-you-need-a-license-for-an-ebike",
+      "title": "Do You Need a License for an E-Bike?",
+      "category": "regulations",
+      "publishedAt": "2026-07-15",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "can you ride an e-bike on the sidewalk",
+      "slug": "can-you-ride-an-ebike-on-the-sidewalk",
+      "title": "Can You Ride an E-Bike on the Sidewalk?",
+      "category": "regulations",
+      "publishedAt": "2026-07-15",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "are class 3 e-bikes allowed on trails",
+      "slug": "are-class-3-ebikes-allowed-on-trails",
+      "title": "Are Class 3 E-Bikes Allowed on Trails?",
+      "category": "regulations",
+      "publishedAt": "2026-07-15",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "do e-bikes need insurance or registration",
+      "slug": "do-ebikes-need-insurance-or-registration",
+      "title": "Do E-Bikes Need Insurance or Registration?",
+      "category": "regulations",
+      "publishedAt": "2026-07-15",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "where can you ride an e-bike",
+      "slug": "where-can-you-ride-an-ebike",
+      "title": "Where Can You Ride an E-Bike?",
+      "category": "regulations",
+      "publishedAt": "2026-07-15",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "riding e-bikes northern virginia",
+      "slug": "riding-ebikes-in-northern-virginia",
+      "title": "Riding E-Bikes in Northern Virginia",
+      "category": "local-riding",
+      "publishedAt": "2026-07-15",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "riding e-bikes arlington",
+      "slug": "riding-ebikes-in-arlington",
+      "title": "Riding E-Bikes in Arlington, VA",
+      "category": "local-riding",
+      "publishedAt": "2026-07-15",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "riding e-bikes alexandria",
+      "slug": "riding-ebikes-in-alexandria",
+      "title": "Riding E-Bikes in Alexandria, VA",
+      "category": "local-riding",
+      "publishedAt": "2026-07-15",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "riding e-bikes leesburg",
+      "slug": "riding-ebikes-in-leesburg",
+      "title": "Riding E-Bikes in Leesburg, VA",
+      "category": "local-riding",
+      "publishedAt": "2026-07-15",
+      "source": "guide"
+    },
+    {
+      "targetKeyword": "riding e-bikes bethesda",
+      "slug": "riding-ebikes-in-bethesda",
+      "title": "Riding E-Bikes in Bethesda, MD",
+      "category": "local-riding",
+      "publishedAt": "2026-07-15",
       "source": "guide"
     }
   ]

@@ -43,7 +43,10 @@ export const washingtonDcTrails: Trail[] = [
       "riding-ebikes-in-washington-dc",
       "ebike-classes-explained",
       "mid-atlantic-trail-etiquette",
-      "ebike-regulations-overview"
+      "ebike-regulations-overview",
+      "best-ebike-trails-near-washington-dc",
+      "best-beginner-ebike-trails-near-dc",
+      "best-long-distance-ebike-trails-va-md-dc",
     ],
     images: [trailCoverImages["c-and-o-canal-towpath-dc"]],
     sections: [

@@ -134,6 +134,8 @@ export const ridingEbikesInWashingtonDc: Guide = {
     "ebike-regulations-overview",
     "riding-ebikes-in-virginia",
     "riding-ebikes-in-maryland",
+    "best-ebike-trails-near-washington-dc",
+    "where-can-you-ride-an-ebike",
   ],
   relatedTrails: [
     "c-and-o-canal-towpath-dc",

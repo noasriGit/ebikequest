@@ -130,6 +130,9 @@ export const ebikeRegulationsOverview: Guide = {
   ],
   relatedGuides: [
     "ebike-classes-explained",
+    "where-can-you-ride-an-ebike",
+    "do-you-need-a-license-for-an-ebike",
+    "are-class-3-ebikes-allowed-on-trails",
     "riding-ebikes-in-virginia",
     "riding-ebikes-in-maryland",
   ],
