@@ -16,6 +16,7 @@ export const footerExploreNav: NavItem[] = [
   { label: "Laws", href: "/laws" },
   { label: "About", href: "/about" },
   { label: "Suggest a Trail", href: "/suggest-trail" },
+  { label: "Sitemap", href: "/sitemap" },
 ];
 
 export const footerTrustNav: NavItem[] = [
