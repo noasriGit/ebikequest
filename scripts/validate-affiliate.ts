@@ -2,6 +2,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { AFFILIATE_LINK_REL } from "../lib/affiliate/constants";
 import { brands, buyingGuides, comparisons, ebikeModels } from "../content/commerce";
+import { assertPublicationFixtures } from "../lib/commerce/publication-fixtures";
+import {
+  getBrandPublicationIssues,
+  getBuyingGuidePublicationIssues,
+  getComparisonPublicationIssues,
+  getModelPublicationIssues,
+} from "../lib/commerce/publish";
 
 const root = path.join(process.cwd());
 const gearDirs = [
@@ -154,6 +161,37 @@ function validateCommerceRecords() {
   }
 }
 
+function reportIssues(id: string, issues: string[]) {
+  if (issues.length === 0) return;
+  error(`${id}:\n- ${issues.join("\n- ")}`);
+}
+
+function validatePublicationGates() {
+  for (const brand of brands) {
+    if (brand.status !== "published" || brand.seo?.noIndex) continue;
+    reportIssues(brand.id, getBrandPublicationIssues(brand));
+  }
+
+  for (const model of ebikeModels) {
+    if (model.status !== "published" || model.seo?.noIndex) continue;
+    reportIssues(model.id, getModelPublicationIssues(model, brands));
+  }
+
+  for (const guide of buyingGuides) {
+    if (guide.status !== "published" || guide.seo?.noIndex) continue;
+    reportIssues(guide.id, getBuyingGuidePublicationIssues(guide));
+  }
+
+  for (const comparison of comparisons) {
+    if (comparison.status !== "published" || comparison.seo?.noIndex) continue;
+    reportIssues(comparison.id, getComparisonPublicationIssues(comparison, ebikeModels, brands));
+  }
+
+  for (const message of assertPublicationFixtures()) {
+    error(message);
+  }
+}
+
 function validateAffiliateInfrastructure() {
   const disclosurePage = path.join(root, "app", "(site)", "affiliate-disclosure", "page.tsx");
   if (!fs.existsSync(disclosurePage)) {
@@ -174,6 +212,7 @@ function validateAffiliateInfrastructure() {
 validateAffiliateInfrastructure();
 validateGearContent();
 validateCommerceRecords();
+validatePublicationGates();
 
 if (hasErrors) {
   console.error("\nAffiliate validation failed.");

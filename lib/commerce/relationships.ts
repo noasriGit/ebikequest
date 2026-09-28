@@ -2,6 +2,7 @@ import type { Guide } from "@/types/guide";
 import type { Trail } from "@/types/trail";
 import { getGuides } from "@/lib/content/guides";
 import { getBrand, getBuyingGuides, getModels, getModelsForBrand } from "@/lib/content/commerce";
+import { classificationStatement, publicClassDesignation } from "@/lib/commerce/publish";
 import type { EbikeModel } from "@/types/commerce";
 
 export interface DiscoveryLink {
@@ -36,7 +37,7 @@ export async function getBrandModelLinks(brandSlug: string): Promise<DiscoveryLi
   return models.map((model) => ({
     href: modelHref(model),
     label: model.name,
-    note: model.ebikeClass ? model.ebikeClass.replace("-", " ") : undefined,
+    note: classificationStatement(model),
   }));
 }
 
@@ -60,12 +61,13 @@ export function getModelRegulatoryLinks(model: EbikeModel): DiscoveryLink[] {
     },
   ];
 
-  if (model.ebikeClass === "class-3" || model.ebikeClass === "out-of-class") {
+  const designation = publicClassDesignation(model);
+  if (designation === "class-3" || designation === "out-of-class") {
     links.push({
       href: "/guides/are-class-3-ebikes-allowed-on-trails",
       label: "Are Class 3 e-bikes allowed on trails?",
     });
-  } else if (model.ebikeClass === "class-1" || model.ebikeClass === "class-2" || model.ebikeClass === "unclassified") {
+  } else {
     links.push({
       href: "/guides/ebike-classes-explained",
       label: "E-bike classes explained",

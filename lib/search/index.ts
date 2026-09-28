@@ -1,4 +1,5 @@
 import type { SearchDocument } from "@/types/content";
+import { publicClassDesignation } from "@/lib/commerce/publish";
 import { getBrands, getModels } from "@/lib/content/commerce";
 import { getGuides, getNationalLawHub, getPublicJurisdictions, getTrails } from "@/lib/content";
 
@@ -58,15 +59,18 @@ export async function buildSearchIndex(): Promise<SearchDocument[]> {
     description: brand.description ?? "",
   }));
 
-  const modelDocs: SearchDocument[] = models.map((model) => ({
-    entityType: "model",
-    id: model.id,
-    slug: model.slug,
-    brandSlug: model.brandSlug,
-    title: model.name,
-    description: model.description ?? "",
-    tags: model.ebikeClass ? [model.ebikeClass] : undefined,
-  }));
+  const modelDocs: SearchDocument[] = models.map((model) => {
+    const designation = publicClassDesignation(model);
+    return {
+      entityType: "model" as const,
+      id: model.id,
+      slug: model.slug,
+      brandSlug: model.brandSlug,
+      title: model.name,
+      description: model.description ?? "",
+      tags: designation ? [designation] : undefined,
+    };
+  });
 
   return [...trailDocs, ...guideDocs, ...lawDocs, ...brandDocs, ...modelDocs];
 }

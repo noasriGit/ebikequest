@@ -2,8 +2,8 @@ import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
 import { ClassReferenceTable } from "@/components/research/ClassReferenceTable";
-import { getModels, isModelHubIndexable } from "@/lib/content/commerce";
-import { getBrand } from "@/lib/content/commerce";
+import { getBrand, getModels, isModelHubIndexable } from "@/lib/content/commerce";
+import { classificationStatement } from "@/lib/commerce/publish";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export async function generateMetadata() {
@@ -84,7 +84,7 @@ export default async function EbikesPage() {
                             {brand ? `${brand.name} ${model.name}` : model.name}
                           </Link>
                         </th>
-                        <td>{model.ebikeClass ?? "Unclassified"}</td>
+                        <td>{classificationStatement(model)}</td>
                         <td>{model.bikeType ?? "—"}</td>
                         <td>{model.lastVerifiedAt ?? "—"}</td>
                       </tr>

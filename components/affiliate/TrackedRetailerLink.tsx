@@ -14,26 +14,30 @@ export function TrackedRetailerLink({
   position,
   className,
   children,
-}: {
+  onClick,
+  target,
+  ...props
+}: React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string;
   isAffiliate: boolean;
   brand?: string;
   model?: string;
   retailer: string;
   position: string;
-  className?: string;
-  children: React.ReactNode;
 }) {
   const pathname = usePathname();
 
   return (
     <a
+      {...props}
       href={href}
-      target="_blank"
+      target={target ?? "_blank"}
       rel={getOutboundRel(isAffiliate)}
       className={className}
-      onClick={() => {
-        const event = buildRetailerClickEvent({
+      onClick={(event) => {
+        onClick?.(event);
+        if (event.defaultPrevented) return;
+        const payload = buildRetailerClickEvent({
           brand,
           model,
           pagePath: pathname,
@@ -42,12 +46,12 @@ export function TrackedRetailerLink({
           affiliate: isAffiliate,
         });
         track("retailer_click", {
-          brand: event.brand,
-          model: event.model,
-          page_path: event.pagePath,
-          retailer: event.retailer,
-          position: event.position,
-          affiliate: event.affiliate,
+          brand: payload.brand,
+          model: payload.model,
+          page_path: payload.pagePath,
+          retailer: payload.retailer,
+          position: payload.position,
+          affiliate: payload.affiliate,
         });
       }}
     >

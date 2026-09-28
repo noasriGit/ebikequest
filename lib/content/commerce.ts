@@ -19,17 +19,13 @@ export async function getBrand(slug: string): Promise<Brand | null> {
 }
 
 export async function getModels(): Promise<EbikeModel[]> {
-  const publicBrands = new Set((await getBrands()).map((brand) => brand.slug));
-  return ebikeModels.filter((model) => isPublicModel(model) && publicBrands.has(model.brandSlug));
+  return ebikeModels.filter((model) => isPublicModel(model, brands));
 }
 
 export async function getModel(brandSlug: string, slug: string): Promise<EbikeModel | null> {
-  const model = ebikeModels.find(
-    (entry) => entry.brandSlug === brandSlug && entry.slug === slug && isPublicModel(entry),
-  );
-  if (!model) return null;
-  const brand = await getBrand(brandSlug);
-  return brand ? model : null;
+  const model = ebikeModels.find((entry) => entry.brandSlug === brandSlug && entry.slug === slug);
+  if (!model || !isPublicModel(model, brands)) return null;
+  return model;
 }
 
 export async function getModelsForBrand(brandSlug: string): Promise<EbikeModel[]> {
@@ -46,15 +42,13 @@ export async function getBuyingGuide(slug: string): Promise<BuyingGuide | null> 
 }
 
 export async function getComparisons(): Promise<Comparison[]> {
-  const models = ebikeModels;
-  return comparisons.filter((comparison) => isPublicComparison(comparison, models));
+  return comparisons.filter((comparison) => isPublicComparison(comparison, ebikeModels, brands));
 }
 
 export async function getComparison(slug: string): Promise<Comparison | null> {
-  const models = ebikeModels;
   return (
     comparisons.find(
-      (comparison) => comparison.slug === slug && isPublicComparison(comparison, models),
+      (comparison) => comparison.slug === slug && isPublicComparison(comparison, ebikeModels, brands),
     ) ?? null
   );
 }

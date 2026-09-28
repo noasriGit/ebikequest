@@ -140,6 +140,7 @@ export async function buildSitemapEntries(): Promise<SitemapEntry[]> {
     indexable: true,
     parentPath: "/",
     sortPriority: 86,
+    updatedAt: safetyPage.lastVerifiedAt,
   });
 
   if (await isBrandHubIndexable()) {

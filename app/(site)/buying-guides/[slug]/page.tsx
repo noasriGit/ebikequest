@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
 import { DiscoveryLinks } from "@/components/research/DiscoveryLinks";
+import { SourceList } from "@/components/research/SourceList";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getBuyingGuideDiscoveryLinks } from "@/lib/commerce/relationships";
 import { getBuyingGuide, getBuyingGuides } from "@/lib/content/commerce";
@@ -59,7 +60,9 @@ export default async function BuyingGuidePage({ params }: { params: Promise<{ sl
       <Container className="py-10 md:py-14">
         <p className="text-body-sm text-text-secondary">
           Hands-on tested: {guide.handsOnTested ? "Yes" : "No"}.
+          {guide.lastVerifiedAt ? ` Last verified ${guide.lastVerifiedAt}.` : ""}
         </p>
+        {guide.decision ? <p className="mt-4 max-w-3xl text-body-md text-text-primary">{guide.decision}</p> : null}
         <article className="prose-editorial mt-8">
           {(guide.sections ?? []).map((section) => (
             <section key={section.id}>
@@ -70,6 +73,29 @@ export default async function BuyingGuidePage({ params }: { params: Promise<{ sl
             </section>
           ))}
         </article>
+        {guide.productClaims?.length ? (
+          <section className="mt-10" aria-labelledby="product-claims">
+            <h2 id="product-claims" className="text-heading-md text-text-primary">
+              Sourced product notes
+            </h2>
+            <ul className="mt-4 space-y-3 text-body-sm text-text-secondary">
+              {guide.productClaims.map((claim) => {
+                const source = guide.sources?.find((entry) => entry.id === claim.sourceId);
+                return (
+                  <li key={claim.id}>
+                    {claim.statement}{" "}
+                    {source ? (
+                      <a href={source.url} className="link-editorial" target="_blank" rel="noopener noreferrer">
+                        {source.title}
+                      </a>
+                    ) : null}
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ) : null}
+        <SourceList sources={guide.sources ?? []} heading="Guide sources" headingId="guide-sources" />
         <DiscoveryLinks
           title="Related research"
           intro="Models, brands, and rider guides this piece actually depends on."

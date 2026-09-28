@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
 import { ClassReferenceTable } from "@/components/research/ClassReferenceTable";
+import { SourceList } from "@/components/research/SourceList";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { safetyPage } from "@/content/research/safety";
 import { siteConfig } from "@/config/site";
@@ -47,14 +48,17 @@ export default function SafetyPage() {
         ]}
       />
       <Container className="py-10 md:py-14">
-        <article className="prose-editorial">
-          {safetyPage.sections.map((section) => (
+        <p className="text-body-sm text-text-secondary">Last verified {safetyPage.lastVerifiedAt}.</p>
+        <article className="prose-editorial mt-8">
+          {safetyPage.sections.map((section) => {
+            const sectionSources = safetyPage.sources.filter((source) => section.sourceIds?.includes(source.id));
+            return (
             <section key={section.id} aria-labelledby={section.id}>
               <h2 id={section.id}>{section.heading}</h2>
               {section.paragraphs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
-              {"listItems" in section && section.listItems ? (
+              {section.listItems ? (
                 <ul>
                   {section.listItems.map((item) => (
                     <li key={item}>{item}</li>
@@ -66,8 +70,23 @@ export default function SafetyPage() {
                   <ClassReferenceTable />
                 </div>
               ) : null}
+              {sectionSources.length ? (
+                <p>
+                  Sources:{" "}
+                  {sectionSources.map((source, index) => (
+                    <span key={source.id}>
+                      {index > 0 ? "; " : ""}
+                      <a href={source.url} target="_blank" rel="noopener noreferrer">
+                        {source.title}
+                      </a>
+                    </span>
+                  ))}
+                  .
+                </p>
+              ) : null}
             </section>
-          ))}
+            );
+          })}
           <h2 id="further-reading">Further reading</h2>
           <ul>
             {safetyPage.furtherReading.map((link) => (
@@ -77,6 +96,7 @@ export default function SafetyPage() {
             ))}
           </ul>
         </article>
+        <SourceList sources={safetyPage.sources} heading="Sources checked" headingId="safety-sources" />
       </Container>
     </>
   );

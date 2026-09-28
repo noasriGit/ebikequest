@@ -1,43 +1,97 @@
-export const safetyPage = {
+import type { EvidenceSource } from "@/types/commerce";
+
+export interface SafetySection {
+  id: string;
+  heading: string;
+  paragraphs: string[];
+  listItems?: string[];
+  sourceIds?: string[];
+}
+
+export const safetyPage: {
+  title: string;
+  description: string;
+  lastVerifiedAt: string;
+  sources: EvidenceSource[];
+  sections: SafetySection[];
+  furtherReading: Array<{ href: string; label: string }>;
+} = {
   title: "E-Bike Safety and Classification",
   description:
     "How e-bike class, assisted speed, and local rules change where a bike can be ridden before you choose a model.",
+  lastVerifiedAt: "2026-09-28",
+  sources: [
+    {
+      id: "va-46-2-904-1",
+      title: "Virginia Code § 46.2-904.1 — Electric power-assisted bicycles",
+      url: "https://law.lis.virginia.gov/vacode/title46.2/chapter8/section46.2-904.1/",
+      publisher: "Virginia Legislative Information System",
+      role: "government",
+      accessedAt: "2026-09-28",
+    },
+    {
+      id: "md-11-117-1",
+      title: "Maryland Transportation Article § 11-117.1 — Electric bicycle",
+      url: "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gtr&enactments=false&section=11-117.1",
+      publisher: "Maryland General Assembly",
+      role: "government",
+      accessedAt: "2026-09-28",
+    },
+    {
+      id: "dc-50-2201-02",
+      title: "DC Code § 50-2201.02 — Motorized bicycle definition",
+      url: "https://code.dccouncil.gov/us/dc/council/code/sections/50-2201.02",
+      publisher: "Council of the District of Columbia",
+      role: "government",
+      accessedAt: "2026-09-28",
+    },
+    {
+      id: "nps-ebikes",
+      title: "Electric bicycles in national parks",
+      url: "https://www.nps.gov/subjects/biking/e-bikes.htm",
+      publisher: "National Park Service",
+      role: "government",
+      accessedAt: "2026-09-28",
+    },
+  ],
   sections: [
     {
       id: "class-before-brand",
       heading: "Class comes before the brand",
       paragraphs: [
         "An e-bike purchase fails when the bike is legal on paper and unusable on the routes you actually ride. Assisted speed, throttle, and motor power decide which statute applies. The statute decides the path, the helmet rule, and sometimes whether the bike is an e-bike at all.",
-        "eBikeQuest treats classification as a research step, not a marketing label. A model page states a class only when a cited source supports it — a manufacturer specification, a required class label, or a statute that defines the cutoff. If those sources disagree, the page says the class is not determined.",
+        "eBikeQuest treats classification as a research step, not a marketing label. A model page states a class only when a cited source supports it — a manufacturer specification, a required class label, or a statute that defines the cutoff. If those sources disagree or do not settle the question, the page says the class is not determined.",
       ],
     },
     {
       id: "three-class",
       heading: "The three-class framework",
       paragraphs: [
-        "Many U.S. states, including Virginia and Maryland, use a three-class electric bicycle definition. The shared outline is below. It is a reading aid. The statute and the land manager still control.",
+        "Virginia and Maryland both use a three-class electric bicycle definition. The shared outline below is a reading aid: Class 1 and Class 2 stop motor assistance at 20 mph, and Class 3 pedal-assist continues to 28 mph. The statute and the land manager still control a specific path.",
       ],
+      sourceIds: ["va-46-2-904-1", "md-11-117-1"],
     },
     {
       id: "where-it-breaks",
       heading: "Where that framework does not travel",
       paragraphs: [
-        "Washington DC does not sort e-bikes into Class 1, 2, and 3. District law uses a motorized-bicycle definition with its own speed cap. A bike sold as Class 3 in Virginia can fall outside that definition once it crosses into the District.",
-        "Federal land is a second break. National Park Service and other federal managers can restrict e-bikes even where the surrounding state allows them. A statewide “allowed where bicycles are allowed” sentence does not answer a trailhead sign.",
-        "Bikes that exceed the wattage or assisted-speed limits in a statute may not be e-bikes under that law. They can be treated as mopeds or motor vehicles, with license, registration, or insurance consequences. eBikeQuest will label that case as out of class when a source supports it, and as unclassified when it does not.",
+        "Washington DC does not sort e-bikes into Class 1, 2, and 3. District law uses a motorized-bicycle definition whose motor cannot propel the device faster than 20 mph on level ground. A bike sold as Class 3 elsewhere can fall outside that definition in the District.",
+        "Federal land is a second break. National Park Service regulations let a superintendent allow e-bikes where traditional bicycles are allowed, and also let that superintendent restrict them. A statewide permission does not answer a park compendium or a trailhead sign. E-bikes are not allowed in designated wilderness.",
+        "A bike that exceeds the wattage or assisted-speed limits in a state definition may not be an electric bicycle under that law. It can fall into a moped or motor-vehicle category, with license, registration, or insurance consequences. eBikeQuest labels that case out of class only when a source supports it, and leaves the class undetermined when the sources do not.",
       ],
+      sourceIds: ["dc-50-2201-02", "nps-ebikes", "va-46-2-904-1", "md-11-117-1"],
     },
     {
       id: "what-we-publish",
       heading: "What a model page is allowed to claim",
       paragraphs: [
         "A published model profile separates three kinds of statement. Specifications quote a cited source. Class is either determined from those sources or explicitly left open. Hands-on testing is false unless eBikeQuest has ridden or measured the bike. A spec sheet is not a test.",
-        "We do not publish scraped prices, star ratings, review counts, or copied customer comments. Retailer links, including Amazon when a direct product URL exists, are labeled and use a normal outbound link. They are not a rating and they are not a review.",
+        "We do not publish scraped prices, star ratings, review counts, or copied customer comments. Retailer links, including Amazon when a direct product URL exists, are labeled and use a normal outbound link. They are not a rating and they are not a review. A regulator stop-use notice can suppress those links.",
       ],
       listItems: [
-        "Official or regulatory source for each factual spec we rely on",
-        "Class left blank or marked unclassified when the source does not settle it",
-        "Safety notices quoted from a recall, manual, or regulator when we have one",
+        "An official or regulatory source for each factual spec we display",
+        "Class left undetermined when the sources do not settle it",
+        "Safety notices tied to a regulator, manufacturer, or certification source",
         "Hands-on tested only after a real ride or measurement",
       ],
     },
@@ -58,4 +112,4 @@ export const safetyPage = {
     { href: "/trails", label: "Trail directory" },
     { href: "/editorial-standards", label: "Editorial standards" },
   ],
-} as const;
+};

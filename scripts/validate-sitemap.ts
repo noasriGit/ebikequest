@@ -2,6 +2,8 @@ import { brands } from "../content/commerce/brands";
 import { buyingGuides } from "../content/commerce/buying-guides";
 import { comparisons } from "../content/commerce/comparisons";
 import { ebikeModels } from "../content/commerce/models";
+import { getBrands, getBuyingGuides, getComparisons, getModels } from "../lib/content/commerce";
+import { assertPublicationFixtures } from "../lib/commerce/publication-fixtures";
 import { allTrails } from "../content/trails";
 import { guides } from "../content/guides";
 import { jurisdictionLaws } from "../content/laws/jurisdictions";
@@ -106,51 +108,53 @@ async function main() {
     if (paths.has(path)) error(`Draft or noindex law leaked into sitemap: ${path}`);
   }
 
+  const [publicBrands, publicModels, publicGuides, publicComparisons] = await Promise.all([
+    getBrands(),
+    getModels(),
+    getBuyingGuides(),
+    getComparisons(),
+  ]);
+
+  const publicBrandPaths = new Set(publicBrands.map((brand) => `/brands/${brand.slug}`));
+  const publicModelPaths = new Set(publicModels.map((model) => `/ebikes/${model.brandSlug}/${model.slug}`));
+  const publicGuidePaths = new Set(publicGuides.map((guide) => `/buying-guides/${guide.slug}`));
+  const publicComparisonPaths = new Set(publicComparisons.map((comparison) => `/compare/${comparison.slug}`));
+
   for (const brand of brands) {
     const path = `/brands/${brand.slug}`;
-    const leaked = brand.status !== "published" || brand.seo?.noIndex;
-    if (leaked && (paths.has(path) || paths.has("/brands"))) {
-      error(`Draft or noindex brand leaked into sitemap: ${path}`);
+    if (paths.has(path) !== publicBrandPaths.has(path)) {
+      error(`Brand sitemap membership does not match the public brand predicate: ${path}`);
     }
   }
-
   for (const model of ebikeModels) {
     const path = `/ebikes/${model.brandSlug}/${model.slug}`;
-    const leaked = model.status !== "published" || model.seo?.noIndex || !model.handsOnTested && model.researchStatus === "hands-on-tested";
-    if ((model.status !== "published" || model.seo?.noIndex) && paths.has(path)) {
-      error(`Draft or noindex model leaked into sitemap: ${path}`);
-    }
-    if (leaked && paths.has(path)) {
-      error(`Unverified model leaked into sitemap: ${path}`);
+    if (paths.has(path) !== publicModelPaths.has(path)) {
+      error(`Model sitemap membership does not match the public model predicate: ${path}`);
     }
   }
-
   for (const guide of buyingGuides) {
     const path = `/buying-guides/${guide.slug}`;
-    if ((guide.status !== "published" || guide.seo?.noIndex) && paths.has(path)) {
-      error(`Draft or noindex buying guide leaked into sitemap: ${path}`);
+    if (paths.has(path) !== publicGuidePaths.has(path)) {
+      error(`Buying guide sitemap membership does not match the public guide predicate: ${path}`);
     }
   }
-
   for (const comparison of comparisons) {
     const path = `/compare/${comparison.slug}`;
-    if ((comparison.status !== "published" || comparison.seo?.noIndex) && paths.has(path)) {
-      error(`Draft or noindex comparison leaked into sitemap: ${path}`);
+    if (paths.has(path) !== publicComparisonPaths.has(path)) {
+      error(`Comparison sitemap membership does not match the public comparison predicate: ${path}`);
     }
   }
 
-  if (ebikeModels.filter((model) => model.status === "published" && !model.seo?.noIndex).length === 0) {
-    if (paths.has("/ebikes")) error("Empty e-bike catalog was marked indexable");
-  }
-  if (brands.filter((brand) => brand.status === "published" && !brand.seo?.noIndex).length === 0) {
-    if (paths.has("/brands")) error("Empty brand catalog was marked indexable");
-  }
-  if (buyingGuides.filter((guide) => guide.status === "published" && !guide.seo?.noIndex).length === 0) {
-    if (paths.has("/buying-guides")) error("Empty buying-guide catalog was marked indexable");
-  }
-  if (comparisons.filter((item) => item.status === "published" && !item.seo?.noIndex).length === 0) {
-    if (paths.has("/compare")) error("Empty comparison catalog was marked indexable");
-  }
+  if (publicModels.length === 0 && paths.has("/ebikes")) error("Empty e-bike catalog was marked indexable");
+  if (publicBrands.length === 0 && paths.has("/brands")) error("Empty brand catalog was marked indexable");
+  if (publicGuides.length === 0 && paths.has("/buying-guides")) error("Empty buying-guide catalog was marked indexable");
+  if (publicComparisons.length === 0 && paths.has("/compare")) error("Empty comparison catalog was marked indexable");
+  if (publicBrands.length > 0 && !paths.has("/brands")) error("Public brand hub missing from sitemap");
+  if (publicModels.length > 0 && !paths.has("/ebikes")) error("Public e-bike hub missing from sitemap");
+  if (publicGuides.length > 0 && !paths.has("/buying-guides")) error("Public buying-guide hub missing from sitemap");
+  if (publicComparisons.length > 0 && !paths.has("/compare")) error("Public comparison hub missing from sitemap");
+
+  for (const message of assertPublicationFixtures()) error(message);
 
   const excludedPatterns = ["/api/", "/404", "/_next/"];
   for (const path of paths) {

@@ -42,6 +42,7 @@ export function OutboundRetailerLink({
         retailer={analytics.retailer}
         position={analytics.position}
         className={cn(className)}
+        {...props}
       >
         {text}
       </TrackedRetailerLink>

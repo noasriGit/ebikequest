@@ -13,6 +13,8 @@ import {
 } from "../lib/seo/structured-data";
 import { buildTrailPageTitle, SEO_TITLE_MAX_LENGTH } from "../lib/seo/titles";
 import { buildCanonical } from "../lib/seo/metadata";
+import { safetyPage } from "../content/research/safety";
+import { isHttpUrl, isIsoDate } from "../lib/commerce/publish";
 
 const CANONICAL_PREFIX = "https://www.ebikequest.com";
 
@@ -243,8 +245,30 @@ function validateProductSchemaGuard() {
   if (empty) error("Product schema helper emitted a type for an empty model");
 }
 
+function validateSafetyPageSources() {
+  if (!isIsoDate(safetyPage.lastVerifiedAt)) {
+    error("Safety page is missing a real lastVerifiedAt date");
+  }
+  if (safetyPage.sources.length < 4) {
+    error("Safety page needs authoritative sources for its regulatory statements");
+  }
+  for (const source of safetyPage.sources) {
+    if (!source.title?.trim() || !isHttpUrl(source.url)) {
+      error(`Safety source ${source.id} is missing a title or valid URL`);
+    }
+  }
+  for (const section of safetyPage.sections) {
+    for (const sourceId of section.sourceIds ?? []) {
+      if (!safetyPage.sources.some((source) => source.id === sourceId)) {
+        error(`Safety section ${section.id} cites unresolved source ${sourceId}`);
+      }
+    }
+  }
+}
+
 validateSiteConfig();
 validateProductSchemaGuard();
+validateSafetyPageSources();
 validateTrails();
 validateGuides();
 validateLaws();
