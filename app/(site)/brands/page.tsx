@@ -60,7 +60,7 @@ export default async function BrandsPage() {
                     <span className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
                       <span className="font-medium text-text-primary">{brand.name}</span>
                       <span className="text-sm text-text-muted">
-                        {count} {count === 1 ? "model guide" : "model guides"}
+                        {count === 0 ? "Brand guide" : `${count} ${count === 1 ? "model guide" : "model guides"}`}
                       </span>
                     </span>
                     {brand.description ? (

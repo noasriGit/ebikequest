@@ -1,7 +1,7 @@
 import { brands } from "../content/commerce/brands";
 import { buyingGuides } from "../content/commerce/buying-guides";
 import { comparisons } from "../content/commerce/comparisons";
-import { ebikeModels } from "../content/commerce/models";
+import { ebikeModels, withheldModelResearch } from "../content/commerce/models";
 import { getBrands, getBuyingGuides, getComparisons, getModels } from "../lib/content/commerce";
 import { assertPublicationFixtures } from "../lib/commerce/publication-fixtures";
 import { allTrails } from "../content/trails";
@@ -124,6 +124,12 @@ async function main() {
     const path = `/brands/${brand.slug}`;
     if (paths.has(path) !== publicBrandPaths.has(path)) {
       error(`Brand sitemap membership does not match the public brand predicate: ${path}`);
+    }
+  }
+  for (const model of withheldModelResearch) {
+    const path = `/ebikes/${model.brandSlug}/${model.slug}`;
+    if (paths.has(path) || publicModelPaths.has(path)) {
+      error(`Withheld model leaked into the public e-bike catalog or sitemap: ${path}`);
     }
   }
   for (const model of ebikeModels) {

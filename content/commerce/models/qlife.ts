@@ -37,7 +37,7 @@ export const qlifeModels: EbikeModel[] = [
     slug: "cityone-plus",
     name: "Cityone Plus",
     description:
-      "Qlife's Cityone Plus is a step-through commuter with a manufacturer Class 3 label, a listed 28 mph top speed, and a peak 1200W hub motor. Nominal wattage is not on the spec table, so the class stays unresolved.",
+      "Qlife labels the Cityone Plus Class 3 at 28 mph with a peak 1200W hub motor. The page omits motor-input and rating figures, so eBikeQuest leaves the class unresolved.",
     status: "published",
     researchStatus: "editorially-reviewed",
     bikeType: "commuter",
@@ -47,9 +47,11 @@ export const qlifeModels: EbikeModel[] = [
     classification: {
       determinable: false,
       designation: "unclassified",
-      sourceIds: ["cityone-page"],
+      manufacturerLabel: "Class 3",
+      manufacturerLabelSourceId: "cityone-page",
+      sourceIds: ["cityone-page", "va-46-2-100", "md-11-117-1"],
       reasoning:
-        "Qlife's spec table labels the Cityone Plus Class 3 and lists 28 mph, which is the Class 3 assist ceiling. The same table lists a peak 1200W hub motor and does not publish nominal watts. Virginia and Maryland definitions use a motor under 750 watts, so the Class 3 label is not confirmed from this page.",
+        "Qlife's spec table labels the Cityone Plus Class 3 and lists 28 mph. Virginia defines an electric power-assisted bicycle as a motor input of no more than 750 watts, and class three pedal assistance ceases at 28 mph. Maryland requires a motor rating of 750 watts or less, and Class 3 assistance ceases at 28 mph. Qlife publishes peak motor wattage, Peak 1200W, and does not provide the motor-input or motor-rating figure those statutes use. eBikeQuest does not independently confirm the Class 3 label from that page.",
     },
     officialSources: [cityoneSource, cpscSource],
     specifications: [
@@ -59,7 +61,7 @@ export const qlifeModels: EbikeModel[] = [
         label: "Motor",
         value: "Peak 1200W hub",
         sourceId: "cityone-page",
-        note: "Nominal wattage is not published on this page.",
+        note: "Peak output is published. The page does not give the motor input Virginia uses or the motor rating Maryland uses.",
       },
       {
         id: "speed",
@@ -132,12 +134,17 @@ export const qlifeModels: EbikeModel[] = [
       {
         id: "class-unresolved",
         summary:
-          "Qlife labels the Cityone Plus Class 3 at 28 mph and also lists a peak 1200W motor without a nominal wattage. Confirm the frame label and the motor's rated watts before treating it as a Class 3 e-bike. No Qlife CPSC recall was found on September 28, 2026.",
+          "Qlife labels the Cityone Plus Class 3 at 28 mph and publishes a peak 1200W hub motor. The page does not publish a motor-input or motor-rating figure. The classification above explains why that leaves the Class 3 label unconfirmed.",
         severity: "caution",
         sourceId: "cityone-page",
         commerceRestriction: "caution",
       },
     ],
+    safetyReview: {
+      checkedAt: accessedAt,
+      sourceIds: ["cpsc-qlife"],
+      finding: "CPSC recall search checked September 28, 2026; no matching notice returned at that check.",
+    },
     retailerLinks: [
       {
         id: "cityone-manufacturer",
@@ -171,9 +178,11 @@ export const qlifeModels: EbikeModel[] = [
     classification: {
       determinable: true,
       designation: "out-of-class",
-      sourceIds: ["spark-page"],
+      manufacturerLabel: "Class 3",
+      manufacturerLabelSourceId: "spark-page",
+      sourceIds: ["spark-page", "va-46-2-100", "md-11-117-1"],
       reasoning:
-        "The Spark page says Class 3 and lists a top speed of 35+ mph. Class 3 assist stops at 28 mph. The advertised speed is outside Class 1, Class 2, and Class 3, whatever the page's class label says. The motor is listed as peak 1800W, and nominal wattage is not on the spec table.",
+        "The Spark page says Class 3 and lists a top speed of 35+ mph. Virginia's class three motor assistance ceases at 28 mph. Maryland's Class 3 motor assistance ceases at 28 mph. The advertised speed is outside those definitions, whatever the page's class label says. The motor is listed as peak 1800W. Peak output is not the motor input in the Virginia statute or the motor rating in the Maryland statute, and neither figure is on the spec table.",
     },
     officialSources: [sparkSource, cpscSource],
     specifications: [
@@ -183,7 +192,7 @@ export const qlifeModels: EbikeModel[] = [
         label: "Motor",
         value: "Peak 1800W",
         sourceId: "spark-page",
-        note: "Nominal wattage is not published on this page.",
+        note: "Peak output is published. Motor input and motor rating are not on this page.",
       },
       {
         id: "speed",
@@ -256,12 +265,17 @@ export const qlifeModels: EbikeModel[] = [
       {
         id: "above-class-3",
         summary:
-          "Qlife lists the Spark at 35+ mph and also labels it Class 3. The speed figure puts it outside the three-class e-bike system. No Qlife CPSC stop-use warning was found on September 28, 2026.",
+          "Qlife lists the Spark at 35+ mph and also labels it Class 3. The classification above compares that listed speed with the Virginia and Maryland class definitions.",
         severity: "caution",
         sourceId: "spark-page",
         commerceRestriction: "caution",
       },
     ],
+    safetyReview: {
+      checkedAt: accessedAt,
+      sourceIds: ["cpsc-qlife"],
+      finding: "CPSC recall search checked September 28, 2026; no matching notice returned at that check.",
+    },
     retailerLinks: [
       {
         id: "spark-manufacturer",

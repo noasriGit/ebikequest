@@ -108,6 +108,21 @@ export interface SafetyNotice {
    * Phase 2 can suppress purchase links without brand-specific code.
    */
   commerceRestriction?: CommerceRestriction;
+  /**
+   * Short early-warning line. The full summary is shown once in the safety section.
+   * Do not repeat summary here.
+   */
+  headline?: string;
+}
+
+/**
+ * A dated check for regulator notices. An empty result is research, not a safety notice,
+ * and it is not a finding that a product is safe or cleared.
+ */
+export interface SafetyReview {
+  checkedAt: string;
+  sourceIds: string[];
+  finding?: string;
 }
 
 /**
@@ -180,11 +195,17 @@ export interface Brand {
   lineup?: BrandLineupRow[];
   faq?: BrandFaq[];
   safetyNotices?: SafetyNotice[];
+  /** Dated regulator check. Do not use this to say a product is safe. */
+  safetyReview?: SafetyReview;
+  /** Government class-definition sources for classConsiderations. */
+  classSourceIds?: string[];
   /** Direct retailer URLs. Leave Amazon affiliate links unset until a real Associates Special Link exists. */
   retailerLinks?: RetailerLink[];
   status: PublicationStatus;
   researchStatus: ResearchStatus;
   officialSources?: EvidenceSource[];
+  /** First publication date. Do not change this on a later research refresh. */
+  publishedAt?: string;
   lastVerifiedAt?: string;
   seo?: { title?: string; noIndex?: boolean };
 }
@@ -199,13 +220,27 @@ export interface ModelClassification {
   sourceIds: string[];
   /** Short original synthesis: what the sources say, and why the class follows. */
   reasoning?: string;
+  /**
+   * The manufacturer's own class label, quoted. This is not eBikeQuest's designation.
+   * Citing only this label does not require a government class-definition source.
+   */
+  manufacturerLabel?: string;
+  manufacturerLabelSourceId?: string;
 }
+
+/** Public /ebikes pages are e-bike profiles. Other vehicle types stay off that hub. */
+export type ModelCatalogStatus = "ebike" | "withheld";
 
 export interface EbikeModel {
   id: string;
   brandSlug: string;
   slug: string;
   name: string;
+  /**
+   * withheld records are kept as research and must not enter /ebikes, search, or the sitemap.
+   * Omit the field for a normal e-bike profile.
+   */
+  catalogStatus?: ModelCatalogStatus;
   description?: string;
   status: PublicationStatus;
   researchStatus: ResearchStatus;
@@ -217,6 +252,8 @@ export interface EbikeModel {
    * safety notices, including the case where none exist.
    */
   safetyReviewed?: boolean;
+  /** Dated regulator check. Not a clearance, and not a safety notice. */
+  safetyReview?: SafetyReview;
   specifications?: Specification[];
   officialSources?: EvidenceSource[];
   productSources?: ProductSource[];

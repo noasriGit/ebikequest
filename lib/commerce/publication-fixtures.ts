@@ -57,14 +57,15 @@ const publicBrand: Brand = {
   status: "published",
   researchStatus: "editorially-reviewed",
   suitedFor: "Riders comparing sourced commuter bikes.",
+  publishedAt: "2026-09-28",
   lastVerifiedAt: "2026-09-28",
   officialSources: [
     { id: "site", title: "Manufacturer site", url: "https://example.com", role: "manufacturer" },
     { id: "manual", title: "Owner manual", url: "https://example.com/manual", role: "manufacturer" },
   ],
   sections: [
-    { id: "overview", heading: "Overview", paragraphs: [words(40)] },
-    { id: "limits", heading: "Known limits", paragraphs: [words(40)] },
+    { id: "overview", heading: "Overview", paragraphs: [words(40)], sourceIds: ["manual"] },
+    { id: "limits", heading: "Known limits", paragraphs: [words(40)], sourceIds: ["site"] },
   ],
 };
 
@@ -75,8 +76,8 @@ function publicModel(id: string): EbikeModel {
     classification: {
       determinable: true,
       designation: "class-2",
-      sourceIds: ["manual"],
-      reasoning: "The manual lists a throttle and a 20 mph assist cutoff, which matches a Class 2 definition.",
+      sourceIds: ["manual", "va-46-2-100", "md-11-117-1"],
+      reasoning: "The manual lists a throttle and a 20 mph assist cutoff. Virginia and Maryland define that cutoff as Class 2.",
     },
   };
 }
@@ -160,6 +161,43 @@ export function assertPublicationFixtures(): string[] {
   }
   if (!getModelPublicationIssues(unsourcedClass, [publicBrand]).some((issue) => /definite class/i.test(issue))) {
     errors.push("fixture: class diagnostics did not require source evidence");
+  }
+
+  const manufacturerOnly: EbikeModel = {
+    ...publicModel("manufacturer-only-class"),
+    classification: {
+      determinable: true,
+      designation: "out-of-class",
+      sourceIds: ["manual"],
+      reasoning: "The manual lists 35 mph. That speed is outside Class 3, but this fixture cites no statute.",
+    },
+  };
+  if (isPublicModel(manufacturerOnly, [publicBrand])) {
+    errors.push("fixture: definite class with only a manufacturer source was treated as public");
+  }
+  if (
+    !getModelPublicationIssues(manufacturerOnly, [publicBrand]).some((issue) =>
+      issue.includes("government class-definition source"),
+    )
+  ) {
+    errors.push("fixture: class diagnostics did not require a government class-definition source");
+  }
+
+  const statuteOnly: EbikeModel = {
+    ...publicModel("statute-only-class"),
+    classification: {
+      determinable: true,
+      designation: "class-2",
+      sourceIds: ["va-46-2-100"],
+      reasoning: "Virginia's Class two assistance ceases at 20 mph, but this fixture cites no product page.",
+    },
+  };
+  if (
+    !getModelPublicationIssues(statuteOnly, [publicBrand]).some((issue) =>
+      issue.includes("manufacturer product source"),
+    )
+  ) {
+    errors.push("fixture: class diagnostics did not require a manufacturer product source");
   }
 
   const unsafe: EbikeModel = {

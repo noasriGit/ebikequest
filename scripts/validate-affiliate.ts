@@ -2,6 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { AFFILIATE_LINK_REL } from "../lib/affiliate/constants";
 import { brands, buyingGuides, comparisons, ebikeModels } from "../content/commerce";
+import { withheldModelResearch } from "../content/commerce/models";
+import { isAmazonSearchUrl, isPublicModel } from "../lib/commerce/publish";
 import { assertPublicationFixtures } from "../lib/commerce/publication-fixtures";
 import {
   getBrandPublicationIssues,
@@ -136,6 +138,9 @@ function validateCommerceRecords() {
     const links = [...(model.retailerLinks ?? [])];
     if (model.amazonLink) links.push(model.amazonLink);
     for (const link of links) {
+      if (isAmazonSearchUrl(link.href)) {
+        error(`${model.id}: generic Amazon search URL is not a product destination (${link.href})`);
+      }
       if (isCloakedHref(link.href)) {
         error(`${model.id}: retailer link must be a direct outbound URL (${link.href})`);
       }
@@ -159,6 +164,9 @@ function validateCommerceRecords() {
       error(`${brand.id}: brand website must be a direct URL`);
     }
     for (const link of brand.retailerLinks ?? []) {
+      if (isAmazonSearchUrl(link.href)) {
+        error(`${brand.id}: generic Amazon search URL is not a product destination (${link.href})`);
+      }
       if (isCloakedHref(link.href)) {
         error(`${brand.id}: retailer link must be a direct outbound URL (${link.href})`);
       }
@@ -178,6 +186,21 @@ function validatePublicationGates() {
   for (const brand of brands) {
     if (brand.status !== "published" || brand.seo?.noIndex) continue;
     reportIssues(brand.id, getBrandPublicationIssues(brand));
+  }
+
+  for (const model of withheldModelResearch) {
+    if (ebikeModels.some((entry) => entry.id === model.id)) {
+      error(`${model.id}: withheld research was added to the public e-bike catalog`);
+    }
+    if (model.catalogStatus !== "withheld") {
+      error(`${model.id}: withheld research must set catalogStatus to withheld`);
+    }
+    if (isPublicModel(model, brands)) {
+      error(`${model.id}: withheld research passed the public e-bike model gate`);
+    }
+  }
+  if (ebikeModels.some((model) => model.brandSlug === "yozma" || model.catalogStatus === "withheld")) {
+    error("public ebikeModels still includes a Yozma dirt bike or a withheld record");
   }
 
   for (const model of ebikeModels) {

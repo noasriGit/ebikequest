@@ -6,12 +6,13 @@ import { AuthorByline, ReviewerByline } from "@/components/seo/AuthorByline";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
 import { DiscoveryLinks } from "@/components/research/DiscoveryLinks";
-import { SafetyNotices } from "@/components/research/SafetyNotices";
+import { SafetyNotices, SafetyReviewNote } from "@/components/research/SafetyNotices";
+import { SectionSources } from "@/components/research/SectionSources";
 import { SourceList } from "@/components/research/SourceList";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { EDITORIAL_TEAM, withReviewDate } from "@/config/authors";
 import { getBrandContextLinks, getBrandModelLinks } from "@/lib/commerce/relationships";
-import { brandRetailerLinksForDisplay, noticesPurchasePolicy } from "@/lib/commerce/publish";
+import { brandResearchSources, brandRetailerLinksForDisplay, noticesPurchasePolicy } from "@/lib/commerce/publish";
 import { getBrand, getBrands, getModelsForBrand } from "@/lib/content/commerce";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import {
@@ -45,7 +46,7 @@ export async function generateMetadata({ params }: { params: Promise<{ brand: st
 export default async function BrandPage({ params }: { params: Promise<{ brand: string }> }) {
   const { brand: slug } = await params;
   const brand = await getBrand(slug);
-  if (!brand?.description || !brand.lastVerifiedAt) notFound();
+  if (!brand?.description || !brand.lastVerifiedAt || !brand.publishedAt) notFound();
 
   const [models, modelLinks, contextLinks] = await Promise.all([
     getModelsForBrand(brand.slug),
@@ -56,7 +57,8 @@ export default async function BrandPage({ params }: { params: Promise<{ brand: s
   const comparable = (
     await Promise.all((brand.comparableBrandSlugs ?? []).map(async (entry) => getBrand(entry)))
   ).filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
-  const warrantySource = brand.officialSources?.find((source) => source.id === brand.warrantySourceId);
+  const researchSources = brandResearchSources(brand);
+  const warrantySource = researchSources.find((source) => source.id === brand.warrantySourceId);
   const policy = noticesPurchasePolicy(brand.safetyNotices);
   const retailerLinks = brandRetailerLinksForDisplay(brand);
   const hasAffiliate = retailerLinks.some((link) => link.isAffiliate);
@@ -80,7 +82,7 @@ export default async function BrandPage({ params }: { params: Promise<{ brand: s
             title: pageTitle,
             description: brand.description,
             path,
-            publishedAt: brand.lastVerifiedAt,
+            publishedAt: brand.publishedAt,
             updatedAt: brand.lastVerifiedAt,
             author: EDITORIAL_TEAM,
             reviewedBy: reviewer,
@@ -115,6 +117,10 @@ export default async function BrandPage({ params }: { params: Promise<{ brand: s
             <dd className="mt-1 text-text-primary">{brand.researchStatus.replaceAll("-", " ")}</dd>
           </div>
           <div>
+            <dt className="text-text-muted">First published</dt>
+            <dd className="mt-1 text-text-primary">{brand.publishedAt}</dd>
+          </div>
+          <div>
             <dt className="text-text-muted">Last verified</dt>
             <dd className="mt-1 text-text-primary">{brand.lastVerifiedAt}</dd>
           </div>
@@ -141,9 +147,10 @@ export default async function BrandPage({ params }: { params: Promise<{ brand: s
         {materialNotices.length ? (
           <SafetyNotices
             notices={materialNotices}
-            sources={brand.officialSources ?? []}
+            sources={researchSources}
             heading="Read this before a retailer link"
             headingId="safety-banner"
+            compact
           />
         ) : null}
 
@@ -186,6 +193,7 @@ export default async function BrandPage({ params }: { params: Promise<{ brand: s
               {section.paragraphs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
+              <SectionSources sourceIds={section.sourceIds} sources={researchSources} />
             </section>
           ))}
         </article>
@@ -265,6 +273,7 @@ export default async function BrandPage({ params }: { params: Promise<{ brand: s
               Class and speed
             </h2>
             <p className="mt-3 max-w-3xl text-body-sm text-text-secondary">{brand.classConsiderations}</p>
+            <SectionSources sourceIds={brand.classSourceIds} sources={researchSources} />
           </section>
         ) : null}
 
@@ -306,7 +315,8 @@ export default async function BrandPage({ params }: { params: Promise<{ brand: s
           </section>
         ) : null}
 
-        <SafetyNotices notices={brand.safetyNotices ?? []} sources={brand.officialSources ?? []} />
+        <SafetyNotices notices={brand.safetyNotices ?? []} sources={researchSources} />
+        <SafetyReviewNote review={brand.safetyReview} sources={researchSources} />
 
         <section className="mt-10" aria-labelledby="retailers">
           <h2 id="retailers" className="text-heading-md text-text-primary">
@@ -398,7 +408,7 @@ export default async function BrandPage({ params }: { params: Promise<{ brand: s
         ) : null}
 
         <SourceList
-          sources={brand.officialSources ?? []}
+          sources={researchSources}
           heading="Research sources"
           headingId="brand-sources"
         />

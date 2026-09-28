@@ -1,3 +1,7 @@
+import {
+  classFrameworkSourceById,
+  isThreeClassDefinitionSource,
+} from "@/content/research/class-sources";
 import type {
   Brand,
   BuyingGuide,
@@ -9,6 +13,7 @@ import type {
   ProductSource,
   RetailerLink,
   SafetyNotice,
+  SafetyReview,
   Specification,
 } from "@/types/commerce";
 
@@ -77,7 +82,61 @@ export function isNonAuthoritativeHost(url: string): boolean {
 }
 
 export function collectModelSources(model: EbikeModel): CitedSource[] {
-  return [...(model.officialSources ?? []), ...(model.productSources ?? [])];
+  const own: CitedSource[] = [...(model.officialSources ?? []), ...(model.productSources ?? [])];
+  const citedIds = [
+    ...(model.classification?.sourceIds ?? []),
+    model.classification?.manufacturerLabelSourceId,
+    ...(model.safetyReview?.sourceIds ?? []),
+  ];
+  const shared = citedIds
+    .map((sourceId) => (sourceId ? classFrameworkSourceById(sourceId) : undefined))
+    .filter((source): source is EvidenceSource => Boolean(source));
+  const seen = new Set(own.map((source) => source.id));
+  const extras: EvidenceSource[] = [];
+  for (const source of shared) {
+    if (seen.has(source.id)) continue;
+    seen.add(source.id);
+    extras.push(source);
+  }
+  return [...own, ...extras];
+}
+
+export function resolveBrandSource(brand: Brand, sourceId: string): EvidenceSource | undefined {
+  return brand.officialSources?.find((source) => source.id === sourceId) ?? classFrameworkSourceById(sourceId);
+}
+
+/** Brand sources plus any shared legal sources the page actually cites. */
+export function brandResearchSources(brand: Brand): EvidenceSource[] {
+  const own = brand.officialSources ?? [];
+  const citedIds = [
+    ...(brand.classSourceIds ?? []),
+    ...(brand.safetyReview?.sourceIds ?? []),
+    ...(brand.sections ?? []).flatMap((section) => section.sourceIds ?? []),
+    ...(brand.lineup ?? []).map((row) => row.sourceId),
+    brand.warrantySourceId,
+    ...(brand.safetyNotices ?? []).map((notice) => notice.sourceId),
+  ];
+  const seen = new Set(own.map((source) => source.id));
+  const extras: EvidenceSource[] = [];
+  for (const sourceId of citedIds) {
+    if (!sourceId || seen.has(sourceId)) continue;
+    const shared = classFrameworkSourceById(sourceId);
+    if (!shared) continue;
+    seen.add(shared.id);
+    extras.push(shared);
+  }
+  return [...own, ...extras];
+}
+
+export function isAmazonSearchUrl(href: string): boolean {
+  try {
+    const url = new URL(href);
+    const host = url.hostname.toLowerCase();
+    if (!host.endsWith("amazon.com") && !host.includes("amazon.")) return false;
+    return url.pathname === "/s" || url.pathname.startsWith("/s/");
+  } catch {
+    return false;
+  }
 }
 
 export function sourceById(model: EbikeModel, sourceId: string): CitedSource | undefined {
@@ -225,25 +284,16 @@ function safetyNoticeIssues(notices: SafetyNotice[] | undefined, sources: CitedS
   return issues;
 }
 
-function classificationIssues(model: EbikeModel): string[] {
-  const classification = model.classification;
-  if (!classification) return ["missing verified classification"];
-
-  if (!classification.determinable) {
-    if (classification.designation && DEFINITE_CLASSES.has(classification.designation)) {
-      return ["unsupported class assignment on an undetermined classification"];
-    }
-    return [];
+function resolvedClassificationSources(model: EbikeModel, classification: ModelClassification): CitedSource[] {
+  const resolved: CitedSource[] = [];
+  for (const sourceId of classification.sourceIds) {
+    const source = sourceById(model, sourceId);
+    if (source) resolved.push(source);
   }
+  return resolved;
+}
 
-  if (!classification.designation || !DEFINITE_CLASSES.has(classification.designation)) {
-    return ["class is marked determinable without a definite designation"];
-  }
-
-  if (classification.sourceIds.length === 0) {
-    return ["definite class without source evidence"];
-  }
-
+function classificationSourceRecordIssues(model: EbikeModel, classification: ModelClassification): string[] {
   const issues: string[] = [];
   for (const sourceId of classification.sourceIds) {
     const source = sourceById(model, sourceId);
@@ -254,6 +304,77 @@ function classificationIssues(model: EbikeModel): string[] {
     if (!isHttpUrl(source.url)) issues.push(`classification source ${sourceId} has an invalid URL`);
     if (!isAuthoritativeSource(source, true) || isNonAuthoritativeHost(source.url)) {
       issues.push(`classification source ${sourceId} is not authoritative`);
+    }
+  }
+  if (classification.manufacturerLabelSourceId) {
+    const labelSource = sourceById(model, classification.manufacturerLabelSourceId);
+    if (!labelSource) {
+      issues.push(`manufacturer label source ${classification.manufacturerLabelSourceId} does not resolve`);
+    } else if (sourceRole(labelSource) !== "manufacturer") {
+      issues.push("manufacturer class label must cite a manufacturer source");
+    }
+  }
+  return issues;
+}
+
+/**
+ * eBikeQuest's own definite designation is a synthesis of a product spec and a
+ * three-class statute. Quoting a manufacturer label, or leaving the class
+ * unresolved, does not require both categories.
+ */
+function classificationIssues(model: EbikeModel): string[] {
+  const classification = model.classification;
+  if (!classification) return ["missing verified classification"];
+
+  const recordIssues = classificationSourceRecordIssues(model, classification);
+
+  if (!classification.determinable) {
+    if (classification.designation && DEFINITE_CLASSES.has(classification.designation)) {
+      return ["unsupported class assignment on an undetermined classification", ...recordIssues];
+    }
+    return recordIssues;
+  }
+
+  if (!classification.designation || !DEFINITE_CLASSES.has(classification.designation)) {
+    return ["class is marked determinable without a definite designation"];
+  }
+
+  if (classification.sourceIds.length === 0) {
+    return ["definite class without source evidence"];
+  }
+
+  const issues = [...recordIssues];
+  const resolved = resolvedClassificationSources(model, classification);
+  if (!resolved.some((source) => sourceRole(source) === "manufacturer")) {
+    issues.push("definite class lacks a manufacturer product source");
+  }
+  if (!resolved.some((source) => isThreeClassDefinitionSource(source))) {
+    issues.push("definite class lacks a government class-definition source");
+  }
+  return issues;
+}
+
+const RECALL_ABSENCE =
+  /no matching .{0,80}recall|recall search .{0,80}returned no|no .{0,40}recall was found|did not (find|return) a .{0,40}recall|returned no matching/i;
+
+const PERMANENT_CLEARANCE = /\b(cleared|no safety issues|is safe|are safe|proven safe)\b/i;
+
+function safetyReviewIssues(review: SafetyReview | undefined, resolve: (sourceId: string) => CitedSource | undefined): string[] {
+  if (!review) return [];
+  const issues: string[] = [];
+  if (!isIsoDate(review.checkedAt)) issues.push("safety review has an invalid checkedAt date");
+  if (review.finding && PERMANENT_CLEARANCE.test(review.finding)) {
+    issues.push("safety review phrases an empty recall search as a clearance");
+  }
+  if (review.sourceIds.length === 0) issues.push("safety review has no sources");
+  for (const sourceId of review.sourceIds) {
+    const source = resolve(sourceId);
+    if (!source || !isHttpUrl(source.url)) {
+      issues.push(`safety review source ${sourceId} does not resolve`);
+      continue;
+    }
+    if (!isAuthoritativeSource(source, true) || isNonAuthoritativeHost(source.url)) {
+      issues.push(`safety review source ${sourceId} is not authoritative`);
     }
   }
   return issues;
@@ -267,6 +388,7 @@ export function getBrandPublicationIssues(brand: Brand): string[] {
   if (brand.researchStatus !== "source-checked" && brand.researchStatus !== "editorially-reviewed") {
     issues.push("research status is not source-checked or editorially-reviewed");
   }
+  if (!isIsoDate(brand.publishedAt)) issues.push("no publishedAt");
   if (!isIsoDate(brand.lastVerifiedAt)) issues.push("no lastVerifiedAt");
   if (!isHttpUrl(brand.website)) issues.push("missing first-party website");
   if ((brand.description?.trim().length ?? 0) < MIN_BRAND_DESCRIPTION) {
@@ -293,9 +415,29 @@ export function getBrandPublicationIssues(brand: Brand): string[] {
     issues.push(`only ${completeSections.length} editorial sections`);
   }
   for (const section of sections) {
-    for (const sourceId of section.sourceIds ?? []) {
-      if (!sources.some((source) => source.id === sourceId)) {
+    const cited = section.sourceIds ?? [];
+    const complete =
+      section.heading?.trim() && section.paragraphs.some((paragraph) => paragraph.trim().length >= 40);
+    if (complete && cited.length === 0) {
+      issues.push(`section ${section.id} has no source evidence`);
+    }
+    for (const sourceId of cited) {
+      if (!resolveBrandSource(brand, sourceId)) {
         issues.push(`section ${section.id} source ${sourceId} does not resolve`);
+      }
+    }
+  }
+
+  if (brand.classConsiderations?.trim()) {
+    const classSources = (brand.classSourceIds ?? [])
+      .map((sourceId) => resolveBrandSource(brand, sourceId))
+      .filter((source): source is EvidenceSource => Boolean(source));
+    if (!classSources.some((source) => isThreeClassDefinitionSource(source))) {
+      issues.push("class discussion lacks a government class-definition source");
+    }
+    for (const sourceId of brand.classSourceIds ?? []) {
+      if (!resolveBrandSource(brand, sourceId)) {
+        issues.push(`class source ${sourceId} does not resolve`);
       }
     }
   }
@@ -304,8 +446,14 @@ export function getBrandPublicationIssues(brand: Brand): string[] {
     if (!row.name?.trim() || !row.riderFit?.trim() || !row.distinction?.trim()) {
       issues.push(`lineup row ${row.id} is incomplete`);
     }
-    if (!sources.some((source) => source.id === row.sourceId)) {
+    if (!resolveBrandSource(brand, row.sourceId)) {
       issues.push(`lineup row ${row.id} source does not resolve`);
+    }
+  }
+
+  for (const link of brand.retailerLinks ?? []) {
+    if (isAmazonSearchUrl(link.href)) {
+      issues.push(`retailer link ${link.id} is a generic Amazon search URL`);
     }
   }
 
@@ -318,11 +466,25 @@ export function getBrandPublicationIssues(brand: Brand): string[] {
   );
   if (!hasResearchAngle) issues.push("missing rider fit, class context, or known limitations");
 
-  if (brand.warrantySourceId && !sources.some((source) => source.id === brand.warrantySourceId)) {
+  if (brand.warrantySourceId && !resolveBrandSource(brand, brand.warrantySourceId)) {
     issues.push("warranty source does not resolve");
   }
 
-  issues.push(...safetyNoticeIssues(brand.safetyNotices, sources));
+  const brandSources = brandResearchSources(brand);
+  issues.push(...safetyNoticeIssues(brand.safetyNotices, brandSources));
+  for (const notice of brand.safetyNotices ?? []) {
+    if (RECALL_ABSENCE.test(notice.summary)) {
+      issues.push(`safety notice ${notice.id} records an absence of a recall; use safetyReview instead`);
+    }
+    if (notice.severity !== "info") {
+      if (!notice.headline?.trim()) {
+        issues.push(`safety notice ${notice.id} needs a short headline for the early warning`);
+      } else if (notice.headline.trim() === notice.summary.trim()) {
+        issues.push(`safety notice ${notice.id} headline repeats the full summary`);
+      }
+    }
+  }
+  issues.push(...safetyReviewIssues(brand.safetyReview, (sourceId) => resolveBrandSource(brand, sourceId)));
   return issues;
 }
 
@@ -332,6 +494,7 @@ export function isPublicBrand(brand: Brand): boolean {
 
 export function getModelPublicationIssues(model: EbikeModel, brands: Brand[]): string[] {
   const issues: string[] = [];
+  if (model.catalogStatus === "withheld") issues.push("withheld from the public e-bike catalog");
   if (model.status !== "published") issues.push("status is not published");
   if (model.seo?.noIndex) issues.push("marked noindex");
   if (!model.slug?.trim() || !model.brandSlug?.trim() || !model.name?.trim()) {
@@ -387,9 +550,20 @@ export function getModelPublicationIssues(model: EbikeModel, brands: Brand[]): s
 
   issues.push(...classificationIssues(model));
   issues.push(...safetyNoticeIssues(model.safetyNotices, sources));
+  for (const notice of model.safetyNotices ?? []) {
+    if (RECALL_ABSENCE.test(notice.summary)) {
+      issues.push(`safety notice ${notice.id} records an absence of a recall; use safetyReview instead`);
+    }
+  }
+  issues.push(...safetyReviewIssues(model.safetyReview, (sourceId) => sourceById(model, sourceId)));
 
   const storedLinks = [...(model.retailerLinks ?? [])];
   if (model.amazonLink) storedLinks.push(model.amazonLink);
+  for (const link of storedLinks) {
+    if (isAmazonSearchUrl(link.href)) {
+      issues.push(`retailer link ${link.id} is a generic Amazon search URL`);
+    }
+  }
   if (purchaseLinkPolicy(model) === "suppress" && storedLinks.length > 0) {
     issues.push("purchase links conflict with a do-not-promote safety state");
   }

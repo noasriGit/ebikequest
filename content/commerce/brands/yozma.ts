@@ -1,5 +1,6 @@
 import type { Brand } from "@/types/commerce";
 
+const publishedAt = "2026-09-28";
 const accessedAt = "2026-09-28";
 
 export const yozma: Brand = {
@@ -18,8 +19,9 @@ export const yozma: Brand = {
   warrantySummary:
     "Yozma's U.S. warranty is one year from the delivery date for the original purchaser, against manufacturing defects in materials and workmanship. A later owner can be covered only if the year has not expired and they have the original purchaser's name and order number. Yozma replaces parts it confirms are defective. Installation, labor, and shop fees are not covered. The owner pays shipping for spare parts. Brake pads, rotors, spokes, tires, tubes, chains, chainrings, cassettes, and cranksets are listed as wear items.",
   warrantySourceId: "yozma-warranty",
+  classSourceIds: ["va-46-2-100", "md-11-117-1", "dc-50-2201-02"],
   classConsiderations:
-    "Neither the IN 10 nor the IN 10 Pro fits Class 1, 2, or 3. Yozma lists top speeds of 40 mph and 50 mph, says both are off-road only, and says they are not permitted on public roads. Virginia and Maryland Class 3 assist stops at 28 mph. Washington, DC's motorized-bicycle definition stops at 20 mph. A bike advertised at 40 or 50 mph is outside those bicycle categories on Yozma's own figures.",
+    "Neither the IN 10 nor the IN 10 Pro fits Class 1, 2, or 3. Yozma lists top speeds of 40 mph and 50 mph, says both are off-road only, and says they are not permitted on public roads. Virginia's class three assistance and Maryland's Class 3 assistance both cease at 28 mph. Washington, DC's motorized-bicycle definition stops at 20 mph. A bike advertised at 40 or 50 mph is outside those bicycle categories on Yozma's own figures.",
   certificationNotes:
     "The IN 10 page, the IN 10 Pro page, and the U.S. warranty policy checked for this guide do not name UL 2271 or UL 2849. Battery certification is omitted because it was not on those pages.",
   limitations: [
@@ -30,12 +32,12 @@ export const yozma: Brand = {
     "Yozma's battery-care note says not to store packs above 70°F or below 32°F. That is the manufacturer's written instruction on the model pages.",
   ],
   retailerAvailability:
-    "Yozma sells the IN 10 and IN 10 Pro from yozmasport.com. The Amazon link on this page is a search page, not an Associates link, and not a matched product record. Specifications on this page come from Yozma, not from Amazon.",
+    "Yozma sells the IN 10 and IN 10 Pro from yozmasport.com. This page links the manufacturer. Specifications come from Yozma, not from Amazon.",
   comparableBrandSlugs: [],
   lineupNotes:
     "The U.S. catalog checked here is two dirt bikes, plus bundle SKUs of those same bikes. Bundle pages were not given separate profiles.",
   editorialNotes:
-    "This is a buyer guide from Yozma's product pages, warranty, and off-road notice. eBikeQuest has not ridden or measured either bike.",
+    "This is a buyer guide from Yozma's product pages, warranty, and off-road notice. eBikeQuest has not ridden or measured either bike. Standalone model pages are withheld because the IN 10 and IN 10 Pro are off-road electric dirt bikes outside this site's current public e-bike model catalog. The lineup on this page is the model record.",
   sections: [
     {
       id: "what-yozma-is",
@@ -68,7 +70,7 @@ export const yozma: Brand = {
     {
       id: "where-to-ride",
       heading: "Where can you ride it?",
-      sourceIds: ["yozma-in10", "yozma-street"],
+      sourceIds: ["yozma-in10", "yozma-street", "va-46-2-100", "md-11-117-1", "dc-50-2201-02"],
       paragraphs: [
         "Yozma's product pages say the vehicle is for off-road use only and is not permitted on public roads. A Yozma article says the bikes are built for trails, private property, and other non-public areas, that they are not sold as street-legal, and that Yozma does not offer a street-legal modification kit. The article says the bikes are not equipped with turn signals, mirrors, or DOT-approved tires.",
         "That is a different question from where a Class 1 or Class 2 e-bike can ride in Virginia, Maryland, or DC. Those bicycle rules do not pull a 40 or 50 mph dirt bike back into the e-bike class system. Off-highway and private-land rules are local. This guide does not map either model onto a public trail in the directory.",
@@ -78,10 +80,10 @@ export const yozma: Brand = {
     {
       id: "before-you-order",
       heading: "What to know before ordering",
-      sourceIds: ["yozma-warranty", "yozma-in10", "cpsc-yozma"],
+      sourceIds: ["yozma-warranty", "yozma-in10", "yozma-in10-pro"],
       paragraphs: [
         "Confirm age, height, and that the riding place is actually legal for an off-road vehicle. Yozma's return note on the product page requires the bike to be unused or under ten miles, in the original packaging, with the items that shipped in the box. Shipping is listed as a processing window plus a transit window, and the Pro page says the bike and battery can arrive as separate packages.",
-        "Warranty claims need proof of purchase and photos or video, sent to support@yozmasport.com. Yozma will not ship a replacement part until it has reviewed that evidence. Labor is not reimbursed. Shipping-damage claims must be filed within seven days. A CPSC search for Yozma on September 28, 2026 returned no matching recall. The off-road restriction still stands.",
+        "Warranty claims need proof of purchase and photos or video, sent to support@yozmasport.com. Yozma will not ship a replacement part until it has reviewed that evidence. Labor is not reimbursed. Shipping-damage claims must be filed within seven days. The off-road restriction still stands. The dated regulator check is in the safety section and is not a clearance.",
       ],
     },
   ],
@@ -89,7 +91,6 @@ export const yozma: Brand = {
     {
       id: "in-10",
       name: "IN 10",
-      modelSlug: "in-10",
       riderFit: "Riders about 3.94–5.9 ft, age 14+",
       distinction: "Up to 40 mph, 48V 23.4Ah, 121 lb, 14/12-inch wheels. Off-road only.",
       sourceId: "yozma-in10",
@@ -97,7 +98,6 @@ export const yozma: Brand = {
     {
       id: "in-10-pro",
       name: "IN 10 Pro",
-      modelSlug: "in-10-pro",
       riderFit: "Riders about 4.7–6.3 ft, age 14+",
       distinction: "Listed at 50 mph, 60V 27Ah, 143 lb, 17/14-inch wheels, reverse gear. Off-road only.",
       sourceId: "yozma-in10-pro",
@@ -133,20 +133,19 @@ export const yozma: Brand = {
   safetyNotices: [
     {
       id: "off-road-only",
+      headline: "Yozma says these bikes are off-road only and not for public roads.",
       summary:
         "Yozma states that the IN 10 and IN 10 Pro are for off-road use only and are not permitted on public roads. The company says it does not offer a street-legal kit. Read that limit before using a retailer link.",
       severity: "caution",
       sourceId: "yozma-in10",
       commerceRestriction: "caution",
     },
-    {
-      id: "cpsc-clear",
-      summary:
-        "A CPSC recall search for Yozma on September 28, 2026 returned no matching recall or stop-use warning. That search does not make the bikes street legal.",
-      severity: "info",
-      sourceId: "cpsc-yozma",
-    },
   ],
+  safetyReview: {
+    checkedAt: accessedAt,
+    sourceIds: ["cpsc-yozma"],
+    finding: "CPSC recall search checked September 28, 2026; no matching notice returned at that check.",
+  },
   retailerLinks: [
     {
       id: "yozma-site",
@@ -156,17 +155,10 @@ export const yozma: Brand = {
       isAffiliate: false,
       label: "View on Yozma's site",
     },
-    {
-      id: "yozma-amazon-search",
-      retailer: "amazon",
-      retailerName: "Amazon",
-      href: "https://www.amazon.com/s?k=Yozma+electric+dirt+bike",
-      isAffiliate: false,
-      label: "Check availability on Amazon",
-    },
   ],
   status: "published",
   researchStatus: "editorially-reviewed",
+  publishedAt,
   lastVerifiedAt: accessedAt,
   officialSources: [
     {

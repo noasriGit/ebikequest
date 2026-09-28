@@ -7,7 +7,7 @@ import { OutboundRetailerLink } from "@/components/affiliate/OutboundRetailerLin
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
 import { DiscoveryLinks } from "@/components/research/DiscoveryLinks";
-import { SafetyNotices } from "@/components/research/SafetyNotices";
+import { SafetyNotices, SafetyReviewNote } from "@/components/research/SafetyNotices";
 import { SourceList } from "@/components/research/SourceList";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getBrand, getModel, getModels } from "@/lib/content/commerce";
@@ -63,6 +63,11 @@ export default async function EbikeModelPage({
   if (!model || !brand || !model.description) notFound();
 
   const path = `/ebikes/${brand.slug}/${model.slug}`;
+  const modelSources = collectModelSources(model).map((source) => ({
+    id: source.id,
+    title: source.title,
+    url: source.url,
+  }));
   const specs = visibleSpecifications(model);
   const designation = publicClassDesignation(model);
   const classSources = (model.classification?.sourceIds ?? [])
@@ -129,7 +134,12 @@ export default async function EbikeModelPage({
           {model.classification?.reasoning ? (
             <p className="mt-3 max-w-3xl text-body-sm text-text-secondary">{model.classification.reasoning}</p>
           ) : null}
-          {designation && classSources.length ? (
+          {model.classification?.manufacturerLabel ? (
+            <p className="mt-3 max-w-3xl text-body-sm text-text-secondary">
+              Manufacturer label: {model.classification.manufacturerLabel}. That label is the maker&apos;s wording.
+            </p>
+          ) : null}
+          {classSources.length ? (
             <ul className="mt-3 space-y-1 text-body-sm">
               {classSources.map((source) => (
                 <li key={source.id}>
@@ -168,14 +178,8 @@ export default async function EbikeModelPage({
           </table>
         </div>
 
-        <SafetyNotices
-          notices={model.safetyNotices ?? []}
-          sources={collectModelSources(model).map((source) => ({
-            id: source.id,
-            title: source.title,
-            url: source.url,
-          }))}
-        />
+        <SafetyNotices notices={model.safetyNotices ?? []} sources={modelSources} />
+        <SafetyReviewNote review={model.safetyReview} sources={modelSources} />
 
         <SourceList sources={collectModelSources(model)} />
 

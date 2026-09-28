@@ -1,4 +1,5 @@
 import type { EvidenceSource } from "@/types/commerce";
+import { CLASS_FRAMEWORK_SOURCES } from "@/content/research/class-sources";
 
 export interface SafetySection {
   id: string;
@@ -21,30 +22,7 @@ export const safetyPage: {
     "How e-bike class, assisted speed, and local rules change where a bike can be ridden before you choose a model.",
   lastVerifiedAt: "2026-09-28",
   sources: [
-    {
-      id: "va-46-2-904-1",
-      title: "Virginia Code § 46.2-904.1 — Electric power-assisted bicycles",
-      url: "https://law.lis.virginia.gov/vacode/title46.2/chapter8/section46.2-904.1/",
-      publisher: "Virginia Legislative Information System",
-      role: "government",
-      accessedAt: "2026-09-28",
-    },
-    {
-      id: "md-11-117-1",
-      title: "Maryland Transportation Article § 11-117.1 — Electric bicycle",
-      url: "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gtr&enactments=false&section=11-117.1",
-      publisher: "Maryland General Assembly",
-      role: "government",
-      accessedAt: "2026-09-28",
-    },
-    {
-      id: "dc-50-2201-02",
-      title: "DC Code § 50-2201.02 — Motorized bicycle definition",
-      url: "https://code.dccouncil.gov/us/dc/council/code/sections/50-2201.02",
-      publisher: "Council of the District of Columbia",
-      role: "government",
-      accessedAt: "2026-09-28",
-    },
+    ...CLASS_FRAMEWORK_SOURCES,
     {
       id: "nps-ebikes",
       title: "Electric bicycles in national parks",
@@ -52,7 +30,7 @@ export const safetyPage: {
       publisher: "National Park Service",
       role: "government",
       accessedAt: "2026-09-28",
-    },
+    } satisfies EvidenceSource,
   ],
   sections: [
     {
@@ -69,7 +47,7 @@ export const safetyPage: {
       paragraphs: [
         "Virginia and Maryland both use a three-class electric bicycle definition. The shared outline below is a reading aid: Class 1 and Class 2 stop motor assistance at 20 mph, and Class 3 pedal-assist continues to 28 mph. The statute and the land manager still control a specific path.",
       ],
-      sourceIds: ["va-46-2-904-1", "md-11-117-1"],
+      sourceIds: ["va-46-2-100", "md-11-117-1"],
     },
     {
       id: "where-it-breaks",
@@ -79,7 +57,7 @@ export const safetyPage: {
         "Federal land is a second break. National Park Service regulations let a superintendent allow e-bikes where traditional bicycles are allowed, and also let that superintendent restrict them. A statewide permission does not answer a park compendium or a trailhead sign. E-bikes are not allowed in designated wilderness.",
         "A bike that exceeds the wattage or assisted-speed limits in a state definition may not be an electric bicycle under that law. It can fall into a moped or motor-vehicle category, with license, registration, or insurance consequences. eBikeQuest labels that case out of class only when a source supports it, and leaves the class undetermined when the sources do not.",
       ],
-      sourceIds: ["dc-50-2201-02", "nps-ebikes", "va-46-2-904-1", "md-11-117-1"],
+      sourceIds: ["dc-50-2201-02", "nps-ebikes", "va-46-2-100", "va-46-2-904-1", "md-11-117-1"],
     },
     {
       id: "what-we-publish",

@@ -39,11 +39,16 @@ const cpscSource = {
   note: "No matching Yozma notice on September 28, 2026.",
 };
 
+/**
+ * Research records only. These dirt bikes stay out of ebikeModels and /ebikes
+ * until the site has a public taxonomy for off-road electric dirt bikes.
+ */
 export const yozmaModels: EbikeModel[] = [
   {
     id: "model-yozma-in-10",
     brandSlug: "yozma",
     slug: "in-10",
+    catalogStatus: "withheld",
     name: "IN 10",
     description:
       "The Yozma IN 10 is an off-road electric dirt bike. Yozma says it is not permitted on public roads, lists a top speed up to 40 mph, and recommends riders from 3.94 to 5.9 feet who are at least 14.",
@@ -56,9 +61,9 @@ export const yozmaModels: EbikeModel[] = [
     classification: {
       determinable: true,
       designation: "out-of-class",
-      sourceIds: ["in10-page"],
+      sourceIds: ["in10-page", "va-46-2-100", "md-11-117-1"],
       reasoning:
-        "Yozma lists a top speed of 28–40 mph, with a third mode at 40 mph, and says the IN 10 is off-road only and not permitted on public roads. That speed is above the 28 mph Class 3 ceiling and the 20 mph Class 1 and Class 2 ceiling. The FAQ lists the motor as 1200W rated and 2600W peak, so the rated figure is also above the 750-watt e-bike definition.",
+        "Yozma lists a top speed of 28–40 mph, with a third mode at 40 mph, and says the IN 10 is off-road only and not permitted on public roads. Virginia's class three assistance and Maryland's Class 3 assistance both cease at 28 mph. The FAQ lists the motor as 1200W rated and 2600W peak. Maryland's definition uses a motor rating of 750 watts or less, so the 1200W rated figure is above that rating. The page does not publish a separate motor-input figure for Virginia's 750-watt input limit. The speed figure alone is outside the three-class system.",
     },
     officialSources: [in10Source, streetSource, cpscSource],
     specifications: [
@@ -142,12 +147,17 @@ export const yozmaModels: EbikeModel[] = [
       {
         id: "off-road-only",
         summary:
-          "Yozma says the IN 10 is for off-road use only and is not permitted on public roads. Riders should be 14 or older. No Yozma CPSC recall was found on September 28, 2026.",
+          "Yozma says the IN 10 is for off-road use only and is not permitted on public roads. The order notice says the rider should be 14 or older.",
         severity: "caution",
         sourceId: "in10-page",
         commerceRestriction: "caution",
       },
     ],
+    safetyReview: {
+      checkedAt: accessedAt,
+      sourceIds: ["cpsc-yozma"],
+      finding: "CPSC recall search checked September 28, 2026; no matching notice returned at that check.",
+    },
     retailerLinks: [
       {
         id: "in10-manufacturer",
@@ -168,6 +178,7 @@ export const yozmaModels: EbikeModel[] = [
     id: "model-yozma-in-10-pro",
     brandSlug: "yozma",
     slug: "in-10-pro",
+    catalogStatus: "withheld",
     name: "IN 10 Pro",
     description:
       "The Yozma IN 10 Pro is the larger off-road dirt bike. Yozma lists a 50 mph top speed, a 60V 27Ah battery, and a 5500W peak motor, and says the bike is not permitted on public roads.",
@@ -180,9 +191,9 @@ export const yozmaModels: EbikeModel[] = [
     classification: {
       determinable: true,
       designation: "out-of-class",
-      sourceIds: ["in10-pro-page"],
+      sourceIds: ["in10-pro-page", "va-46-2-100", "md-11-117-1"],
       reasoning:
-        "Yozma lists a 50 mph top speed and a 5500W peak motor, and says the IN 10 Pro is off-road only and not permitted on public roads. The FAQ also describes modes near 22, 34, and 47 mph. Every one of those figures is above the Class 3 ceiling of 28 mph.",
+        "Yozma lists a 50 mph top speed and a 5500W peak motor, and says the IN 10 Pro is off-road only and not permitted on public roads. The FAQ also describes modes near 22, 34, and 47 mph. Virginia's class three assistance and Maryland's Class 3 assistance both cease at 28 mph, so each of those speeds is outside the three-class system. Peak watts are not Maryland's motor rating or Virginia's motor input, and the page does not publish those statutory figures.",
     },
     officialSources: [in10ProSource, streetSource, cpscSource],
     specifications: [
@@ -267,12 +278,17 @@ export const yozmaModels: EbikeModel[] = [
       {
         id: "off-road-only",
         summary:
-          "Yozma says the IN 10 Pro is for off-road use only and is not permitted on public roads. The same page lists 50 mph and also a 330-pound load that conflicts with a 120 kg safety note. No Yozma CPSC recall was found on September 28, 2026.",
+          "Yozma says the IN 10 Pro is for off-road use only and is not permitted on public roads. The same page lists 50 mph and also a 330-pound load that conflicts with a 120 kg safety note.",
         severity: "caution",
         sourceId: "in10-pro-page",
         commerceRestriction: "caution",
       },
     ],
+    safetyReview: {
+      checkedAt: accessedAt,
+      sourceIds: ["cpsc-yozma"],
+      finding: "CPSC recall search checked September 28, 2026; no matching notice returned at that check.",
+    },
     retailerLinks: [
       {
         id: "in10-pro-manufacturer",
