@@ -15,7 +15,7 @@ import { getTrailMapFeatures } from "@/lib/maps/trail-map-data";
 import { TrailCard } from "@/components/trails/TrailCard";
 import { Badge } from "@/components/ui/Badge";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
-import { getTrailDiscoveryLinks } from "@/lib/commerce/relationships";
+import { getTrailContextLinks, getTrailDiscoveryLinks } from "@/lib/commerce/relationships";
 import { DiscoveryLinks } from "@/components/research/DiscoveryLinks";
 import { siteConfig } from "@/config/site";
 import {
@@ -380,6 +380,11 @@ export default async function TrailDetailPage({
           title="Bikes researched for this trail"
           intro="Shown only when a model profile names this trail. Class rules on the trail page still govern access."
           links={discoveryLinks}
+        />
+        <DiscoveryLinks
+          title="Class, then a bike"
+          intro="The trail policy above is the access record. A model profile is a separate research page, and it is matched to a trail only when the class is verified."
+          links={getTrailContextLinks(trail)}
         />
       </Container>
     </>

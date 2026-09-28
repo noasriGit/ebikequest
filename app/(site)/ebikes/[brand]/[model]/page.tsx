@@ -7,16 +7,18 @@ import { OutboundRetailerLink } from "@/components/affiliate/OutboundRetailerLin
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
 import { DiscoveryLinks } from "@/components/research/DiscoveryLinks";
+import { RideAccess } from "@/components/research/RideAccess";
 import { SafetyNotices, SafetyReviewNote } from "@/components/research/SafetyNotices";
 import { SourceList } from "@/components/research/SourceList";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getBrand, getModel, getModels } from "@/lib/content/commerce";
+import { getTrails } from "@/lib/content/trails";
+import { rideAccessForModel } from "@/lib/commerce/ride-access";
 import { getModelBrandLink, getModelRegulatoryLinks } from "@/lib/commerce/relationships";
 import {
   classificationStatement,
   collectModelSources,
   formatSpecValue,
-  publicClassDesignation,
   purchaseLinkPolicy,
   retailerLinksForDisplay,
   sourceById,
@@ -69,20 +71,22 @@ export default async function EbikeModelPage({
     url: source.url,
   }));
   const specs = visibleSpecifications(model);
-  const designation = publicClassDesignation(model);
   const classSources = (model.classification?.sourceIds ?? [])
     .map((sourceId) => sourceById(model, sourceId))
     .filter((source): source is NonNullable<typeof source> => Boolean(source));
+  const rideAccess = rideAccessForModel(model, await getTrails());
   const productSchema = buildProductSchema({
     name: `${brand.name} ${model.name}`,
     description: model.description,
     path,
     brandName: brand.name,
+    brandUrl: brand.website,
     imagePath: model.imagePath,
     additionalProperties: [
-      ...(designation ? [{ name: "E-bike class", value: classificationStatement(model) }] : []),
+      { name: "E-bike class", value: classificationStatement(model) },
       ...specs.map(({ spec }) => ({ name: spec.label, value: formatSpecValue(spec) })),
     ],
+    mentions: rideAccess.lawLinks.map((link) => ({ name: link.label, path: link.href })),
   });
 
   const policy = purchaseLinkPolicy(model);
@@ -123,7 +127,7 @@ export default async function EbikeModelPage({
             ? "eBikeQuest has ridden or measured this bike."
             : "eBikeQuest has not ridden or measured this bike."}{" "}
           Research status: {model.researchStatus.replaceAll("-", " ")}.
-          {model.lastVerifiedAt ? ` Last verified ${model.lastVerifiedAt}.` : ""} This page is a model guide.
+          {model.lastVerifiedAt ? ` Last verified ${model.lastVerifiedAt}.` : ""} {brand.name} makes the {model.name}.
         </p>
 
         <section className="mt-8" aria-labelledby="classification">
@@ -151,6 +155,8 @@ export default async function EbikeModelPage({
             </ul>
           ) : null}
         </section>
+
+        <RideAccess report={rideAccess} />
 
         <div className="mt-8 overflow-x-auto">
           <table className="research-table">

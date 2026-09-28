@@ -268,6 +268,18 @@ function safetyNoticeIssues(notices: SafetyNotice[] | undefined, sources: CitedS
     if (notice.effectiveDate && !isIsoDate(notice.effectiveDate)) {
       issues.push(`safety notice ${notice.id} has an invalid effective date`);
     }
+    if (notice.lastVerifiedAt && !isIsoDate(notice.lastVerifiedAt)) {
+      issues.push(`safety notice ${notice.id} has an invalid lastVerifiedAt date`);
+    }
+    if (notice.severity === "stop-use") {
+      if (!notice.agency?.trim()) issues.push(`safety notice ${notice.id} is missing the issuing agency`);
+      if (!notice.noticeType) issues.push(`safety notice ${notice.id} is missing a notice type`);
+      if (!notice.affectedModels?.length) issues.push(`safety notice ${notice.id} does not name affected models`);
+      if (!notice.hazard?.trim()) issues.push(`safety notice ${notice.id} is missing a hazard`);
+      if (!notice.recommendation?.trim()) issues.push(`safety notice ${notice.id} is missing a current recommendation`);
+      if (!isIsoDate(notice.effectiveDate)) issues.push(`safety notice ${notice.id} is missing a notice date`);
+      if (!isIsoDate(notice.lastVerifiedAt)) issues.push(`safety notice ${notice.id} is missing a verification date`);
+    }
     const source = resolvingSource(sources, notice.sourceId);
     if (!notice.sourceId || !source) {
       issues.push(`safety notice ${notice.id} has no resolving source`);
@@ -595,9 +607,10 @@ export function getBuyingGuidePublicationIssues(guide: BuyingGuide): string[] {
   if (!guide.handsOnTested && guide.researchStatus === "hands-on-tested") {
     issues.push("hands-on research status without a hands-on claim");
   }
-  const dated = [guide.updatedAt, guide.publishedAt, guide.lastVerifiedAt].some((value) => isIsoDate(value));
-  if (!dated) issues.push("no research date");
+  if (!isIsoDate(guide.publishedAt)) issues.push("no publishedAt");
+  if (!isIsoDate(guide.lastVerifiedAt)) issues.push("no lastVerifiedAt");
 
+  const sources = guideSources(guide);
   const sections = guide.sections ?? [];
   if (sections.length < MIN_GUIDE_SECTIONS) issues.push(`only ${sections.length} sections`);
   let totalWords = 0;
@@ -606,10 +619,14 @@ export function getBuyingGuidePublicationIssues(guide: BuyingGuide): string[] {
     const words = section.paragraphs.reduce((sum, paragraph) => sum + wordCount(paragraph), 0);
     totalWords += words;
     if (words < MIN_GUIDE_SECTION_WORDS) issues.push(`section ${section.id} is too thin`);
+    for (const sourceId of section.sourceIds ?? []) {
+      if (!sources.find((source) => source.id === sourceId && isHttpUrl(source.url))) {
+        issues.push(`section ${section.id} source ${sourceId} does not resolve`);
+      }
+    }
   }
   if (totalWords < MIN_GUIDE_WORDS) issues.push(`only ${totalWords} words of guidance`);
 
-  const sources = guideSources(guide);
   issues.push(...sourceIssues(sources));
   const anchored = Boolean(
     sources.length ||

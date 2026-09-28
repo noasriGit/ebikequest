@@ -92,6 +92,14 @@ export interface Specification {
 
 export type SafetySeverity = "info" | "caution" | "warning" | "stop-use";
 
+/** Agency notice kinds. A missing recall is not a notice type. */
+export type SafetyNoticeType =
+  | "recall"
+  | "warning"
+  | "stop-use"
+  | "manufacturer-warning"
+  | "use-caution";
+
 /** How retailer and affiliate calls to action should behave. */
 export type CommerceRestriction = "none" | "caution" | "do-not-promote";
 
@@ -113,6 +121,16 @@ export interface SafetyNotice {
    * Do not repeat summary here.
    */
   headline?: string;
+  /** Regulator or manufacturer that issued the notice. */
+  agency?: string;
+  noticeType?: SafetyNoticeType;
+  /** Models or variants the notice names. Do not add models the notice does not name. */
+  affectedModels?: string[];
+  hazard?: string;
+  /** Current instruction from the notice, summarized. */
+  recommendation?: string;
+  /** ISO date this notice record was checked against the source. */
+  lastVerifiedAt?: string;
 }
 
 /**
@@ -278,6 +296,7 @@ export interface BuyingGuideSection {
   id: string;
   heading: string;
   paragraphs: string[];
+  sourceIds?: string[];
 }
 
 export interface SourcedClaim {

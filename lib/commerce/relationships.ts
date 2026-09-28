@@ -1,7 +1,7 @@
 import type { Guide } from "@/types/guide";
 import type { Trail } from "@/types/trail";
 import { getGuides } from "@/lib/content/guides";
-import { getBrand, getBrands, getBuyingGuides, getModels, getModelsForBrand } from "@/lib/content/commerce";
+import { getBrand, getBuyingGuides, getModels, getModelsForBrand } from "@/lib/content/commerce";
 import { classificationStatement, publicClassDesignation } from "@/lib/commerce/publish";
 import type { EbikeModel } from "@/types/commerce";
 
@@ -42,7 +42,7 @@ export async function getBrandModelLinks(brandSlug: string): Promise<DiscoveryLi
 }
 
 export async function getBrandContextLinks(brandSlug: string): Promise<DiscoveryLink[]> {
-  const brands = await getBrands();
+  const brand = await getBrand(brandSlug);
   const links: DiscoveryLink[] = [
     {
       href: "/guides/buying-your-first-ebike",
@@ -73,14 +73,16 @@ export async function getBrandContextLinks(brandSlug: string): Promise<Discovery
     },
     { href: "/trails", label: "Trail directory", note: "Access still depends on class" },
     { href: "/safety", label: "Safety and classification" },
+    { href: "/brands", label: "All brand guides" },
   ];
 
-  for (const brand of brands) {
-    if (brand.slug === brandSlug) continue;
+  for (const slug of brand?.comparableBrandSlugs ?? []) {
+    const related = await getBrand(slug);
+    if (!related) continue;
     links.push({
-      href: `/brands/${brand.slug}`,
-      label: brand.name,
-      note: "Also researched",
+      href: `/brands/${related.slug}`,
+      label: related.name,
+      note: "Related research",
     });
   }
 
@@ -165,6 +167,12 @@ export async function getGuideDiscoveryLinks(guide: Guide): Promise<DiscoveryLin
         label: "E-bike laws",
         note: "Rules already documented for VA, MD, and DC",
       },
+      {
+        href: "/ebikes",
+        label: "Published e-bike model profiles",
+        note: "A class is stated only when sources support it",
+      },
+      { href: "/brands", label: "Brand guides" },
     );
   }
 
@@ -182,10 +190,31 @@ export async function getGuideDiscoveryLinks(guide: Guide): Promise<DiscoveryLin
         href: "/laws",
         label: "E-bike laws",
       },
+      { href: "/brands", label: "Brand guides" },
+      { href: "/buying-guides", label: "Buying guides" },
     );
   }
 
-  return dedupe(links.filter((link) => link.href !== `/guides/${guide.slug}`)).slice(0, 8);
+  return dedupe(links.filter((link) => link.href !== `/guides/${guide.slug}`)).slice(0, 10);
+}
+
+export function getTrailContextLinks(trail: Trail): DiscoveryLink[] {
+  return [
+    {
+      href: `/laws/${trail.jurisdiction}`,
+      label: "E-bike laws for this jurisdiction",
+      note: "Class rules before a product",
+    },
+    {
+      href: "/guides/ebike-classes-explained",
+      label: "E-bike classes explained",
+    },
+    {
+      href: "/ebikes",
+      label: "Published e-bike model profiles",
+      note: "Only models with a verified class can be matched to a trail policy",
+    },
+  ];
 }
 
 export async function getTrailDiscoveryLinks(trail: Trail): Promise<DiscoveryLink[]> {

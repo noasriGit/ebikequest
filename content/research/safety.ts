@@ -88,6 +88,7 @@ export const safetyPage: {
     { href: "/guides/buying-your-first-ebike", label: "Buying your first e-bike" },
     { href: "/laws", label: "E-bike laws" },
     { href: "/trails", label: "Trail directory" },
+    { href: "/brands/ridstar", label: "Ridstar safety guide" },
     { href: "/editorial-standards", label: "Editorial standards" },
   ],
 };
