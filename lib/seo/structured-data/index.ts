@@ -220,6 +220,28 @@ export function buildItemListSchema(
   };
 }
 
+export function buildWebPageSchema(options: {
+  title: string;
+  description: string;
+  path: string;
+  dateModified?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: options.title,
+    description: options.description,
+    url: absoluteUrl(options.path),
+    ...(options.dateModified ? { dateModified: toIsoDateTime(options.dateModified) } : {}),
+    isPartOf: {
+      "@type": "WebSite",
+      name: siteConfig.name,
+      url: CANONICAL_SITE_URL,
+    },
+    publisher: buildPublisherEntity(),
+  };
+}
+
 export function buildAboutPageSchema(options: {
   title: string;
   description: string;

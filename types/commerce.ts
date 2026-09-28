@@ -139,6 +139,16 @@ export interface BrandResearchSection {
   sourceIds?: string[];
 }
 
+/** A sourced lineup row. modelSlug is set only when a public model page exists. */
+export interface BrandLineupRow {
+  id: string;
+  name: string;
+  modelSlug?: string;
+  riderFit: string;
+  distinction: string;
+  sourceId: string;
+}
+
 export interface BrandFaq {
   question: string;
   answer: string;
@@ -166,8 +176,12 @@ export interface Brand {
   comparableBrandSlugs?: string[];
   editorialNotes?: string;
   sections?: BrandResearchSection[];
+  /** Sourced model differences. Do not add a row to create a URL. */
+  lineup?: BrandLineupRow[];
   faq?: BrandFaq[];
   safetyNotices?: SafetyNotice[];
+  /** Direct retailer URLs. Leave Amazon affiliate links unset until a real Associates Special Link exists. */
+  retailerLinks?: RetailerLink[];
   status: PublicationStatus;
   researchStatus: ResearchStatus;
   officialSources?: EvidenceSource[];

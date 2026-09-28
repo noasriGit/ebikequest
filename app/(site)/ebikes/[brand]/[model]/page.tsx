@@ -7,6 +7,7 @@ import { OutboundRetailerLink } from "@/components/affiliate/OutboundRetailerLin
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
 import { DiscoveryLinks } from "@/components/research/DiscoveryLinks";
+import { SafetyNotices } from "@/components/research/SafetyNotices";
 import { SourceList } from "@/components/research/SourceList";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getBrand, getModel, getModels } from "@/lib/content/commerce";
@@ -113,9 +114,11 @@ export default async function EbikeModelPage({
       />
       <Container className="py-10 md:py-14">
         <p className="text-body-sm text-text-secondary">
-          Hands-on tested: {model.handsOnTested ? "Yes" : "No"}. Research status:{" "}
-          {model.researchStatus.replaceAll("-", " ")}.
-          {model.lastVerifiedAt ? ` Last verified ${model.lastVerifiedAt}.` : ""}
+          {model.handsOnTested
+            ? "eBikeQuest has ridden or measured this bike."
+            : "eBikeQuest has not ridden or measured this bike."}{" "}
+          Research status: {model.researchStatus.replaceAll("-", " ")}.
+          {model.lastVerifiedAt ? ` Last verified ${model.lastVerifiedAt}.` : ""} This page is a model guide.
         </p>
 
         <section className="mt-8" aria-labelledby="classification">
@@ -165,32 +168,14 @@ export default async function EbikeModelPage({
           </table>
         </div>
 
-        {model.safetyNotices?.length ? (
-          <section className="mt-10" aria-labelledby="safety-notices">
-            <h2 id="safety-notices" className="text-heading-md text-text-primary">
-              Safety notices
-            </h2>
-            <ul className="mt-4 space-y-4 text-body-sm text-text-secondary">
-              {model.safetyNotices.map((notice) => {
-                const source = sourceById(model, notice.sourceId);
-                return (
-                  <li key={notice.id}>
-                    <p className="text-text-primary">{notice.summary}</p>
-                    <p className="mt-1 text-text-muted">
-                      {notice.severity.replaceAll("-", " ")}
-                      {notice.effectiveDate ? ` · ${notice.effectiveDate}` : ""}
-                    </p>
-                    {source ? (
-                      <a href={source.url} className="link-editorial" target="_blank" rel="noopener noreferrer">
-                        {source.title}
-                      </a>
-                    ) : null}
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
-        ) : null}
+        <SafetyNotices
+          notices={model.safetyNotices ?? []}
+          sources={collectModelSources(model).map((source) => ({
+            id: source.id,
+            title: source.title,
+            url: source.url,
+          }))}
+        />
 
         <SourceList sources={collectModelSources(model)} />
 

@@ -9,6 +9,7 @@ import { getJurisdictionName } from "@/lib/content/jurisdictions";
 import type { Guide } from "@/types/guide";
 import type { LawComparisonRow } from "@/types/law";
 import type { Trail } from "@/types/trail";
+import type { Brand } from "@/types/commerce";
 import type { ContentImageRef } from "@/lib/utils/images";
 
 function formatDate(iso: string): string {
@@ -50,6 +51,7 @@ export function ResearchHome({
   jurisdictionCount,
   modelCount,
   brandCount,
+  brands,
   featuredTrails,
   lawRows,
   buyingGuides,
@@ -61,6 +63,7 @@ export function ResearchHome({
   jurisdictionCount: number;
   modelCount: number;
   brandCount: number;
+  brands: Brand[];
   featuredTrails: Trail[];
   lawRows: LawComparisonRow[];
   buyingGuides: Guide[];
@@ -161,12 +164,25 @@ export function ResearchHome({
                 .
               </p>
             ) : (
-              <p className="text-body-md text-text-secondary">
-                <Link href="/brands" className="link-editorial">
-                  Browse {brandCount} {brandCount === 1 ? "brand" : "brands"}
-                </Link>
-                .
-              </p>
+              <div>
+                <ul className="border-t border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)]">
+                  {brands.map((brand) => (
+                    <li key={brand.id} className="border-b border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)]">
+                      <Link href={`/brands/${brand.slug}`} className="block py-4">
+                        <span className="font-medium text-text-primary">{brand.name}</span>
+                        {brand.description ? (
+                          <span className="mt-1 block text-body-sm text-text-secondary">{brand.description}</span>
+                        ) : null}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-4 text-body-sm">
+                  <Link href="/brands" className="link-editorial">
+                    All {brandCount} {brandCount === 1 ? "brand" : "brands"}
+                  </Link>
+                </p>
+              </div>
             )}
             <p className="mt-6 text-body-sm text-text-muted">
               {guideCount} rider guides remain available while the catalog is built, including class, maintenance, and local riding.

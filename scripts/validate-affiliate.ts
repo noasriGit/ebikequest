@@ -158,6 +158,14 @@ function validateCommerceRecords() {
     if (brand.website && isCloakedHref(brand.website)) {
       error(`${brand.id}: brand website must be a direct URL`);
     }
+    for (const link of brand.retailerLinks ?? []) {
+      if (isCloakedHref(link.href)) {
+        error(`${brand.id}: retailer link must be a direct outbound URL (${link.href})`);
+      }
+      if (link.isAffiliate && !link.href.startsWith("https://")) {
+        error(`${brand.id}: affiliate links must be absolute https URLs`);
+      }
+    }
   }
 }
 

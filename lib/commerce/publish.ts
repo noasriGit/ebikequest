@@ -7,6 +7,7 @@ import type {
   EvidenceSource,
   ModelClassification,
   ProductSource,
+  RetailerLink,
   SafetyNotice,
   Specification,
 } from "@/types/commerce";
@@ -167,19 +168,23 @@ export function formatSpecValue(spec: Specification): string {
 
 export type PurchaseLinkPolicy = "allow" | "caution" | "suppress";
 
-export function purchaseLinkPolicy(model: EbikeModel): PurchaseLinkPolicy {
-  const notices = model.safetyNotices ?? [];
-  const suppress = notices.some(
+export function noticesPurchasePolicy(notices: SafetyNotice[] | undefined): PurchaseLinkPolicy {
+  const list = notices ?? [];
+  const suppress = list.some(
     (notice) => notice.severity === "stop-use" || notice.commerceRestriction === "do-not-promote",
   );
   if (suppress) return "suppress";
-  const caution = notices.some(
+  const caution = list.some(
     (notice) =>
       notice.commerceRestriction === "caution" ||
       notice.severity === "warning" ||
       notice.severity === "caution",
   );
   return caution ? "caution" : "allow";
+}
+
+export function purchaseLinkPolicy(model: EbikeModel): PurchaseLinkPolicy {
+  return noticesPurchasePolicy(model.safetyNotices);
 }
 
 export function retailerLinksForDisplay(model: EbikeModel) {
@@ -189,6 +194,11 @@ export function retailerLinksForDisplay(model: EbikeModel) {
     links.unshift(model.amazonLink);
   }
   return links;
+}
+
+export function brandRetailerLinksForDisplay(brand: Brand): RetailerLink[] {
+  if (noticesPurchasePolicy(brand.safetyNotices) === "suppress") return [];
+  return brand.retailerLinks ?? [];
 }
 
 function safetyNoticeIssues(notices: SafetyNotice[] | undefined, sources: CitedSource[]): string[] {
@@ -288,6 +298,19 @@ export function getBrandPublicationIssues(brand: Brand): string[] {
         issues.push(`section ${section.id} source ${sourceId} does not resolve`);
       }
     }
+  }
+
+  for (const row of brand.lineup ?? []) {
+    if (!row.name?.trim() || !row.riderFit?.trim() || !row.distinction?.trim()) {
+      issues.push(`lineup row ${row.id} is incomplete`);
+    }
+    if (!sources.some((source) => source.id === row.sourceId)) {
+      issues.push(`lineup row ${row.id} source does not resolve`);
+    }
+  }
+
+  if (noticesPurchasePolicy(brand.safetyNotices) === "suppress" && (brand.retailerLinks?.length ?? 0) > 0) {
+    issues.push("retailer links conflict with a do-not-promote safety state");
   }
 
   const hasResearchAngle = Boolean(

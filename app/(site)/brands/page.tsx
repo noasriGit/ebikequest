@@ -56,11 +56,16 @@ export default async function BrandsPage() {
               const count = models.filter((model) => model.brandSlug === brand.slug).length;
               return (
                 <li key={brand.id} className="border-b border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)]">
-                  <Link href={`/brands/${brand.slug}`} className="flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:justify-between">
-                    <span className="font-medium text-text-primary">{brand.name}</span>
-                    <span className="text-sm text-text-muted">
-                      {count} {count === 1 ? "model" : "models"}
+                  <Link href={`/brands/${brand.slug}`} className="block py-4">
+                    <span className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+                      <span className="font-medium text-text-primary">{brand.name}</span>
+                      <span className="text-sm text-text-muted">
+                        {count} {count === 1 ? "model guide" : "model guides"}
+                      </span>
                     </span>
+                    {brand.description ? (
+                      <span className="mt-1 block text-body-sm text-text-secondary">{brand.description}</span>
+                    ) : null}
                   </Link>
                 </li>
               );

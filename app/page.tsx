@@ -44,6 +44,7 @@ export default async function HomePage() {
       jurisdictionCount={jurisdictions.length}
       modelCount={models.length}
       brandCount={brands.length}
+      brands={brands}
       featuredTrails={featuredTrails}
       lawRows={lawHub.comparisonMatrix}
       buyingGuides={buyingGuides}

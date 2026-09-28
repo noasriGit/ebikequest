@@ -1,7 +1,7 @@
 import type { Guide } from "@/types/guide";
 import type { Trail } from "@/types/trail";
 import { getGuides } from "@/lib/content/guides";
-import { getBrand, getBuyingGuides, getModels, getModelsForBrand } from "@/lib/content/commerce";
+import { getBrand, getBrands, getBuyingGuides, getModels, getModelsForBrand } from "@/lib/content/commerce";
 import { classificationStatement, publicClassDesignation } from "@/lib/commerce/publish";
 import type { EbikeModel } from "@/types/commerce";
 
@@ -39,6 +39,52 @@ export async function getBrandModelLinks(brandSlug: string): Promise<DiscoveryLi
     label: model.name,
     note: classificationStatement(model),
   }));
+}
+
+export async function getBrandContextLinks(brandSlug: string): Promise<DiscoveryLink[]> {
+  const brands = await getBrands();
+  const links: DiscoveryLink[] = [
+    {
+      href: "/guides/buying-your-first-ebike",
+      label: "Buying your first e-bike",
+      note: "Choose a class before a brand",
+    },
+    {
+      href: "/guides/ebike-classes-explained",
+      label: "E-bike classes explained",
+      note: "20 mph and 28 mph assist limits",
+    },
+    {
+      href: "/guides/where-can-you-ride-an-ebike",
+      label: "Where can you ride an e-bike?",
+      note: "Roads, paths, and sidewalks",
+    },
+    {
+      href: "/guides/are-class-3-ebikes-allowed-on-trails",
+      label: "Class 3 on trails",
+      note: "Where a 28 mph bike is limited",
+    },
+    { href: "/laws/virginia", label: "Virginia e-bike laws" },
+    { href: "/laws/maryland", label: "Maryland e-bike laws" },
+    {
+      href: "/laws/washington-dc",
+      label: "Washington, DC e-bike laws",
+      note: "20 mph motorized bicycle, not three classes",
+    },
+    { href: "/trails", label: "Trail directory", note: "Access still depends on class" },
+    { href: "/safety", label: "Safety and classification" },
+  ];
+
+  for (const brand of brands) {
+    if (brand.slug === brandSlug) continue;
+    links.push({
+      href: `/brands/${brand.slug}`,
+      label: brand.name,
+      note: "Also researched",
+    });
+  }
+
+  return links;
 }
 
 export async function getModelBrandLink(model: EbikeModel): Promise<DiscoveryLink | null> {
