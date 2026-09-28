@@ -13,6 +13,14 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [{ source: "/privacy-policy", destination: "/privacy", permanent: true }];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/sitemaps/:group.xml",
+        destination: "/sitemaps/:group",
+      },
+    ];
+  },
   async headers() {
     return [
       {

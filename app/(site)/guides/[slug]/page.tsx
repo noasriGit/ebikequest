@@ -9,6 +9,8 @@ import {
 } from "@/components/guides/GuideCard";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { getGuideImage } from "@/config/images";
+import { getGuideDiscoveryLinks } from "@/lib/commerce/relationships";
+import { DiscoveryLinks } from "@/components/research/DiscoveryLinks";
 import { getGuide, getGuideStaticParams, getGuides } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -53,6 +55,7 @@ export default async function GuideDetailPage({
   const related = guide.relatedGuides?.length
     ? (await getGuides()).filter((g) => guide.relatedGuides?.includes(g.slug))
     : [];
+  const discoveryLinks = await getGuideDiscoveryLinks(guide);
 
   return (
     <>
@@ -113,6 +116,11 @@ export default async function GuideDetailPage({
             </div>
           </div>
         </article>
+        <DiscoveryLinks
+          title="Where this fits a purchase"
+          intro="Use these when the question is which bike to buy, or which class that bike has to be, not only where a given class may ride."
+          links={discoveryLinks}
+        />
         {related.length ? (
           <section className="mt-14 border-t border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] pt-10">
             <p className="text-kicker mb-4">Related</p>

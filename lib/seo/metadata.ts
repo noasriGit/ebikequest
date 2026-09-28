@@ -9,6 +9,8 @@ interface BuildMetadataOptions {
   ogImage?: string;
   ogImageAlt?: string;
   noIndex?: boolean;
+  /** When noIndex is set, whether crawlers may follow links on the page. */
+  follow?: boolean;
   type?: "website" | "article";
 }
 
@@ -32,6 +34,7 @@ export function buildPageMetadata({
   ogImage,
   ogImageAlt,
   noIndex = false,
+  follow,
   type = "website",
 }: BuildMetadataOptions): Metadata {
   const canonical = buildCanonical(path);
@@ -42,7 +45,9 @@ export function buildPageMetadata({
     title,
     description,
     alternates: { canonical },
-    robots: noIndex ? { index: false, follow: false } : { index: true, follow: true },
+    robots: noIndex
+      ? { index: false, follow: follow ?? false }
+      : { index: true, follow: true },
     openGraph: {
       title,
       description,

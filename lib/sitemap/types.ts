@@ -4,7 +4,22 @@ export type SitemapContentType =
   | "trail"
   | "guide"
   | "law"
-  | "static";
+  | "static"
+  | "safety"
+  | "brand"
+  | "model"
+  | "buying-guide"
+  | "comparison";
+
+export type SitemapGroup =
+  | "core"
+  | "brands"
+  | "ebikes"
+  | "buying-guides"
+  | "guides"
+  | "trails"
+  | "laws"
+  | "compare";
 
 export interface SitemapEntry {
   id: string;

@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils/cn";
 import { getOutboundRel, resolveRetailerLabel } from "@/lib/affiliate/links";
 import type { RetailerLinkLabel } from "@/lib/affiliate/links";
+import { TrackedRetailerLink } from "./TrackedRetailerLink";
 
 interface OutboundRetailerLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -8,6 +9,12 @@ interface OutboundRetailerLinkProps extends React.AnchorHTMLAttributes<HTMLAncho
   /** When true, uses rel="sponsored noopener noreferrer" */
   isAffiliate?: boolean;
   label?: RetailerLinkLabel | string;
+  analytics?: {
+    brand?: string;
+    model?: string;
+    retailer: string;
+    position: string;
+  };
 }
 
 /**
@@ -20,9 +27,27 @@ export function OutboundRetailerLink({
   isAffiliate = false,
   label,
   className,
+  analytics,
   ...props
 }: OutboundRetailerLinkProps) {
   const text = children ?? resolveRetailerLabel(href, label);
+
+  if (analytics) {
+    return (
+      <TrackedRetailerLink
+        href={href}
+        isAffiliate={isAffiliate}
+        brand={analytics.brand}
+        model={analytics.model}
+        retailer={analytics.retailer}
+        position={analytics.position}
+        className={cn(className)}
+        {...props}
+      >
+        {text}
+      </TrackedRetailerLink>
+    );
+  }
 
   return (
     <a

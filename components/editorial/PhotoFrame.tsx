@@ -25,7 +25,7 @@ export function PhotoFrame({
     <figure className={cn("overflow-hidden", className)}>
       <div
         className={cn(
-          "relative overflow-hidden rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-sunken shadow-[var(--shadow-xs)]",
+          "relative overflow-hidden border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-sunken",
           aspectClass,
         )}
       >

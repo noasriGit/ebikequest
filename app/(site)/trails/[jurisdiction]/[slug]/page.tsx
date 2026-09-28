@@ -15,6 +15,8 @@ import { getTrailMapFeatures } from "@/lib/maps/trail-map-data";
 import { TrailCard } from "@/components/trails/TrailCard";
 import { Badge } from "@/components/ui/Badge";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
+import { getTrailDiscoveryLinks } from "@/lib/commerce/relationships";
+import { DiscoveryLinks } from "@/components/research/DiscoveryLinks";
 import { siteConfig } from "@/config/site";
 import {
   assertPublicJurisdiction,
@@ -71,6 +73,7 @@ export default async function TrailDetailPage({
 
   const trail = await getTrail(jurisdiction, slug);
   if (!trail) notFound();
+  const discoveryLinks = await getTrailDiscoveryLinks(trail);
 
   const jurisdictionName = getJurisdictionName(jurisdiction);
   const path = `/trails/${jurisdiction}/${slug}`;
@@ -372,6 +375,12 @@ export default async function TrailDetailPage({
             </div>
           </section>
         ) : null}
+
+        <DiscoveryLinks
+          title="Bikes researched for this trail"
+          intro="Shown only when a model profile names this trail. Class rules on the trail page still govern access."
+          links={discoveryLinks}
+        />
       </Container>
     </>
   );

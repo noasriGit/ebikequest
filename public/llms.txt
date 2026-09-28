@@ -1,21 +1,32 @@
 # eBikeQuest
 
-> Everything E-Bike. One Quest.
+> Find the right e-bike. Know where you can ride it.
 
-National e-bike discovery platform for trails, laws, guides, shops, rentals, and more.
+Independent research for choosing an e-bike and understanding where it can be ridden. Trail, law, and rider-guide pages are the live record. Brand and model profiles are published only after a source is cited.
 
-## Live categories (V1)
-- Trails: /trails
+## Live
+- Home: /
+- Safety and classification: /safety
 - Guides: /guides
+- Trails: /trails
 - Laws: /laws
 
-## Coverage
-Virginia, Maryland, Washington DC only. Other jurisdictions are not publicly indexed.
+## In research
+E-bike, brand, buying-guide, and comparison pages exist as sections. They are omitted from the XML sitemap until a record meets the publication bar. Do not treat an empty section as a catalog.
 
-## Trust & editorial
-- Editorial Standards: /editorial-standards
+- E-bikes: /ebikes
+- Brands: /brands
+- Buying guides: /buying-guides
+
+## Coverage
+Trail and law pages currently cover Virginia, Maryland, and Washington DC. Other jurisdictions are not publicly indexed.
+
+## Trust
+- Editorial standards: /editorial-standards
 - About: /about
+- Affiliate disclosure: /affiliate-disclosure
 - Suggest a trail: /suggest-trail
 
-## Optional
-- Sitemap: /sitemap.xml
+## Sitemap
+- HTML: /sitemap
+- XML index: /sitemap.xml

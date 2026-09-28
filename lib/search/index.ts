@@ -1,12 +1,16 @@
 import type { SearchDocument } from "@/types/content";
+import { publicClassDesignation } from "@/lib/commerce/publish";
+import { getBrands, getModels } from "@/lib/content/commerce";
 import { getGuides, getNationalLawHub, getPublicJurisdictions, getTrails } from "@/lib/content";
 
 export async function buildSearchIndex(): Promise<SearchDocument[]> {
-  const [trails, guides, lawHub, jurisdictions] = await Promise.all([
+  const [trails, guides, lawHub, jurisdictions, brands, models] = await Promise.all([
     getTrails(),
     getGuides(),
     getNationalLawHub(),
     getPublicJurisdictions(),
+    getBrands(),
+    getModels(),
   ]);
 
   const trailDocs: SearchDocument[] = trails.map((trail) => ({
@@ -47,7 +51,28 @@ export async function buildSearchIndex(): Promise<SearchDocument[]> {
     jurisdiction: undefined,
   });
 
-  return [...trailDocs, ...guideDocs, ...lawDocs];
+  const brandDocs: SearchDocument[] = brands.map((brand) => ({
+    entityType: "brand",
+    id: brand.id,
+    slug: brand.slug,
+    title: brand.name,
+    description: brand.description ?? "",
+  }));
+
+  const modelDocs: SearchDocument[] = models.map((model) => {
+    const designation = publicClassDesignation(model);
+    return {
+      entityType: "model" as const,
+      id: model.id,
+      slug: model.slug,
+      brandSlug: model.brandSlug,
+      title: model.name,
+      description: model.description ?? "",
+      tags: designation ? [designation] : undefined,
+    };
+  });
+
+  return [...trailDocs, ...guideDocs, ...lawDocs, ...brandDocs, ...modelDocs];
 }
 
 export function searchDocuments(docs: SearchDocument[], query: string): SearchDocument[] {
@@ -77,6 +102,10 @@ export function getSearchResultHref(doc: SearchDocument): string {
       return `/guides/${doc.slug}`;
     case "law":
       return doc.slug ? `/laws/${doc.slug}` : "/laws";
+    case "brand":
+      return `/brands/${doc.slug}`;
+    case "model":
+      return `/ebikes/${doc.brandSlug}/${doc.slug}`;
     default:
       return "/";
   }
@@ -90,6 +119,10 @@ export function getSearchResultLabel(type: SearchDocument["entityType"]): string
       return "Guide";
     case "law":
       return "Law";
+    case "brand":
+      return "Brand";
+    case "model":
+      return "E-bike";
     default:
       return type;
   }

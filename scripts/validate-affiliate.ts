@@ -1,11 +1,22 @@
 import fs from "node:fs";
 import path from "node:path";
 import { AFFILIATE_LINK_REL } from "../lib/affiliate/constants";
+import { brands, buyingGuides, comparisons, ebikeModels } from "../content/commerce";
+import { withheldModelResearch } from "../content/commerce/models";
+import { isAmazonSearchUrl, isPublicModel } from "../lib/commerce/publish";
+import { assertPublicationFixtures } from "../lib/commerce/publication-fixtures";
+import {
+  getBrandPublicationIssues,
+  getBuyingGuidePublicationIssues,
+  getComparisonPublicationIssues,
+  getModelPublicationIssues,
+} from "../lib/commerce/publish";
 
 const root = path.join(process.cwd());
 const gearDirs = [
   path.join(root, "content", "gear"),
   path.join(root, "content", "products"),
+  path.join(root, "content", "commerce"),
 ];
 
 let hasErrors = false;
@@ -103,6 +114,115 @@ function validateGearContent() {
   }
 }
 
+function isCloakedHref(href: string): boolean {
+  if (href.startsWith("/")) return true;
+  try {
+    const url = new URL(href);
+    const host = url.hostname.toLowerCase();
+    if (host === "amzn.to" || host.endsWith(".amzn.to")) return true;
+    if (url.pathname.startsWith("/go/") || url.pathname.startsWith("/out/")) return true;
+    return false;
+  } catch {
+    return true;
+  }
+}
+
+function validateCommerceRecords() {
+  for (const model of ebikeModels) {
+    if (model.handsOnTested && model.researchStatus !== "hands-on-tested") {
+      error(`${model.id}: handsOnTested is true without researchStatus "hands-on-tested"`);
+    }
+    if (!model.handsOnTested && model.researchStatus === "hands-on-tested") {
+      error(`${model.id}: researchStatus is hands-on-tested while handsOnTested is false`);
+    }
+    const links = [...(model.retailerLinks ?? [])];
+    if (model.amazonLink) links.push(model.amazonLink);
+    for (const link of links) {
+      if (isAmazonSearchUrl(link.href)) {
+        error(`${model.id}: generic Amazon search URL is not a product destination (${link.href})`);
+      }
+      if (isCloakedHref(link.href)) {
+        error(`${model.id}: retailer link must be a direct outbound URL (${link.href})`);
+      }
+      if (link.isAffiliate && !link.href.startsWith("https://")) {
+        error(`${model.id}: affiliate links must be absolute https URLs`);
+      }
+    }
+    if (model.imagePath && /amazon|amzn\.to/i.test(model.imagePath)) {
+      error(`${model.id}: do not store Amazon-hosted product images`);
+    }
+  }
+
+  for (const guide of [...buyingGuides, ...comparisons]) {
+    if (guide.handsOnTested && guide.researchStatus !== "hands-on-tested") {
+      error(`${guide.id}: hands-on claim without researchStatus "hands-on-tested"`);
+    }
+  }
+
+  for (const brand of brands) {
+    if (brand.website && isCloakedHref(brand.website)) {
+      error(`${brand.id}: brand website must be a direct URL`);
+    }
+    for (const link of brand.retailerLinks ?? []) {
+      if (isAmazonSearchUrl(link.href)) {
+        error(`${brand.id}: generic Amazon search URL is not a product destination (${link.href})`);
+      }
+      if (isCloakedHref(link.href)) {
+        error(`${brand.id}: retailer link must be a direct outbound URL (${link.href})`);
+      }
+      if (link.isAffiliate && !link.href.startsWith("https://")) {
+        error(`${brand.id}: affiliate links must be absolute https URLs`);
+      }
+    }
+  }
+}
+
+function reportIssues(id: string, issues: string[]) {
+  if (issues.length === 0) return;
+  error(`${id}:\n- ${issues.join("\n- ")}`);
+}
+
+function validatePublicationGates() {
+  for (const brand of brands) {
+    if (brand.status !== "published" || brand.seo?.noIndex) continue;
+    reportIssues(brand.id, getBrandPublicationIssues(brand));
+  }
+
+  for (const model of withheldModelResearch) {
+    if (ebikeModels.some((entry) => entry.id === model.id)) {
+      error(`${model.id}: withheld research was added to the public e-bike catalog`);
+    }
+    if (model.catalogStatus !== "withheld") {
+      error(`${model.id}: withheld research must set catalogStatus to withheld`);
+    }
+    if (isPublicModel(model, brands)) {
+      error(`${model.id}: withheld research passed the public e-bike model gate`);
+    }
+  }
+  if (ebikeModels.some((model) => model.brandSlug === "yozma" || model.catalogStatus === "withheld")) {
+    error("public ebikeModels still includes a Yozma dirt bike or a withheld record");
+  }
+
+  for (const model of ebikeModels) {
+    if (model.status !== "published" || model.seo?.noIndex) continue;
+    reportIssues(model.id, getModelPublicationIssues(model, brands));
+  }
+
+  for (const guide of buyingGuides) {
+    if (guide.status !== "published" || guide.seo?.noIndex) continue;
+    reportIssues(guide.id, getBuyingGuidePublicationIssues(guide));
+  }
+
+  for (const comparison of comparisons) {
+    if (comparison.status !== "published" || comparison.seo?.noIndex) continue;
+    reportIssues(comparison.id, getComparisonPublicationIssues(comparison, ebikeModels, brands));
+  }
+
+  for (const message of assertPublicationFixtures()) {
+    error(message);
+  }
+}
+
 function validateAffiliateInfrastructure() {
   const disclosurePage = path.join(root, "app", "(site)", "affiliate-disclosure", "page.tsx");
   if (!fs.existsSync(disclosurePage)) {
@@ -122,6 +242,8 @@ function validateAffiliateInfrastructure() {
 
 validateAffiliateInfrastructure();
 validateGearContent();
+validateCommerceRecords();
+validatePublicationGates();
 
 if (hasErrors) {
   console.error("\nAffiliate validation failed.");

@@ -4,37 +4,25 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Container } from "@/components/layout/Container";
 import { HeaderChromeProvider } from "@/components/layout/HeaderChromeContext";
-import { Button } from "@/components/design-system/Button/Button";
 import { MainNav, MenuButton, MobileNav, SiteLogo } from "@/components/navigation/MainNav";
-import { cn } from "@/lib/utils/cn";
-
-const SCROLL_RANGE = 140;
 
 export function SiteHeaderClient({ searchSlot }: { searchSlot: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const isHome = pathname === "/";
-  const overlay = isHome && !mobileOpen;
-  const [progress, setProgress] = useState(isHome ? 0 : 1);
-  const scrolled = progress > 0.08;
-  const lightTone = overlay && progress < 0.72;
 
   useEffect(() => {
     function onScroll() {
-      if (!isHome) {
-        setProgress(1);
-        return;
-      }
-      setProgress(Math.min(1, window.scrollY / SCROLL_RANGE));
+      setScrolled(window.scrollY > 8);
     }
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [isHome]);
+  }, []);
 
   useEffect(() => {
-    if (!isHome) setProgress(1);
-  }, [isHome]);
+    setMobileOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -43,38 +31,16 @@ export function SiteHeaderClient({ searchSlot }: { searchSlot: React.ReactNode }
     };
   }, [mobileOpen]);
 
-  const chrome = {
-    tone: lightTone ? ("light" as const) : ("dark" as const),
-    progress: overlay ? progress : 1,
-    scrolled,
-    overlay,
-  };
-
   return (
-    <HeaderChromeProvider value={chrome}>
-      <header
-        className={cn(
-          "site-header",
-          overlay && "site-header--overlay",
-          scrolled && "site-header--scrolled",
-        )}
-        style={{ "--header-progress": chrome.progress } as React.CSSProperties}
-      >
+    <HeaderChromeProvider value={{ tone: "dark", progress: 1, scrolled, overlay: false }}>
+      <header className={scrolled ? "site-header site-header--scrolled" : "site-header"}>
         <Container>
           <div className="flex h-[var(--site-header-height)] items-center justify-between gap-4">
             <SiteLogo />
-            <MainNav />
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-5">
+              <MainNav />
               {searchSlot}
-              <Button
-                href="/suggest-trail"
-                size="sm"
-                variant={overlay && progress < 0.55 ? "dark" : "primary"}
-                className="hidden lg:inline-flex"
-              >
-                Suggest Trail
-              </Button>
-              <MenuButton open={mobileOpen} onClick={() => setMobileOpen((v) => !v)} />
+              <MenuButton open={mobileOpen} onClick={() => setMobileOpen((open) => !open)} />
             </div>
           </div>
         </Container>

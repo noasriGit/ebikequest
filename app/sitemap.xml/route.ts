@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { buildSitemapEntries } from "@/lib/sitemap";
-import { buildXmlSitemap } from "@/lib/sitemap/xml";
+import { buildPublishedSitemapGroups } from "@/lib/sitemap";
+import { buildSitemapIndexXml } from "@/lib/sitemap/xml";
 
 export async function GET() {
-  const entries = await buildSitemapEntries();
-  const xml = buildXmlSitemap(entries);
+  const groups = await buildPublishedSitemapGroups();
+  const xml = buildSitemapIndexXml(groups);
 
   return new NextResponse(xml, {
     headers: {

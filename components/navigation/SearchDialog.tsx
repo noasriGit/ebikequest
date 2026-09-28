@@ -59,7 +59,7 @@ export function SearchDialog({ documents }: SearchDialogProps) {
         type="button"
         onClick={() => setOpen(true)}
         className={cn(
-          "hidden items-center gap-2 rounded-[var(--radius-md)] border px-3 py-1.5 text-sm transition duration-300 md:inline-flex",
+          "hidden items-center gap-2 border px-3 py-1.5 text-sm transition duration-300 lg:inline-flex",
           overlay
             ? "header-search-btn"
             : "border-[color-mix(in_srgb,var(--text-muted)_25%,transparent)] bg-surface-raised text-text-muted hover:border-brand hover:text-brand",
@@ -84,7 +84,7 @@ export function SearchDialog({ documents }: SearchDialogProps) {
         type="button"
         onClick={() => setOpen(true)}
         className={cn(
-          "rounded-[var(--radius-md)] p-2 transition duration-300 md:hidden",
+          "p-2 transition duration-300 lg:hidden",
           overlay ? "header-icon-btn" : "text-text-secondary hover:bg-surface-sunken",
         )}
         aria-label="Search site"
@@ -113,7 +113,7 @@ export function SearchDialog({ documents }: SearchDialogProps) {
             <div className="flex items-center gap-3 border-b border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] px-4">
               <Search size={18} className="shrink-0 text-text-muted" strokeWidth={1.5} aria-hidden />
               <label htmlFor="site-search-input" className="sr-only">
-                Search trails, guides, and laws
+                Search e-bikes, brands, guides, trails, and laws
               </label>
               <input
                 id="site-search-input"
@@ -121,7 +121,7 @@ export function SearchDialog({ documents }: SearchDialogProps) {
                 type="search"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search trails, guides, laws…"
+                placeholder="Search e-bikes, brands, guides, trails, laws…"
                 className="flex-1 border-0 bg-transparent py-4 text-body-md text-text-primary outline-none placeholder:text-text-muted"
               />
               <button

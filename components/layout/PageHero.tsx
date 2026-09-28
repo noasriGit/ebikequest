@@ -7,10 +7,10 @@ import { cn } from "@/lib/utils/cn";
 type PageHeroVariant = "default" | "trails" | "laws" | "guides";
 
 const variantStyles: Record<PageHeroVariant, string> = {
-  default: "bg-gradient-to-b from-brand-light to-surface-base",
-  trails: "bg-section-trails",
-  laws: "bg-gradient-to-br from-section-laws via-surface-base to-surface-sunken",
-  guides: "bg-gradient-to-b from-section-guides to-surface-base",
+  default: "bg-surface-base",
+  trails: "bg-surface-base",
+  laws: "bg-surface-base",
+  guides: "bg-surface-base",
 };
 
 export function PageHero({
