@@ -10,6 +10,8 @@ import {
   LegalDisclaimer,
   SourceCitationList,
 } from "@/components/laws/LawComponents";
+import { getLawDiscoveryLinks } from "@/lib/commerce/relationships";
+import { DiscoveryLinks } from "@/components/research/DiscoveryLinks";
 import { getJurisdictionImage } from "@/config/images";
 import {
   assertPublicJurisdiction,
@@ -61,6 +63,7 @@ export default async function JurisdictionLawPage({
 
   const law = await getLaw(jurisdiction);
   if (!law) notFound();
+  const discoveryLinks = await getLawDiscoveryLinks(law.jurisdiction);
 
   const name = getJurisdictionName(jurisdiction);
   const path = `/laws/${jurisdiction}`;
@@ -217,6 +220,11 @@ export default async function JurisdictionLawPage({
           </div>
         </section>
         <SourceCitationList sources={law.sources} />
+        <DiscoveryLinks
+          title="Buying context"
+          intro="Shown only when a buying guide cites this jurisdiction. General product links are not added to law pages."
+          links={discoveryLinks}
+        />
         <EditorialStandardsCallout />
       </Container>
     </>

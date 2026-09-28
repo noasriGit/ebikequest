@@ -16,7 +16,7 @@ export const STATIC_SITEMAP_PAGES: StaticSitemapPageConfig[] = [
   {
     id: "home",
     path: "/",
-    title: `${siteConfig.name}, ${siteConfig.tagline}`,
+    title: siteConfig.name,
     description: siteConfig.description,
     featured: true,
     sortPriority: 100,
@@ -96,7 +96,7 @@ export const STATIC_SITEMAP_PAGES: StaticSitemapPageConfig[] = [
     path: "/sitemap",
     title: "Sitemap",
     description:
-      "Browse all public pages on eBikeQuest, organized by trails, guides, laws, and site policies.",
+      "Browse public eBikeQuest pages: research, rider guides, trails, laws, and site policies.",
     sortPriority: 20,
     group: "utility",
   },

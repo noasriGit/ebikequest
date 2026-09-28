@@ -126,6 +126,49 @@ export async function buildSitemapPageData(): Promise<SitemapPageData> {
     });
   }
 
+  const researchSubsections: SitemapSubsection[] = [
+    {
+      id: "research-safety",
+      title: "Safety and classification",
+      hubPath: "/safety",
+      entries: sortEntries(entries.filter((entry) => entry.contentType === "safety")),
+    },
+    {
+      id: "research-brands",
+      title: "Brands",
+      hubPath: entries.some((entry) => entry.path === "/brands") ? "/brands" : undefined,
+      entries: sortEntries(entries.filter((entry) => entry.contentType === "brand")),
+    },
+    {
+      id: "research-models",
+      title: "E-bike models",
+      hubPath: entries.some((entry) => entry.path === "/ebikes") ? "/ebikes" : undefined,
+      entries: sortEntries(entries.filter((entry) => entry.contentType === "model")),
+    },
+    {
+      id: "research-buying-guides",
+      title: "Buying guides",
+      hubPath: entries.some((entry) => entry.path === "/buying-guides") ? "/buying-guides" : undefined,
+      entries: sortEntries(entries.filter((entry) => entry.contentType === "buying-guide")),
+    },
+    {
+      id: "research-comparisons",
+      title: "Comparisons",
+      hubPath: entries.some((entry) => entry.path === "/compare") ? "/compare" : undefined,
+      entries: sortEntries(entries.filter((entry) => entry.contentType === "comparison")),
+    },
+  ].filter((subsection) => subsection.entries.length > 0);
+
+  if (researchSubsections.length > 0) {
+    sections.push({
+      id: "research",
+      title: "Research",
+      description:
+        "Classification, and verified brand, model, and buying-guide pages once they are published.",
+      subsections: researchSubsections,
+    });
+  }
+
   if (policyEntries.length > 0) {
     sections.push({
       id: "policies",

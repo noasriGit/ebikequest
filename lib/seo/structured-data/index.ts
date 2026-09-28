@@ -235,6 +235,53 @@ export function buildAboutPageSchema(options: {
   };
 }
 
+/**
+ * Product schema for a single verified model page.
+ * Omits Review, AggregateRating, Offer, and seller. eBikeQuest is not the merchant.
+ * Returns null when the visible record is not strong enough to support the type.
+ */
+export function buildProductSchema(options: {
+  name: string;
+  description: string;
+  path: string;
+  brandName: string;
+  imagePath?: string;
+  additionalProperties?: { name: string; value: string }[];
+}): Record<string, unknown> | null {
+  if (!options.name.trim() || !options.description.trim() || !options.brandName.trim()) {
+    return null;
+  }
+
+  const imagePath = options.imagePath;
+  const imageAllowed =
+    Boolean(imagePath) &&
+    imagePath!.startsWith("/") &&
+    !imagePath!.includes("amazon") &&
+    !imagePath!.includes("amzn.to");
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: options.name,
+    description: options.description,
+    url: absoluteUrl(options.path),
+    brand: {
+      "@type": "Brand",
+      name: options.brandName,
+    },
+    ...(imageAllowed && imagePath ? { image: buildImageObject(imagePath, options.name) } : {}),
+    ...(options.additionalProperties?.length
+      ? {
+          additionalProperty: options.additionalProperties.map((property) => ({
+            "@type": "PropertyValue",
+            name: property.name,
+            value: property.value,
+          })),
+        }
+      : {}),
+  };
+}
+
 export function toJsonLdDocument(
   data: Record<string, unknown> | Record<string, unknown>[],
 ): Record<string, unknown> {

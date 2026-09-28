@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: var(--radius-md);
+  border-radius: 2px;
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1;
@@ -27,11 +27,6 @@
 .button[aria-disabled="true"] {
   opacity: 0.5;
   cursor: not-allowed;
-  transform: none !important;
-}
-
-.button:not(:disabled):not([aria-disabled="true"]):hover {
-  transform: translateY(-1px);
 }
 
 .sm {
@@ -46,7 +41,6 @@
 .lg {
   padding: 0.75rem 1.25rem;
   font-size: 0.9375rem;
-  border-radius: var(--radius-lg);
 }
 
 .primary {

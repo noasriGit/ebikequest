@@ -36,12 +36,13 @@ export interface ContentBase {
 }
 
 export interface SearchDocument {
-  entityType: "trail" | "guide" | "law" | "shop" | "rental" | "repair";
+  entityType: "trail" | "guide" | "law" | "shop" | "rental" | "repair" | "brand" | "model";
   id: string;
   slug: string;
   title: string;
   description: string;
   jurisdiction?: string;
+  brandSlug?: string;
   tags?: string[];
   coordinates?: { lat: number; lng: number };
 }

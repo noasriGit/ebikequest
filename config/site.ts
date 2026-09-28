@@ -8,9 +8,9 @@ function canonicalSiteUrl(url: string): string {
 
 export const siteConfig = {
   name: "eBikeQuest",
-  tagline: "Everything E-Bike. One Quest.",
+  tagline: "Find the right e-bike. Know where you can ride it.",
   description:
-    "National e-bike discovery platform for trails, laws, guides, shops, rentals, and more. Launching in Virginia, Maryland, and Washington DC.",
+    "Research e-bikes against class rules, state laws, and trail access. Independent reporting for riders in Virginia, Maryland, and Washington DC.",
   url: canonicalSiteUrl(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.ebikequest.com"),
   helpEmail: "help@ebikequest.com",
   locale: "en-US",
@@ -27,6 +27,27 @@ export interface PlatformCategory {
 }
 
 export const PLATFORM_CATEGORIES: PlatformCategory[] = [
+  {
+    id: "ebikes",
+    label: "E-Bikes",
+    description: "Sourced model profiles and class notes",
+    href: "/ebikes",
+    status: "live",
+  },
+  {
+    id: "brands",
+    label: "Brands",
+    description: "Manufacturers with official sources",
+    href: "/brands",
+    status: "live",
+  },
+  {
+    id: "buying-guides",
+    label: "Buying Guides",
+    description: "Purchase decisions tied to where you ride",
+    href: "/buying-guides",
+    status: "live",
+  },
   {
     id: "trails",
     label: "Trails",
@@ -64,24 +85,6 @@ export const PLATFORM_CATEGORIES: PlatformCategory[] = [
     id: "repairs",
     label: "Repairs",
     description: "Service and repair shops",
-    status: "coming-soon",
-  },
-  {
-    id: "events",
-    label: "Events",
-    description: "Rides, demos, and meetups",
-    status: "coming-soon",
-  },
-  {
-    id: "reviews",
-    label: "Reviews",
-    description: "Community ratings and reviews",
-    status: "coming-soon",
-  },
-  {
-    id: "news",
-    label: "News",
-    description: "Industry and platform updates",
     status: "coming-soon",
   },
 ];

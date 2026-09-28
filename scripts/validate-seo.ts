@@ -7,6 +7,7 @@ import {
   buildArticleSchema,
   buildBreadcrumbSchema,
   buildFaqSchema,
+  buildProductSchema,
   buildTrailPlaceSchema,
   toJsonLdDocument,
 } from "../lib/seo/structured-data";
@@ -207,7 +208,43 @@ function validateSiteConfig() {
   }
 }
 
+function validateProductSchemaGuard() {
+  const schema = buildProductSchema({
+    name: "Example Model",
+    description: "A sourced e-bike profile used only to verify structured data rules.",
+    path: "/ebikes/example/model",
+    brandName: "Example",
+    imagePath: "https://m.media-amazon.com/images/example.jpg",
+    additionalProperties: [{ name: "Motor", value: "250 W" }],
+  });
+
+  if (!schema) {
+    error("Product schema helper returned null for a complete model fixture");
+    return;
+  }
+
+  const serialized = JSON.stringify(schema);
+  if (/"@type":"AggregateRating"|"@type":"Review"|aggregateRating|"review":/.test(serialized)) {
+    error("Product schema must not include Review or AggregateRating");
+  }
+  if (serialized.includes('"seller"') || serialized.includes('"offers"')) {
+    error("Product schema must not treat eBikeQuest as a seller or invent an offer");
+  }
+  if (serialized.includes("amazon")) {
+    error("Product schema included a remote retailer image");
+  }
+
+  const empty = buildProductSchema({
+    name: "",
+    description: "",
+    path: "/ebikes/example/model",
+    brandName: "",
+  });
+  if (empty) error("Product schema helper emitted a type for an empty model");
+}
+
 validateSiteConfig();
+validateProductSchemaGuard();
 validateTrails();
 validateGuides();
 validateLaws();

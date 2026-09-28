@@ -5,9 +5,8 @@ import { usePathname } from "next/navigation";
 import { useRef } from "react";
 import { Menu, X } from "lucide-react";
 import { useHeaderChrome } from "@/components/layout/HeaderChromeContext";
-import { primaryNav } from "@/config/navigation";
+import { primaryNav, mobileSecondaryNav } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
-import { Button } from "@/components/design-system/Button/Button";
 import { LogoMark } from "@/components/navigation/LogoMark";
 import { useFocusTrap } from "@/lib/a11y/use-focus-trap";
 import { cn } from "@/lib/utils/cn";
@@ -36,18 +35,18 @@ function NavLink({
         "font-medium transition-colors duration-300",
         mobile
           ? cn(
-              "rounded-[var(--radius-md)] px-4 py-3 text-lg",
+              "border-l-2 px-4 py-3 text-lg",
               active
-                ? "bg-brand-light text-brand"
-                : "text-text-primary hover:bg-surface-sunken",
+                ? "border-brand text-text-primary"
+                : "border-transparent text-text-primary hover:border-brand hover:text-brand",
             )
           : cn(
-              "relative flex h-[var(--site-header-height)] items-center text-sm",
+              "relative flex h-[var(--site-header-height)] items-center text-[0.8125rem] tracking-wide",
               overlay
                 ? "header-nav-link"
                 : active
-                  ? "text-text-primary after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-brand-accent"
-                  : "text-text-secondary hover:text-brand",
+                  ? "text-text-primary after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-brand"
+                  : "text-text-secondary hover:text-text-primary",
             ),
       )}
     >
@@ -58,7 +57,7 @@ function NavLink({
 
 export function MainNav() {
   return (
-    <nav className="hidden h-[var(--site-header-height)] items-center gap-8 md:flex" aria-label="Primary">
+    <nav className="hidden h-[var(--site-header-height)] items-center gap-5 lg:flex" aria-label="Primary">
       {primaryNav.map((item) => (
         <NavLink key={item.href} href={item.href} label={item.label} />
       ))}
@@ -83,7 +82,7 @@ export function MobileNav({
     <>
       <button
         type="button"
-        className="fixed inset-0 z-[60] bg-[rgba(26,25,23,0.4)] backdrop-blur-sm md:hidden"
+        className="fixed inset-0 z-[60] bg-[rgba(26,25,23,0.45)] lg:hidden"
         aria-label="Close menu"
         onClick={onClose}
         tabIndex={-1}
@@ -94,13 +93,13 @@ export function MobileNav({
         role="dialog"
         aria-modal="true"
         aria-label="Site menu"
-        className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-sm flex-col bg-surface-raised shadow-[var(--shadow-md)] md:hidden"
+        className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-sm flex-col border-l border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised lg:hidden"
       >
         <div className="flex items-center justify-between border-b border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] px-4 py-4">
           <SiteLogo compact />
           <button
             type="button"
-            className="rounded-[var(--radius-md)] p-2 text-text-secondary hover:bg-surface-sunken"
+            className="p-2 text-text-secondary hover:text-text-primary"
             aria-label="Close menu"
             onClick={onClose}
           >
@@ -119,10 +118,17 @@ export function MobileNav({
             />
           ))}
         </nav>
-        <div className="border-t border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] p-4">
-          <Button href="/suggest-trail" className="w-full" onClick={onClose}>
-            Suggest a Trail
-          </Button>
+        <div className="border-t border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] px-4 py-4">
+          <p className="text-label text-text-muted">Also</p>
+          <ul className="mt-3 space-y-2">
+            {mobileSecondaryNav.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} onClick={onClose} className="text-sm text-text-secondary hover:text-brand">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </>
@@ -148,16 +154,6 @@ export function SiteLogo({ compact }: { compact?: boolean }) {
         >
           eBike<span className="italic">Quest</span>
         </span>
-        {!compact ? (
-          <span
-            className={cn(
-              "hidden text-xs sm:block",
-              overlay ? "header-logo-tagline" : "text-text-muted",
-            )}
-          >
-            {siteConfig.tagline}
-          </span>
-        ) : null}
       </span>
     </Link>
   );
@@ -176,7 +172,7 @@ export function MenuButton({
     <button
       type="button"
       className={cn(
-        "rounded-[var(--radius-md)] p-2.5 transition duration-300 md:hidden",
+        "p-2.5 transition duration-300 lg:hidden",
         overlay ? "header-icon-btn" : "text-text-secondary hover:bg-surface-sunken",
       )}
       aria-label={open ? "Close menu" : "Open menu"}

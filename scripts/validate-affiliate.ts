@@ -1,11 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import { AFFILIATE_LINK_REL } from "../lib/affiliate/constants";
+import { brands, buyingGuides, comparisons, ebikeModels } from "../content/commerce";
 
 const root = path.join(process.cwd());
 const gearDirs = [
   path.join(root, "content", "gear"),
   path.join(root, "content", "products"),
+  path.join(root, "content", "commerce"),
 ];
 
 let hasErrors = false;
@@ -103,6 +105,55 @@ function validateGearContent() {
   }
 }
 
+function isCloakedHref(href: string): boolean {
+  if (href.startsWith("/")) return true;
+  try {
+    const url = new URL(href);
+    const host = url.hostname.toLowerCase();
+    if (host === "amzn.to" || host.endsWith(".amzn.to")) return true;
+    if (url.pathname.startsWith("/go/") || url.pathname.startsWith("/out/")) return true;
+    return false;
+  } catch {
+    return true;
+  }
+}
+
+function validateCommerceRecords() {
+  for (const model of ebikeModels) {
+    if (model.handsOnTested && model.researchStatus !== "hands-on-tested") {
+      error(`${model.id}: handsOnTested is true without researchStatus "hands-on-tested"`);
+    }
+    if (!model.handsOnTested && model.researchStatus === "hands-on-tested") {
+      error(`${model.id}: researchStatus is hands-on-tested while handsOnTested is false`);
+    }
+    const links = [...(model.retailerLinks ?? [])];
+    if (model.amazonLink) links.push(model.amazonLink);
+    for (const link of links) {
+      if (isCloakedHref(link.href)) {
+        error(`${model.id}: retailer link must be a direct outbound URL (${link.href})`);
+      }
+      if (link.isAffiliate && !link.href.startsWith("https://")) {
+        error(`${model.id}: affiliate links must be absolute https URLs`);
+      }
+    }
+    if (model.imagePath && /amazon|amzn\.to/i.test(model.imagePath)) {
+      error(`${model.id}: do not store Amazon-hosted product images`);
+    }
+  }
+
+  for (const guide of [...buyingGuides, ...comparisons]) {
+    if (guide.handsOnTested && guide.researchStatus !== "hands-on-tested") {
+      error(`${guide.id}: hands-on claim without researchStatus "hands-on-tested"`);
+    }
+  }
+
+  for (const brand of brands) {
+    if (brand.website && isCloakedHref(brand.website)) {
+      error(`${brand.id}: brand website must be a direct URL`);
+    }
+  }
+}
+
 function validateAffiliateInfrastructure() {
   const disclosurePage = path.join(root, "app", "(site)", "affiliate-disclosure", "page.tsx");
   if (!fs.existsSync(disclosurePage)) {
@@ -122,6 +173,7 @@ function validateAffiliateInfrastructure() {
 
 validateAffiliateInfrastructure();
 validateGearContent();
+validateCommerceRecords();
 
 if (hasErrors) {
   console.error("\nAffiliate validation failed.");

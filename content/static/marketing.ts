@@ -46,17 +46,19 @@ export const suggestTrailPageContent = {
 };
 
 export const homeEditorialContent = {
-  trustHeading: "Trusted e-bike trail and law information",
-  trustBody:
-    "Every trail listing documents which e-bike classes are allowed, who manages the land, and when the policy was last checked against official sources. Law and guide pages cite statutes and agency publications so you can ride with confidence across Virginia, Maryland, and DC.",
-  exploreBody:
-    "Browse 22 verified trail articles, compare e-bike laws across three jurisdictions, and read in-depth guides on classes, etiquette, battery care, and regional riding.",
-  trailsBody:
-    "Long-form trail guides with route highlights, parking, seasonal notes, and e-bike policies verified against park and agency sources.",
-  lawsBody:
-    "Side-by-side comparison of Virginia, Maryland, and DC rules for classes, helmets, age limits, trail access, and registration.",
-  guidesBody:
-    "Structured reference articles on e-bike classes, Mid-Atlantic trail etiquette, buying advice, and jurisdiction-specific riding tips.",
-  communityBody:
-    "Know a rail-trail, riverfront path, or park connector we should cover? Submit the trail name and an official policy link for editorial review.",
+  heroLede:
+    "eBikeQuest connects a bike's class, motor, and equipment to the laws and trails that decide where it can actually go.",
+  exploreLede:
+    "Model profiles are published after specifications are checked against a manufacturer or regulator source. Until a profile exists, start with class and access.",
+  brandsLede:
+    "A brand page opens when we can cite the manufacturer's own materials. We do not estimate star ratings, prices, or review counts.",
+  buyingLede:
+    "The useful buying question is where the bike will be ridden. The rider guide below is the current reference. Model-specific buying guides are added only when they have a sourced point to make.",
+  methodLede:
+    "Commercial facts point back to a source. Hands-on testing is labeled only when we have ridden or measured the bike.",
+  safetyLede:
+    "Class is a legal and access decision. Virginia and Maryland use the three-class system. Washington DC does not, and federal land can differ from both.",
+  rideLede:
+    "Trail and law coverage is live for Virginia, Maryland, and Washington DC. Each listing keeps its own source and verification date.",
+  latestLede: "Recent rider guides. These stay separate from future model profiles.",
 };

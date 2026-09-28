@@ -8,6 +8,12 @@ interface AffiliateButtonProps {
   isAffiliate?: boolean;
   label?: RetailerLinkLabel | string;
   className?: string;
+  analytics?: {
+    brand?: string;
+    model?: string;
+    retailer: string;
+    position: string;
+  };
 }
 
 /**
@@ -19,6 +25,7 @@ export function AffiliateButton({
   isAffiliate = false,
   label,
   className,
+  analytics,
 }: AffiliateButtonProps) {
   const text = resolveRetailerLabel(href, label);
 
@@ -30,6 +37,7 @@ export function AffiliateButton({
         "inline-flex items-center justify-center rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-primary)_18%,transparent)] bg-surface-raised px-4 py-2.5 text-body-sm font-medium text-text-primary transition-colors hover:bg-surface-sunken focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
         className,
       )}
+      analytics={analytics}
       aria-label={text}
     >
       {text}

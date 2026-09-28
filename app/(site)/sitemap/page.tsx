@@ -13,7 +13,7 @@ import {
 export const metadata = buildPageMetadata({
   title: "Sitemap",
   description:
-    "Browse all public pages on eBikeQuest — trails, guides, e-bike laws, and site policies for Virginia, Maryland, and Washington DC.",
+    "Browse public eBikeQuest pages for e-bike research, rider guides, trails, laws, and site policies.",
   path: "/sitemap",
 });
 
@@ -39,7 +39,7 @@ export default async function SitemapPage() {
             "@type": "CollectionPage",
             name: "Sitemap",
             description:
-              "Complete index of public pages on eBikeQuest, organized by trails, guides, laws, and policies.",
+              "Index of public eBikeQuest pages, including research, guides, trails, laws, and policies.",
             url: `${siteConfig.url}/sitemap`,
             isPartOf: {
               "@type": "WebSite",
@@ -55,7 +55,7 @@ export default async function SitemapPage() {
 
       <PageHero
         title="Sitemap"
-        description="A complete index of public pages on eBikeQuest, organized by content type and topic. All links are updated automatically when trails, guides, or laws are added or removed."
+        description="Public pages on eBikeQuest, grouped by research, guides, trails, laws, and policies. Brand, model, and buying-guide URLs appear here after they are sourced and published. Links update when pages are added or removed."
         kicker="Site index"
         breadcrumbs={[
           { label: "Home", href: "/" },

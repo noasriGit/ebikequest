@@ -1,46 +1,55 @@
-import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
-import type { SitemapEntry } from "./types";
+import type { SitemapEntry, SitemapGroup } from "./types";
 
-export function pathPriority(path: string): number {
-  if (path === "/") return 1;
-  if (path === "/laws") return 0.95;
-  if (path === "/trails") return 0.9;
-  if (path.startsWith("/laws/")) return 0.9;
-  if (path.startsWith("/trails/") && path.split("/").length === 3) return 0.85;
-  if (path === "/guides") return 0.8;
-  if (path.startsWith("/trails/")) return 0.8;
-  if (path === "/editorial-standards") return 0.7;
-  if (path.startsWith("/guides/")) return 0.7;
-  if (path === "/sitemap") return 0.5;
-  if (path === "/about") return 0.5;
-  if (path === "/accessibility" || path === "/affiliate-disclosure" || path === "/suggest-trail") {
-    return 0.4;
-  }
-  if (path === "/privacy" || path === "/terms" || path === "/image-credits") return 0.3;
-  return 0.5;
+const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})/;
+
+export const SITEMAP_GROUP_ORDER: SitemapGroup[] = [
+  "core",
+  "brands",
+  "ebikes",
+  "buying-guides",
+  "guides",
+  "trails",
+  "laws",
+  "compare",
+];
+
+export function assignSitemapGroup(path: string): SitemapGroup {
+  if (path === "/brands" || path.startsWith("/brands/")) return "brands";
+  if (path === "/ebikes" || path.startsWith("/ebikes/")) return "ebikes";
+  if (path === "/buying-guides" || path.startsWith("/buying-guides/")) return "buying-guides";
+  if (path === "/compare" || path.startsWith("/compare/")) return "compare";
+  if (path === "/guides" || path.startsWith("/guides/")) return "guides";
+  if (path === "/trails" || path.startsWith("/trails/")) return "trails";
+  if (path === "/laws" || path.startsWith("/laws/")) return "laws";
+  return "core";
 }
 
-export function pathChangeFrequency(
-  path: string,
-): MetadataRoute.Sitemap[number]["changeFrequency"] {
-  if (path === "/" || path === "/trails" || path === "/guides" || path === "/laws") {
-    return "weekly";
-  }
-  if (path.startsWith("/trails/") || path.startsWith("/guides/") || path.startsWith("/laws/")) {
-    return path.split("/").length > 3 ? "monthly" : "weekly";
-  }
-  if (path === "/privacy" || path === "/terms") return "yearly";
-  return "monthly";
-}
-
-export function pathLastModified(entry: {
-  path: string;
+/**
+ * lastmod is emitted only for a real content date. Missing dates stay omitted.
+ * The current clock is never used as a fallback.
+ */
+export function resolveLastMod(entry: {
   updatedAt?: string;
   publishedAt?: string;
-}): Date {
-  const date = entry.updatedAt ?? entry.publishedAt;
-  return date ? new Date(`${date}T00:00:00.000Z`) : new Date();
+}): string | undefined {
+  const raw = entry.updatedAt ?? entry.publishedAt;
+  if (!raw) return undefined;
+
+  const match = DATE_RE.exec(raw.trim());
+  if (!match) return undefined;
+
+  const [, year, month, day] = match;
+  const iso = `${year}-${month}-${day}T00:00:00.000Z`;
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return undefined;
+  if (date.toISOString().slice(0, 10) !== `${year}-${month}-${day}`) return undefined;
+  return date.toISOString();
+}
+
+export function canonicalLoc(path: string): string {
+  const base = siteConfig.url.replace(/\/$/, "");
+  return `${base}${path === "/" ? "/" : path}`;
 }
 
 function escapeXml(value: string): string {
@@ -52,26 +61,60 @@ function escapeXml(value: string): string {
     .replaceAll("'", "&apos;");
 }
 
-export function buildXmlSitemap(entries: SitemapEntry[]): string {
-  const base = siteConfig.url.replace(/\/$/, "");
-
+export function buildUrlSetXml(entries: SitemapEntry[]): string {
   const urlNodes = entries
     .map((entry) => {
-      const loc = `${base}${entry.path === "/" ? "/" : entry.path}`;
-      const lastmod = pathLastModified(entry).toISOString();
-      const changefreq = pathChangeFrequency(entry.path);
-      const priority = pathPriority(entry.path).toFixed(1);
-
-      return [
-        "  <url>",
-        `    <loc>${escapeXml(loc)}</loc>`,
-        `    <lastmod>${lastmod}</lastmod>`,
-        `    <changefreq>${changefreq}</changefreq>`,
-        `    <priority>${priority}</priority>`,
-        "  </url>",
-      ].join("\n");
+      const lines = ["  <url>", `    <loc>${escapeXml(canonicalLoc(entry.path))}</loc>`];
+      const lastmod = resolveLastMod(entry);
+      if (lastmod) lines.push(`    <lastmod>${lastmod}</lastmod>`);
+      lines.push("  </url>");
+      return lines.join("\n");
     })
     .join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urlNodes}\n</urlset>\n`;
+}
+
+export interface SitemapGroupDocument {
+  id: SitemapGroup;
+  entries: SitemapEntry[];
+}
+
+function latestLastMod(entries: SitemapEntry[]): string | undefined {
+  const dates = entries
+    .map((entry) => resolveLastMod(entry))
+    .filter((value): value is string => Boolean(value))
+    .sort();
+  return dates.at(-1);
+}
+
+export function buildSitemapIndexXml(groups: SitemapGroupDocument[]): string {
+  const nodes = groups
+    .map((group) => {
+      const lines = ["  <sitemap>", `    <loc>${escapeXml(`${canonicalLoc(`/sitemaps/${group.id}.xml`)}`)}</loc>`];
+      const lastmod = latestLastMod(group.entries);
+      if (lastmod) lines.push(`    <lastmod>${lastmod}</lastmod>`);
+      lines.push("  </sitemap>");
+      return lines.join("\n");
+    })
+    .join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${nodes}\n</sitemapindex>\n`;
+}
+
+export function groupSitemapEntries(entries: SitemapEntry[]): SitemapGroupDocument[] {
+  const buckets = new Map<SitemapGroup, SitemapEntry[]>();
+
+  for (const entry of entries) {
+    if (!entry.indexable) continue;
+    const group = assignSitemapGroup(entry.path);
+    const list = buckets.get(group) ?? [];
+    list.push(entry);
+    buckets.set(group, list);
+  }
+
+  return SITEMAP_GROUP_ORDER.filter((id) => (buckets.get(id)?.length ?? 0) > 0).map((id) => ({
+    id,
+    entries: buckets.get(id) ?? [],
+  }));
 }
