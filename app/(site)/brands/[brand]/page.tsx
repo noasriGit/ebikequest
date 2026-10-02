@@ -86,6 +86,7 @@ export default async function BrandPage({ params }: { params: Promise<{ brand: s
             updatedAt: brand.lastVerifiedAt,
             author: EDITORIAL_TEAM,
             reviewedBy: reviewer,
+            about: { name: brand.name, url: brand.website },
           }),
           buildBreadcrumbSchema([
             { name: "Home", path: "/" },
@@ -148,7 +149,7 @@ export default async function BrandPage({ params }: { params: Promise<{ brand: s
           <SafetyNotices
             notices={materialNotices}
             sources={researchSources}
-            heading="Read this before a retailer link"
+            heading={policy === "suppress" ? "Current safety warning" : "Read this before a retailer link"}
             headingId="safety-banner"
             compact
           />

@@ -131,6 +131,7 @@ export function buildArticleSchema(options: {
   author: Author;
   reviewedBy: Reviewer;
   imagePath?: string;
+  about?: { name: string; url?: string };
 }) {
   const imagePath = options.imagePath ?? DEFAULT_IMAGE_PATH;
 
@@ -147,6 +148,15 @@ export function buildArticleSchema(options: {
     publisher: buildPublisherEntity(),
     image: buildImageObject(imagePath, options.title),
     mainEntityOfPage: buildWebPageRef(options.path),
+    ...(options.about
+      ? {
+          about: {
+            "@type": "Brand",
+            name: options.about.name,
+            ...(options.about.url ? { url: options.about.url } : {}),
+          },
+        }
+      : {}),
   };
 }
 
@@ -267,8 +277,10 @@ export function buildProductSchema(options: {
   description: string;
   path: string;
   brandName: string;
+  brandUrl?: string;
   imagePath?: string;
   additionalProperties?: { name: string; value: string }[];
+  mentions?: { name: string; path: string }[];
 }): Record<string, unknown> | null {
   if (!options.name.trim() || !options.description.trim() || !options.brandName.trim()) {
     return null;
@@ -290,6 +302,12 @@ export function buildProductSchema(options: {
     brand: {
       "@type": "Brand",
       name: options.brandName,
+      ...(options.brandUrl ? { url: options.brandUrl } : {}),
+    },
+    manufacturer: {
+      "@type": "Organization",
+      name: options.brandName,
+      ...(options.brandUrl ? { url: options.brandUrl } : {}),
     },
     ...(imageAllowed && imagePath ? { image: buildImageObject(imagePath, options.name) } : {}),
     ...(options.additionalProperties?.length
@@ -298,6 +316,15 @@ export function buildProductSchema(options: {
             "@type": "PropertyValue",
             name: property.name,
             value: property.value,
+          })),
+        }
+      : {}),
+    ...(options.mentions?.length
+      ? {
+          mentions: options.mentions.map((mention) => ({
+            "@type": "WebPage",
+            name: mention.name,
+            url: absoluteUrl(mention.path),
           })),
         }
       : {}),

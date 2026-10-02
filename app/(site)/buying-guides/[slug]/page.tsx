@@ -2,12 +2,14 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
 import { DiscoveryLinks } from "@/components/research/DiscoveryLinks";
+import { SectionSources } from "@/components/research/SectionSources";
 import { SourceList } from "@/components/research/SourceList";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { EDITORIAL_TEAM, withReviewDate } from "@/config/authors";
 import { getBuyingGuideDiscoveryLinks } from "@/lib/commerce/relationships";
 import { getBuyingGuide, getBuyingGuides } from "@/lib/content/commerce";
 import { buildPageMetadata } from "@/lib/seo/metadata";
-import { buildBreadcrumbSchema } from "@/lib/seo/structured-data";
+import { buildArticleSchema, buildBreadcrumbSchema } from "@/lib/seo/structured-data";
 
 export const dynamicParams = false;
 
@@ -41,11 +43,22 @@ export default async function BuyingGuidePage({ params }: { params: Promise<{ sl
   return (
     <>
       <JsonLd
-        data={buildBreadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Buying Guides", path: "/buying-guides" },
-          { name: guide.title, path },
-        ])}
+        data={[
+          buildArticleSchema({
+            title: guide.seo?.title ?? guide.title,
+            description: guide.description,
+            path,
+            publishedAt: guide.publishedAt ?? guide.lastVerifiedAt ?? guide.updatedAt ?? "",
+            updatedAt: guide.lastVerifiedAt ?? guide.updatedAt ?? guide.publishedAt ?? "",
+            author: EDITORIAL_TEAM,
+            reviewedBy: withReviewDate(guide.lastVerifiedAt ?? guide.updatedAt ?? guide.publishedAt ?? ""),
+          }),
+          buildBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Buying Guides", path: "/buying-guides" },
+            { name: guide.title, path },
+          ]),
+        ]}
       />
       <PageHero
         kicker="Buying guide"
@@ -59,6 +72,7 @@ export default async function BuyingGuidePage({ params }: { params: Promise<{ sl
       />
       <Container className="py-10 md:py-14">
         <p className="text-body-sm text-text-secondary">
+          {guide.publishedAt ? `First published ${guide.publishedAt}. ` : ""}
           Hands-on tested: {guide.handsOnTested ? "Yes" : "No"}.
           {guide.lastVerifiedAt ? ` Last verified ${guide.lastVerifiedAt}.` : ""}
         </p>
@@ -70,6 +84,7 @@ export default async function BuyingGuidePage({ params }: { params: Promise<{ sl
               {section.paragraphs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
+              <SectionSources sourceIds={section.sourceIds} sources={guide.sources ?? []} />
             </section>
           ))}
         </article>

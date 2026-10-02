@@ -48,6 +48,40 @@ export function SafetyNotices({
                 {notice.effectiveDate ? ` · ${notice.effectiveDate}` : ""}
               </p>
               <p className="mt-1 text-text-primary">{compact && notice.headline ? notice.headline : notice.summary}</p>
+              {!compact && (notice.agency || notice.affectedModels?.length || notice.hazard || notice.recommendation) ? (
+                <dl className="mt-3 space-y-1 text-text-secondary">
+                  {notice.agency ? (
+                    <div>
+                      <dt className="inline font-medium text-text-primary">Agency: </dt>
+                      <dd className="inline">{notice.agency}</dd>
+                    </div>
+                  ) : null}
+                  {notice.affectedModels?.length ? (
+                    <div>
+                      <dt className="inline font-medium text-text-primary">Affected models: </dt>
+                      <dd className="inline">{notice.affectedModels.join(", ")}</dd>
+                    </div>
+                  ) : null}
+                  {notice.hazard ? (
+                    <div>
+                      <dt className="inline font-medium text-text-primary">Hazard: </dt>
+                      <dd className="inline">{notice.hazard}</dd>
+                    </div>
+                  ) : null}
+                  {notice.recommendation ? (
+                    <div>
+                      <dt className="inline font-medium text-text-primary">Current recommendation: </dt>
+                      <dd className="inline">{notice.recommendation}</dd>
+                    </div>
+                  ) : null}
+                  {notice.lastVerifiedAt ? (
+                    <div>
+                      <dt className="inline font-medium text-text-primary">Record checked: </dt>
+                      <dd className="inline">{notice.lastVerifiedAt}</dd>
+                    </div>
+                  ) : null}
+                </dl>
+              ) : null}
               {source ? (
                 <a href={source.url} className="link-editorial mt-2 inline-block" target="_blank" rel="noopener noreferrer">
                   {source.title}

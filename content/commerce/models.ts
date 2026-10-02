@@ -1,5 +1,6 @@
 import type { EbikeModel } from "@/types/commerce";
 import { qlifeModels } from "./models/qlife";
+import { wiredModels } from "./models/wired";
 import { yozmaModels } from "./models/yozma";
 
 /**
@@ -7,7 +8,7 @@ import { yozmaModels } from "./models/yozma";
  * is specific enough for a page and the bike belongs in the e-bike catalog.
  * handsOnTested stays false.
  */
-export const ebikeModels: EbikeModel[] = [...qlifeModels];
+export const ebikeModels: EbikeModel[] = [...qlifeModels, ...wiredModels];
 
 /**
  * Kept for a later vehicle taxonomy. Not part of /ebikes.

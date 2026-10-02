@@ -36,7 +36,7 @@ export interface ContentBase {
 }
 
 export interface SearchDocument {
-  entityType: "trail" | "guide" | "law" | "shop" | "rental" | "repair" | "brand" | "model";
+  entityType: "trail" | "guide" | "law" | "shop" | "rental" | "repair" | "brand" | "model" | "buying-guide";
   id: string;
   slug: string;
   title: string;

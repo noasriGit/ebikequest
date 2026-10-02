@@ -1,16 +1,17 @@
 import type { SearchDocument } from "@/types/content";
 import { publicClassDesignation } from "@/lib/commerce/publish";
-import { getBrands, getModels } from "@/lib/content/commerce";
+import { getBrands, getBuyingGuides, getModels } from "@/lib/content/commerce";
 import { getGuides, getNationalLawHub, getPublicJurisdictions, getTrails } from "@/lib/content";
 
 export async function buildSearchIndex(): Promise<SearchDocument[]> {
-  const [trails, guides, lawHub, jurisdictions, brands, models] = await Promise.all([
+  const [trails, guides, lawHub, jurisdictions, brands, models, buyingGuides] = await Promise.all([
     getTrails(),
     getGuides(),
     getNationalLawHub(),
     getPublicJurisdictions(),
     getBrands(),
     getModels(),
+    getBuyingGuides(),
   ]);
 
   const trailDocs: SearchDocument[] = trails.map((trail) => ({
@@ -72,7 +73,15 @@ export async function buildSearchIndex(): Promise<SearchDocument[]> {
     };
   });
 
-  return [...trailDocs, ...guideDocs, ...lawDocs, ...brandDocs, ...modelDocs];
+  const buyingGuideDocs: SearchDocument[] = buyingGuides.map((guide) => ({
+    entityType: "buying-guide",
+    id: guide.id,
+    slug: guide.slug,
+    title: guide.title,
+    description: guide.description,
+  }));
+
+  return [...trailDocs, ...guideDocs, ...lawDocs, ...brandDocs, ...modelDocs, ...buyingGuideDocs];
 }
 
 export function searchDocuments(docs: SearchDocument[], query: string): SearchDocument[] {
@@ -106,6 +115,8 @@ export function getSearchResultHref(doc: SearchDocument): string {
       return `/brands/${doc.slug}`;
     case "model":
       return `/ebikes/${doc.brandSlug}/${doc.slug}`;
+    case "buying-guide":
+      return `/buying-guides/${doc.slug}`;
     default:
       return "/";
   }
@@ -123,6 +134,8 @@ export function getSearchResultLabel(type: SearchDocument["entityType"]): string
       return "Brand";
     case "model":
       return "E-bike";
+    case "buying-guide":
+      return "Buying guide";
     default:
       return type;
   }

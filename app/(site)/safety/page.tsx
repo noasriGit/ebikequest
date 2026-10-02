@@ -1,10 +1,13 @@
-import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
 import { ClassReferenceTable } from "@/components/research/ClassReferenceTable";
 import { SourceList } from "@/components/research/SourceList";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { SafetyNotices } from "@/components/research/SafetyNotices";
 import { safetyPage } from "@/content/research/safety";
+import { getBrands } from "@/lib/content/commerce";
+import { brandResearchSources } from "@/lib/commerce/publish";
+import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { buildBreadcrumbSchema } from "@/lib/seo/structured-data";
@@ -15,7 +18,11 @@ export const metadata = buildPageMetadata({
   path: "/safety",
 });
 
-export default function SafetyPage() {
+export default async function SafetyPage() {
+  const agencyBrands = (await getBrands()).filter((brand) =>
+    (brand.safetyNotices ?? []).some((notice) => notice.agency || notice.severity === "stop-use"),
+  );
+
   return (
     <>
       <JsonLd
@@ -48,7 +55,32 @@ export default function SafetyPage() {
         ]}
       />
       <Container className="py-10 md:py-14">
-        <p className="text-body-sm text-text-secondary">Last verified {safetyPage.lastVerifiedAt}.</p>
+        {agencyBrands.length ? (
+          <section aria-labelledby="regulator-notices">
+            <h2 id="regulator-notices" className="text-heading-md text-text-primary">
+              Current regulator notices
+            </h2>
+            <p className="mt-3 max-w-3xl text-body-sm text-text-secondary">
+              Each entry summarizes an agency notice and links to the primary source. A search that returned no notice is not listed here, and it is not a finding that a product is safe.
+            </p>
+            {agencyBrands.map((brand) => (
+              <div key={brand.id}>
+                <p className="mt-6 text-body-sm">
+                  <Link href={`/brands/${brand.slug}`} className="link-editorial">
+                    {brand.name} safety guide
+                  </Link>
+                </p>
+                <SafetyNotices
+                  notices={(brand.safetyNotices ?? []).filter((notice) => notice.agency || notice.severity === "stop-use")}
+                  sources={brandResearchSources(brand)}
+                  heading={brand.name}
+                  headingId={`safety-${brand.slug}`}
+                />
+              </div>
+            ))}
+          </section>
+        ) : null}
+        <p className="mt-8 text-body-sm text-text-secondary">Last verified {safetyPage.lastVerifiedAt}.</p>
         <article className="prose-editorial mt-8">
           {safetyPage.sections.map((section) => {
             const sectionSources = safetyPage.sources.filter((source) => section.sourceIds?.includes(source.id));
