@@ -11,6 +11,19 @@ import { LogoMark } from "@/components/navigation/LogoMark";
 import { useFocusTrap } from "@/lib/a11y/use-focus-trap";
 import { cn } from "@/lib/utils/cn";
 
+const navNote: Record<string, string> = {
+  "/": "Journal",
+  "/ebikes": "Models and class",
+  "/brands": "Source-checked makers",
+  "/buying-guides": "How to choose",
+  "/trails": "Where to ride",
+  "/laws": "What the statute says",
+  "/guides": "Field notes",
+  "/safety": "Class and hazard",
+  "/about": "The desk",
+  "/editorial-standards": "Method",
+};
+
 function NavLink({
   href,
   label,
@@ -41,11 +54,11 @@ function NavLink({
                 : "border-transparent text-text-primary hover:border-brand hover:text-brand",
             )
           : cn(
-              "relative flex h-[var(--site-header-height)] items-center text-[0.8125rem] tracking-wide",
+              "relative flex h-[var(--site-header-height)] items-center text-meta",
               overlay
                 ? "header-nav-link"
                 : active
-                  ? "text-text-primary after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-brand"
+                  ? "text-text-primary after:absolute after:inset-x-0 after:bottom-3 after:h-0.5 after:bg-brand-accent"
                   : "text-text-secondary hover:text-text-primary",
             ),
       )}
@@ -80,55 +93,56 @@ export function MobileNav({
 
   return (
     <>
-      <button
-        type="button"
-        className="fixed inset-0 z-[60] bg-[rgba(26,25,23,0.45)] lg:hidden"
-        aria-label="Close menu"
-        onClick={onClose}
-        tabIndex={-1}
-      />
       <div
         ref={panelRef}
         id="mobile-nav-panel"
         role="dialog"
         aria-modal="true"
         aria-label="Site menu"
-        className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-sm flex-col border-l border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised lg:hidden"
+        className="fixed inset-0 z-[70] flex flex-col overflow-y-auto bg-surface-base lg:hidden"
       >
-        <div className="flex items-center justify-between border-b border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] px-4 py-4">
+        <div className="flex items-center justify-between px-5 py-4">
           <SiteLogo compact />
           <button
             type="button"
-            className="p-2 text-text-secondary hover:text-text-primary"
+            className="p-2 text-text-primary"
             aria-label="Close menu"
             onClick={onClose}
           >
             <X size={22} strokeWidth={1.5} aria-hidden />
           </button>
         </div>
-        <nav className="flex flex-1 flex-col gap-1 p-4" aria-label="Mobile primary">
-          <NavLink href="/" label="Home" onClick={onClose} mobile />
+        <nav className="flex flex-1 flex-col justify-end gap-1 px-5 pb-8" aria-label="Mobile primary">
+          <Link
+            href="/"
+            onClick={onClose}
+            className="group block border-t border-[color-mix(in_srgb,var(--text-primary)_12%,transparent)] py-3"
+          >
+            <span className="block font-display text-[clamp(2.75rem,14vw,4.5rem)] uppercase leading-[0.85] text-text-primary">
+              Home
+            </span>
+            <span className="mt-1 block text-meta text-text-muted">{navNote["/"]}</span>
+          </Link>
           {primaryNav.map((item) => (
-            <NavLink
+            <Link
               key={item.href}
               href={item.href}
-              label={item.label}
               onClick={onClose}
-              mobile
-            />
+              className="block border-t border-[color-mix(in_srgb,var(--text-primary)_12%,transparent)] py-3"
+            >
+              <span className="block font-display text-[clamp(2.75rem,14vw,4.5rem)] uppercase leading-[0.85] text-text-primary">
+                {item.label}
+              </span>
+              <span className="mt-1 block text-meta text-text-muted">{navNote[item.href]}</span>
+            </Link>
           ))}
         </nav>
-        <div className="border-t border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] px-4 py-4">
-          <p className="text-label text-text-muted">Also</p>
-          <ul className="mt-3 space-y-2">
-            {mobileSecondaryNav.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} onClick={onClose} className="text-sm text-text-secondary hover:text-brand">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <div className="flex flex-wrap gap-x-5 gap-y-2 border-t border-[color-mix(in_srgb,var(--text-primary)_12%,transparent)] px-5 py-5">
+          {mobileSecondaryNav.map((item) => (
+            <Link key={item.href} href={item.href} onClick={onClose} className="text-meta text-text-secondary">
+              {item.label}
+            </Link>
+          ))}
         </div>
       </div>
     </>
@@ -148,11 +162,11 @@ export function SiteLogo({ compact }: { compact?: boolean }) {
       <span className="flex flex-col">
         <span
           className={cn(
-            "font-display text-lg tracking-tight",
+            "font-display text-[1.35rem] uppercase leading-none tracking-[0.08em]",
             overlay ? "header-logo-title" : "text-text-primary",
           )}
         >
-          eBike<span className="italic">Quest</span>
+          eBikeQuest
         </span>
       </span>
     </Link>

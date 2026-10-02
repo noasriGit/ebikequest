@@ -66,9 +66,9 @@ export default async function BuyingGuidesPage() {
           <ul className="mt-4 max-w-3xl border-t border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)]">
             {riderGuides.map((guide) => (
               <li key={guide.id} className="border-b border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)]">
-                <Link href={`/guides/${guide.slug}`} className="flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:justify-between">
-                  <span className="font-medium text-text-primary">{guide.title}</span>
-                  <span className="text-sm text-text-muted">{GUIDE_CATEGORY_LABELS[guide.category]}</span>
+                <Link href={`/guides/${guide.slug}`} className="flex flex-col gap-2 py-5 sm:flex-row sm:items-baseline sm:justify-between">
+                  <span className="font-display text-3xl uppercase leading-none text-text-primary">{guide.title}</span>
+                  <span className="text-meta text-text-muted">{GUIDE_CATEGORY_LABELS[guide.category]}</span>
                 </Link>
               </li>
             ))}

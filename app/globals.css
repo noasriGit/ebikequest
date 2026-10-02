@@ -1,33 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  --surface-base: #f5f3ee;
-  --surface-raised: #ffffff;
-  --surface-sunken: #ebe8e0;
-  --text-primary: #1a1917;
-  --text-secondary: #5c5a54;
-  --text-muted: #726f68;
-  --brand: #0f6b52;
-  --brand-dark: #0a5240;
-  --brand-light: #e8f3ef;
-  --brand-accent: #c17f3a;
-  --brand-accent-text: #865019;
-  --brand-accent-light: #f5ebe0;
-  --editorial-rule: #c17f3a;
-  --link: #0f6b52;
-  --section-trails: #e8f3ef;
-  --section-laws: #f0ebe4;
-  --section-guides: #ebe8e0;
-  --semantic-allow: #1b7f5e;
-  --semantic-restrict: #b45309;
-  --semantic-disallow: #9f1239;
-  --texture-opacity: 0.04;
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --shadow-xs: 0 1px 2px rgba(26, 25, 23, 0.04);
-  --shadow-md: 0 8px 24px rgba(26, 25, 23, 0.08);
-  --site-header-height: 4rem;
+  --surface-base: #f4efe6;
+  --surface-raised: #f7f3eb;
+  --surface-sunken: #ebe4d6;
+  --surface-ink: #1c1b17;
+  --text-primary: #1c1b17;
+  --text-secondary: #5a564e;
+  --text-muted: #6f6a60;
+  --brand: #1c1b17;
+  --brand-dark: #0e0d0b;
+  --brand-light: #f3f6c8;
+  --brand-accent: #d6f04a;
+  --brand-accent-text: #1c1b17;
+  --brand-accent-light: #f4f8d4;
+  --editorial-rule: #d6f04a;
+  --link: #1c1b17;
+  --section-trails: #e7efe4;
+  --section-laws: #ebe4d6;
+  --section-guides: #e8e4dc;
+  --semantic-allow: #2f5d45;
+  --semantic-restrict: #8a5a24;
+  --semantic-disallow: #6e2433;
+  --texture-opacity: 0.035;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --shadow-xs: none;
+  --shadow-md: none;
+  --site-header-height: 4.25rem;
   --background: var(--surface-base);
   --foreground: var(--text-primary);
 }
@@ -53,9 +54,11 @@
   --color-semantic-allow: var(--semantic-allow);
   --color-semantic-restrict: var(--semantic-restrict);
   --color-semantic-disallow: var(--semantic-disallow);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-instrument-sans);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-instrument-serif);
+  --font-display: var(--font-barlow-condensed);
+  --font-reading: var(--font-source-serif);
+  --color-surface-ink: var(--surface-ink);
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
   --radius-lg: var(--radius-lg);
@@ -66,7 +69,7 @@
 body {
   background: var(--surface-base);
   color: var(--text-primary);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-instrument-sans), system-ui, sans-serif;
 }
 
 html {
@@ -104,8 +107,9 @@ a {
   width: 100%;
   z-index: 50;
   isolation: isolate;
-  border-bottom: 1px solid color-mix(in srgb, var(--text-muted) 16%, transparent);
-  background: var(--surface-raised);
+  border-bottom: 1px solid color-mix(in srgb, var(--text-primary) 12%, transparent);
+  background: color-mix(in srgb, var(--surface-base) 92%, transparent);
+  backdrop-filter: blur(10px);
 }
 
 .site-header--overlay {
@@ -124,7 +128,8 @@ a {
 }
 
 .site-header--scrolled {
-  box-shadow: var(--shadow-xs);
+  background: var(--surface-base);
+  backdrop-filter: none;
 }
 
 .site-header--overlay .header-nav-link {
@@ -265,44 +270,82 @@ a {
 }
 
 .font-display {
-  font-family: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-weight: 600;
+}
+
+.font-reading {
+  font-family: var(--font-reading), Georgia, serif;
+}
+
+.text-display-hero {
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: clamp(4.25rem, 13vw, 10.5rem);
+  line-height: 0.82;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
 }
 
 .text-display-xl {
-  font-family: var(--font-instrument-serif), Georgia, serif;
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: clamp(3.25rem, 8vw, 6.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
 }
 
 .text-display-lg {
-  font-family: var(--font-instrument-serif), Georgia, serif;
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.5rem, 6vw, 4.75rem);
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
 }
 
 .text-heading-lg {
-  font-family: var(--font-instrument-serif), Georgia, serif;
-  font-size: 2rem;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  font-weight: 400;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .text-heading-md {
-  font-family: var(--font-instrument-serif), Georgia, serif;
-  font-size: 1.5rem;
-  line-height: 1.3;
-  font-weight: 400;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .text-heading-editorial {
-  font-family: var(--font-instrument-serif), Georgia, serif;
-  font-size: clamp(1.375rem, 2.5vw, 1.75rem);
-  line-height: 1.25;
-  letter-spacing: -0.01em;
-  font-weight: 400;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.text-meta {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.spec-figure {
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: clamp(3rem, 6vw, 5.25rem);
+  line-height: 0.84;
+  letter-spacing: -0.03em;
 }
 
 .text-body-lg {
@@ -331,11 +374,11 @@ a {
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   line-height: 1.4;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--brand-accent-text);
+  color: var(--text-primary);
   font-weight: 600;
 }
 
@@ -364,13 +407,16 @@ a {
 }
 
 .pull-quote {
-  font-family: var(--font-instrument-serif), Georgia, serif;
-  font-size: clamp(1.25rem, 2.5vw, 1.625rem);
-  line-height: 1.45;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
   color: var(--text-primary);
   border-left: 3px solid var(--editorial-rule);
   padding-left: 1.25rem;
-  margin: 1.5rem 0;
+  margin: 2rem 0;
 }
 
 .prose-section {
@@ -387,10 +433,11 @@ a {
 
 .prose-content h2 {
   margin-top: 2.5rem;
-  font-family: var(--font-instrument-serif), Georgia, serif;
-  font-size: 1.5rem;
-  line-height: 1.3;
-  font-weight: 400;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 0.95;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
 }
 
@@ -417,53 +464,65 @@ a {
 }
 
 .prose-editorial {
-  max-width: 72ch;
+  max-width: 38rem;
+  font-family: var(--font-reading), Georgia, serif;
 }
 
 .prose-editorial h2,
 .prose-editorial h3 {
-  font-family: var(--font-instrument-serif), Georgia, serif;
-  font-weight: 400;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
 }
 
 .prose-editorial h2 {
-  font-size: 1.75rem;
-  line-height: 1.25;
-  margin-top: 2.5rem;
+  font-size: clamp(1.85rem, 3vw, 2.75rem);
+  line-height: 0.95;
+  margin-top: 3.5rem;
 }
 
 .prose-editorial h3 {
-  font-size: 1.25rem;
-  line-height: 1.35;
-  margin-top: 2rem;
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  line-height: 1;
+  margin-top: 2.25rem;
 }
 
 .prose-editorial p {
-  margin-top: 1rem;
-  font-size: 1.0625rem;
-  line-height: 1.7;
+  margin-top: 1.1rem;
+  font-size: 1.125rem;
+  line-height: 1.65;
   color: var(--text-secondary);
 }
 
+.prose-editorial p:first-of-type {
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: var(--text-primary);
+}
+
 .prose-editorial a {
-  color: var(--link);
+  color: var(--text-primary);
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration-color: var(--editorial-rule);
+  text-underline-offset: 3px;
 }
 
 .prose-editorial a:hover {
-  color: var(--brand-dark);
+  text-decoration-thickness: 2px;
 }
 
 .link-editorial {
-  color: var(--link);
+  color: var(--text-primary);
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration-color: var(--editorial-rule);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 .link-editorial:hover {
-  color: var(--brand-dark);
+  color: var(--text-primary);
+  text-decoration-thickness: 2px;
 }
 
 .skip-link {
@@ -499,17 +558,20 @@ a {
 }
 
 .research-table thead th {
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
 
 .research-table tbody th {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 0.6875rem;
   font-weight: 600;
-  color: var(--text-primary);
-  white-space: nowrap;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
 .research-table td {
@@ -528,10 +590,30 @@ a {
   border-width: 0;
 }
 
-a:focus-visible {
+a:focus-visible,
+button:focus-visible {
   outline: none;
   border-radius: var(--radius-sm);
-  box-shadow: 0 0 0 2px var(--surface-base), 0 0 0 4px var(--brand);
+  box-shadow: 0 0 0 2px var(--surface-base), 0 0 0 4px var(--text-primary);
+}
+
+.editorial-media {
+  overflow: hidden;
+  background: var(--surface-ink);
+}
+
+.editorial-media img {
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .editorial-media img,
+.editorial-media:hover img {
+  transform: scale(1.045);
+}
+
+.classification-mark {
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
 }
 
 @media (prefers-reduced-motion: reduce) {

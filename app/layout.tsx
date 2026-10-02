@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Instrument_Serif } from "next/font/google";
+import { Barlow_Condensed, Geist_Mono, Instrument_Sans, Source_Serif_4 } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -11,9 +10,10 @@ import { siteConfig } from "@/config/site";
 import { buildOrganizationSchema, buildWebSiteSchema } from "@/lib/seo/structured-data";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -21,10 +21,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
+const barlowCondensed = Barlow_Condensed({
+  variable: "--font-barlow-condensed",
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["500", "600", "700"],
+});
+
+const sourceSerif = Source_Serif_4({
+  variable: "--font-source-serif",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -63,7 +69,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} bg-paper-texture min-h-screen antialiased`}
+        className={`${instrumentSans.variable} ${geistMono.variable} ${barlowCondensed.variable} ${sourceSerif.variable} bg-paper-texture min-h-screen antialiased`}
       >
         <MotionProvider>
           <a href="#main-content" className="skip-link">

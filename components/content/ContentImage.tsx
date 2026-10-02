@@ -15,6 +15,8 @@ interface ContentImageProps {
   sizes?: string;
   quality?: number;
   preset?: ImagePreset;
+  placeholder?: "blur" | "empty";
+  blurDataURL?: string;
 }
 
 function resolveSizes(preset?: ImagePreset, sizes?: string): string {
@@ -43,6 +45,8 @@ export function ContentImage({
   sizes,
   quality,
   preset,
+  placeholder,
+  blurDataURL,
 }: ContentImageProps) {
   const resolvedSizes = resolveSizes(preset, sizes);
   const resolvedQuality = resolveQuality(preset, quality);
@@ -56,6 +60,8 @@ export function ContentImage({
         priority={priority}
         sizes={resolvedSizes}
         quality={resolvedQuality}
+        placeholder={placeholder}
+        blurDataURL={blurDataURL}
         className={cn("object-cover", className)}
       />
     );
@@ -70,6 +76,8 @@ export function ContentImage({
       priority={priority}
       sizes={resolvedSizes}
       quality={resolvedQuality}
+      placeholder={placeholder}
+      blurDataURL={blurDataURL}
       className={cn("h-auto w-full object-cover", className)}
     />
   );

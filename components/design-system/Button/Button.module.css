@@ -96,13 +96,11 @@
 
 .accent {
   background: var(--brand-accent);
-  color: white;
-  box-shadow: var(--shadow-xs);
+  color: var(--text-primary);
 }
 
 .accent:not(:disabled):not([aria-disabled="true"]):hover {
-  background: color-mix(in srgb, var(--brand-accent) 85%, black);
-  box-shadow: var(--shadow-md);
+  background: color-mix(in srgb, var(--brand-accent) 82%, black);
 }
 
 .loading {

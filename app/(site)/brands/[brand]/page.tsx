@@ -3,8 +3,11 @@ import { notFound } from "next/navigation";
 import { AmazonAssociateDisclosure, AffiliateDisclosure } from "@/components/affiliate";
 import { OutboundRetailerLink } from "@/components/affiliate/OutboundRetailerLink";
 import { AuthorByline, ReviewerByline } from "@/components/seo/AuthorByline";
+import { EditorialImage } from "@/components/editorial/frames";
+import { StickySpread } from "@/components/editorial/StickySpread";
 import { Container } from "@/components/layout/Container";
-import { PageHero } from "@/components/layout/PageHero";
+import { editorialImage, editorialImageAt, roleForBikeTypes } from "@/config/editorial-images";
+import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import { DiscoveryLinks } from "@/components/research/DiscoveryLinks";
 import { SafetyNotices, SafetyReviewNote } from "@/components/research/SafetyNotices";
 import { SectionSources } from "@/components/research/SectionSources";
@@ -96,16 +99,32 @@ export default async function BrandPage({ params }: { params: Promise<{ brand: s
           ...(brand.faq?.length ? [buildFaqSchema(brand.faq)] : []),
         ]}
       />
-      <PageHero
-        kicker="Buyer guide"
-        title={brand.name}
-        description={brand.description}
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Brands", href: "/brands" },
-          { label: brand.name },
-        ]}
-      />
+      <section className="border-b border-[color-mix(in_srgb,var(--text-primary)_12%,transparent)]">
+        <Container className="py-12 md:py-20">
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Brands", href: "/brands" },
+              { label: brand.name },
+            ]}
+          />
+          <p className="text-meta text-text-muted">Buyer guide</p>
+          <h1 className="mt-3 max-w-6xl text-display-hero text-text-primary">{brand.name}</h1>
+          <p className="mt-5 text-meta text-text-secondary">
+            {[
+              brand.researchStatus.replaceAll("-", " "),
+              brand.categories?.length ? brand.categories.join(" + ") : null,
+              "Source checked",
+              brand.lastVerifiedAt ? `Verified ${brand.lastVerifiedAt}` : null,
+            ]
+              .filter(Boolean)
+              .join(" / ")}
+          </p>
+          {brand.description ? (
+            <p className="mt-6 max-w-xl font-reading text-xl leading-snug text-text-secondary">{brand.description}</p>
+          ) : null}
+        </Container>
+      </section>
       <Container className="py-10 md:py-14">
         <div className="flex flex-col gap-2">
           <AuthorByline author={EDITORIAL_TEAM} />
@@ -142,7 +161,20 @@ export default async function BrandPage({ params }: { params: Promise<{ brand: s
         </dl>
 
         {brand.suitedFor ? (
-          <p className="mt-8 max-w-3xl text-body-md text-text-secondary">{brand.suitedFor}</p>
+          <StickySpread
+            className="mt-16"
+            media={
+              <EditorialImage
+                {...editorialImage(roleForBikeTypes(brand.categories), brand.name)}
+                caption="Category atmosphere. Not a photograph of this brand's bike."
+              />
+            }
+          >
+            <p className="text-meta text-text-muted">Introduction</p>
+            <p className="mt-4 font-display text-[clamp(2rem,4vw,3.5rem)] uppercase leading-[0.9] text-text-primary">
+              {brand.suitedFor}
+            </p>
+          </StickySpread>
         ) : null}
 
         {materialNotices.length ? (
@@ -187,14 +219,22 @@ export default async function BrandPage({ params }: { params: Promise<{ brand: s
           </nav>
         ) : null}
 
-        <article className="prose-editorial mt-10">
-          {(brand.sections ?? []).map((section) => (
-            <section key={section.id}>
-              <h2 id={section.id}>{section.heading}</h2>
-              {section.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-              <SectionSources sourceIds={section.sourceIds} sources={researchSources} />
+        <article className="mt-16">
+          {(brand.sections ?? []).map((section, index) => (
+            <section
+              key={section.id}
+              className="grid items-start gap-8 border-t border-[color-mix(in_srgb,var(--text-primary)_12%,transparent)] py-12 lg:grid-cols-12"
+            >
+              <div className={index % 2 === 0 ? "prose-editorial lg:col-span-6" : "prose-editorial lg:col-span-6 lg:col-start-7"}>
+                <h2 id={section.id}>{section.heading}</h2>
+                {section.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+                <SectionSources sourceIds={section.sourceIds} sources={researchSources} />
+              </div>
+              <div className={index % 2 === 0 ? "lg:col-span-5 lg:col-start-8" : "lg:col-span-5 lg:col-start-1 lg:row-start-1"}>
+                <EditorialImage {...editorialImageAt(index, brand.name)} />
+              </div>
             </section>
           ))}
         </article>
