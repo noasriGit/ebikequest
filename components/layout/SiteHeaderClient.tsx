@@ -10,6 +10,7 @@ export function SiteHeaderClient({ searchSlot }: { searchSlot: React.ReactNode }
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const overlay = pathname === "/" && !scrolled && !mobileOpen;
 
   useEffect(() => {
     function onScroll() {
@@ -32,8 +33,11 @@ export function SiteHeaderClient({ searchSlot }: { searchSlot: React.ReactNode }
   }, [mobileOpen]);
 
   return (
-    <HeaderChromeProvider value={{ tone: "dark", progress: 1, scrolled, overlay: false }}>
-      <header className={scrolled ? "site-header site-header--scrolled" : "site-header"}>
+    <HeaderChromeProvider value={{ tone: overlay ? "light" : "dark", progress: overlay ? 0 : 1, scrolled, overlay }}>
+      <header
+        className={overlay ? "site-header site-header--overlay" : scrolled ? "site-header site-header--scrolled" : "site-header"}
+        style={{ ["--header-progress" as string]: overlay ? 0 : 1 }}
+      >
         <Container>
           <div className="flex h-[var(--site-header-height)] items-center justify-between gap-4">
             <SiteLogo />

@@ -1,9 +1,9 @@
 import Link from "next/link";
+import { EditorialImage } from "@/components/editorial/frames";
+import { editorialImageAt } from "@/config/editorial-images";
 import type { Guide, GuideSection } from "@/types/guide";
 import { Clock } from "lucide-react";
 import { getGuideImage } from "@/config/images";
-import { Badge } from "@/components/ui/Badge";
-import { Card, CardContent } from "@/components/design-system/Card/Card";
 import { ContentImage } from "@/components/content/ContentImage";
 import { GUIDE_CATEGORY_LABELS } from "@/lib/content";
 import { cn } from "@/lib/utils/cn";
@@ -31,45 +31,32 @@ export function GuideCard({
   const href = `/guides/${guide.slug}`;
 
   return (
-    <Card photo className={cn("group relative h-full", featured && "border-l-[3px]", accent)}>
-      <div
-        className={cn(
-          "relative overflow-hidden bg-surface-sunken",
-          large ? "aspect-[16/9]" : "aspect-[16/10]",
-        )}
-      >
+    <article className={cn("group relative flex h-full flex-col border-t border-[color-mix(in_srgb,var(--text-primary)_16%,transparent)]", featured && "border-t-2 border-t-brand-accent", accent)}>
+      <div className={cn("editorial-media relative bg-surface-ink", large ? "aspect-[16/9]" : "aspect-[4/5]")}>
         <ContentImage
           src={coverImage}
           alt=""
           fill
           preset="cardGrid"
-          className="object-cover transition duration-300 group-hover:scale-[1.03]"
+          className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[rgba(26,25,23,0.35)] to-transparent" />
-        <div className="absolute left-3 top-3">
-          <Badge variant="editorial">{GUIDE_CATEGORY_LABELS[guide.category]}</Badge>
-        </div>
       </div>
-      <CardContent className={cn("relative", large && "!pt-6")}>
-        <h3 className={cn("text-text-primary", large ? "text-display-lg" : "text-heading-md")}>
-          <Link href={href} className="link-editorial after:absolute after:inset-0 after:content-['']">
+      <div className="relative py-5">
+        <p className="text-meta text-text-muted">{GUIDE_CATEGORY_LABELS[guide.category]}</p>
+        <h3 className={cn("mt-2 text-text-primary", large ? "text-display-lg" : "font-display text-4xl uppercase leading-[0.9]")}>
+          <Link href={href} className="after:absolute after:inset-0 after:content-['']">
             {guide.title}
           </Link>
         </h3>
-        <p
-          className={cn(
-            "mt-2 text-text-secondary",
-            large ? "line-clamp-3 text-body-md" : "line-clamp-2 text-body-sm",
-          )}
-        >
+        <p className={cn("mt-3 font-reading text-text-secondary", large ? "line-clamp-3" : "line-clamp-2 text-body-sm")}>
           {guide.description}
         </p>
-        <p className="mt-4 flex items-center gap-1.5 text-sm text-text-muted">
+        <p className="mt-4 flex items-center gap-1.5 text-meta text-text-muted">
           <Clock size={14} strokeWidth={1.5} aria-hidden />
           {guide.readingTimeMinutes} min read
         </p>
-      </CardContent>
-    </Card>
+      </div>
+    </article>
   );
 }
 
@@ -79,21 +66,24 @@ export function GuideSectionRenderer({
   sections: GuideSection[];
 }) {
   return (
-    <div className="prose-editorial space-y-8">
-      {sections.map((section) => (
-        <section key={section.id} id={section.id}>
-          <h2 className="text-heading-editorial">{section.heading}</h2>
-          {section.paragraphs.map((p) => (
-            <p key={p.slice(0, 30)} className="mt-4 text-body-md text-text-secondary">
-              {p}
-            </p>
-          ))}
-          {section.listItems?.length ? (
-            <ul className="mt-4 list-disc space-y-2 pl-5 text-text-secondary">
-              {section.listItems.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+    <div>
+      {sections.map((section, index) => (
+        <section key={section.id} id={section.id} className="border-t border-[color-mix(in_srgb,var(--text-primary)_12%,transparent)] py-10">
+          <div className="prose-editorial">
+            <h2 className="text-heading-editorial">{section.heading}</h2>
+            {section.paragraphs.map((p) => (
+              <p key={p.slice(0, 30)}>{p}</p>
+            ))}
+            {section.listItems?.length ? (
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-text-secondary">
+                {section.listItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+          {index % 3 === 2 ? (
+            <EditorialImage {...editorialImageAt(index)} className="mt-8 max-w-3xl" />
           ) : null}
         </section>
       ))}

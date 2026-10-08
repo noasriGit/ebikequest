@@ -51,21 +51,24 @@ export default async function BrandsPage() {
             </p>
           </div>
         ) : (
-          <ul className="max-w-3xl border-t border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)]">
-            {brands.map((brand) => {
+          <ul>
+            {brands.map((brand, index) => {
               const count = models.filter((model) => model.brandSlug === brand.slug).length;
               return (
-                <li key={brand.id} className="border-b border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)]">
-                  <Link href={`/brands/${brand.slug}`} className="block py-4">
-                    <span className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-                      <span className="font-medium text-text-primary">{brand.name}</span>
-                      <span className="text-sm text-text-muted">
-                        {count === 0 ? "Brand guide" : `${count} ${count === 1 ? "model guide" : "model guides"}`}
+                <li key={brand.id} className="border-t border-[color-mix(in_srgb,var(--text-primary)_14%,transparent)]">
+                  <Link href={`/brands/${brand.slug}`} className="grid gap-2 py-6 md:grid-cols-[4rem_1fr_auto] md:items-baseline">
+                    <span className="text-meta text-text-muted">{String(index + 1).padStart(2, "0")}</span>
+                    <span>
+                      <span className="block font-display text-[clamp(2.5rem,5vw,4.5rem)] uppercase leading-[0.86] text-text-primary">
+                        {brand.name}
                       </span>
+                      {brand.description ? (
+                        <span className="mt-2 block max-w-xl text-body-sm text-text-secondary">{brand.description}</span>
+                      ) : null}
                     </span>
-                    {brand.description ? (
-                      <span className="mt-1 block text-body-sm text-text-secondary">{brand.description}</span>
-                    ) : null}
+                    <span className="text-meta text-text-muted">
+                      {count === 0 ? "Brand guide" : `${count} ${count === 1 ? "model guide" : "model guides"}`}
+                    </span>
                   </Link>
                 </li>
               );

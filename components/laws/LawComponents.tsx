@@ -110,14 +110,15 @@ export function ClassRulesGrid({
   ];
 
   return (
-    <div className="grid gap-4 md:grid-cols-3">
+    <div className="grid gap-0 border-t border-[color-mix(in_srgb,var(--text-primary)_16%,transparent)] md:grid-cols-3">
       {entries.map(({ label, rules }) => (
         <div
           key={label}
-          className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-5 shadow-[var(--shadow-xs)]"
+          className="border-b border-[color-mix(in_srgb,var(--text-primary)_16%,transparent)] py-6 md:border-b-0 md:border-r md:px-6 md:last:border-r-0"
         >
-          <h3 className="font-display text-lg text-text-primary">{label}</h3>
-          <p className="mt-2 text-sm text-text-secondary">{rules.definition}</p>
+          <div className="mb-4 h-1 w-10 bg-brand-accent" aria-hidden />
+          <h3 className="font-display text-5xl uppercase leading-none text-text-primary">{label}</h3>
+          <p className="mt-4 font-reading text-text-secondary">{rules.definition}</p>
           <dl className="mt-4 space-y-2 text-sm">
             <div>
               <dt className="font-medium text-text-primary">Roads</dt>
@@ -144,7 +145,7 @@ export function ClassRulesGrid({
 
 export function LegalDisclaimer() {
   return (
-    <aside className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--semantic-restrict)_30%,transparent)] bg-[color-mix(in_srgb,var(--semantic-restrict)_8%,white)] p-4 text-sm text-text-primary">
+    <aside className="border-l-2 border-brand-accent py-1 pl-4 text-sm text-text-primary">
       <strong>Disclaimer:</strong> This page provides general information only and is not legal
       advice. Verify current laws with official sources or a qualified attorney.
     </aside>

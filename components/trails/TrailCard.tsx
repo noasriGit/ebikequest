@@ -14,11 +14,10 @@ export function TrailCard({ trail }: { trail: Trail }) {
     <Link
       href={`/trails/${trail.jurisdiction}/${trail.slug}`}
       className={cn(
-        "group flex h-full flex-col overflow-hidden rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)]",
-        "bg-surface-raised shadow-[var(--shadow-xs)] transition hover:border-[color-mix(in_srgb,var(--brand-accent)_40%,transparent)] hover:shadow-[var(--shadow-md)]",
+        "group flex h-full flex-col overflow-hidden border-t border-[color-mix(in_srgb,var(--text-primary)_16%,transparent)]",
       )}
     >
-      <div className="relative aspect-[16/10] overflow-hidden bg-surface-sunken">
+      <div className="editorial-media relative aspect-[4/5] bg-surface-ink">
         <ContentImage
           src={cover.src}
           alt={cover.alt}

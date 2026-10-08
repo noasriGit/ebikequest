@@ -5,12 +5,12 @@ export const TRAIL_MAP_LAYER_IDS = {
 } as const;
 
 export const TRAIL_MAP_COLORS = {
-  lineDefault: "#0f6b52",
-  lineMuted: "#0f6b5280",
-  lineFocus: "#c17f3a",
-  lineHover: "#0a5240",
-  markerDefault: "#0f6b52",
-  markerFocus: "#c17f3a",
+  lineDefault: "#2c2a26",
+  lineMuted: "#2c2a2680",
+  lineFocus: "#c6e23a",
+  lineHover: "#1c1b17",
+  markerDefault: "#2c2a26",
+  markerFocus: "#c6e23a",
 } as const;
 
 export const TRAIL_MAP_LINE_WIDTH = {

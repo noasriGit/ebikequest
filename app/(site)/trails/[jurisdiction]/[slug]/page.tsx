@@ -156,30 +156,32 @@ export default async function TrailDetailPage({
       />
       <JsonLd data={jsonLd} />
       <Container className="py-10">
-        <div className="flex flex-wrap gap-6 border-b border-[color-mix(in_srgb,var(--text-muted)_15%,transparent)] pb-6 font-mono text-sm">
+        <dl className="grid gap-8 border-b border-[color-mix(in_srgb,var(--text-primary)_12%,transparent)] pb-8 sm:grid-cols-2 lg:grid-cols-4">
           {trail.stats.distanceMiles ? (
             <div>
-              <span className="text-text-muted">Distance </span>
-              <span className="font-semibold text-text-primary">{trail.stats.distanceMiles} mi</span>
+              <dt className="text-meta text-text-muted">Distance</dt>
+              <dd className="spec-figure mt-2 text-text-primary">{trail.stats.distanceMiles}</dd>
+              <p className="text-meta text-text-muted">Miles</p>
             </div>
           ) : null}
           <div>
-            <span className="text-text-muted">Difficulty </span>
-            <span className="font-semibold capitalize text-text-primary">{trail.stats.difficulty}</span>
+            <dt className="text-meta text-text-muted">Difficulty</dt>
+            <dd className="mt-2 font-display text-4xl uppercase text-text-primary">{trail.stats.difficulty}</dd>
           </div>
-          {trail.stats.elevationFeet ? (
+          {trail.stats.surface?.length ? (
             <div>
-              <span className="text-text-muted">Elevation </span>
-              <span className="font-semibold text-text-primary">{trail.stats.elevationFeet} ft</span>
+              <dt className="text-meta text-text-muted">Surface</dt>
+              <dd className="mt-2 font-display text-4xl uppercase text-text-primary">{trail.stats.surface.join(" / ")}</dd>
             </div>
           ) : null}
-          {trail.ebikePolicy.lastVerified ? (
-            <div>
-              <span className="text-text-muted">Verified </span>
-              <span className="font-semibold text-text-primary">{trail.ebikePolicy.lastVerified}</span>
-            </div>
-          ) : null}
-        </div>
+          <div>
+            <dt className="text-meta text-text-muted">{jurisdictionName}</dt>
+            <dd className="mt-2 text-meta text-text-secondary">
+              {trail.ebikePolicy.lastVerified ? `Verified ${trail.ebikePolicy.lastVerified}` : "Policy on file"}
+              {trail.stats.elevationFeet ? ` / ${trail.stats.elevationFeet} ft` : ""}
+            </dd>
+          </div>
+        </dl>
 
         <EntityMeta
           author={trail.author}

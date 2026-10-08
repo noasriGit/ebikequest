@@ -47,7 +47,7 @@ export default async function ComparePage() {
           <ul className="max-w-3xl border-t border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)]">
             {comparisons.map((comparison) => (
               <li key={comparison.id} className="border-b border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] py-4">
-                <Link href={`/compare/${comparison.slug}`} className="font-medium text-text-primary hover:text-brand">
+                <Link href={`/compare/${comparison.slug}`} className="font-display text-3xl uppercase leading-none text-text-primary">
                   {comparison.title}
                 </Link>
                 <p className="mt-1 text-body-sm text-text-secondary">{comparison.description}</p>

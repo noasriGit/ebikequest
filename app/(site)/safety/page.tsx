@@ -1,5 +1,7 @@
+import { FullBleedImage } from "@/components/editorial/frames";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
+import { editorialImage } from "@/config/editorial-images";
 import { ClassReferenceTable } from "@/components/research/ClassReferenceTable";
 import { SourceList } from "@/components/research/SourceList";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -81,6 +83,11 @@ export default async function SafetyPage() {
           </section>
         ) : null}
         <p className="mt-8 text-body-sm text-text-secondary">Last verified {safetyPage.lastVerifiedAt}.</p>
+        <FullBleedImage
+          {...editorialImage("mechanical")}
+          className="mt-12"
+          caption="Bicycle component photograph. Not a measurement performed by eBikeQuest."
+        />
         <article className="prose-editorial mt-8">
           {safetyPage.sections.map((section) => {
             const sectionSources = safetyPage.sources.filter((source) => section.sourceIds?.includes(source.id));

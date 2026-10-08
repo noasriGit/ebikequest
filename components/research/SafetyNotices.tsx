@@ -8,13 +8,13 @@ const SEVERITY_LABEL: Record<SafetyNotice["severity"], string> = {
 };
 
 function noticeClass(severity: SafetyNotice["severity"]): string {
-  if (severity === "stop-use" || severity === "warning") {
-    return "border-[color-mix(in_srgb,var(--text-primary)_35%,transparent)] bg-surface-sunken";
+  if (severity === "stop-use") {
+    return "border-[color-mix(in_srgb,var(--text-primary)_55%,transparent)] bg-surface-ink text-[#f4efe6]";
   }
-  if (severity === "caution") {
-    return "border-[color-mix(in_srgb,var(--text-muted)_35%,transparent)] bg-surface-raised";
+  if (severity === "warning" || severity === "caution") {
+    return "border-[color-mix(in_srgb,var(--text-primary)_20%,transparent)] bg-surface-base";
   }
-  return "border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)]";
+  return "border-[color-mix(in_srgb,var(--text-primary)_12%,transparent)]";
 }
 
 export function SafetyNotices({
@@ -38,52 +38,62 @@ export function SafetyNotices({
       <h2 id={headingId} className="text-heading-md text-text-primary">
         {heading}
       </h2>
-      <ul className="mt-4 space-y-3">
+      <ul className="mt-6 space-y-4">
         {notices.map((notice) => {
           const source = sources.find((entry) => entry.id === notice.sourceId);
+          const stop = notice.severity === "stop-use";
           return (
-            <li key={notice.id} className={`border px-4 py-3 text-body-sm ${noticeClass(notice.severity)}`}>
-              <p className="text-xs font-medium uppercase tracking-wide text-text-muted">
+            <li key={notice.id} className={`border-t-2 border-t-brand-accent px-5 py-6 text-body-sm ${noticeClass(notice.severity)}`}>
+              <p className={`text-meta ${stop ? "text-[#d6f04a]" : "text-text-muted"}`}>
+                {stop ? "Stop use" : "Read before buying"}
+                {" / "}
                 {SEVERITY_LABEL[notice.severity]}
-                {notice.effectiveDate ? ` · ${notice.effectiveDate}` : ""}
+                {notice.effectiveDate ? ` / ${notice.effectiveDate}` : ""}
               </p>
-              <p className="mt-1 text-text-primary">{compact && notice.headline ? notice.headline : notice.summary}</p>
+              <p className={`mt-3 font-reading text-lg leading-snug ${stop ? "text-[#f4efe6]" : "text-text-primary"}`}>
+                {compact && notice.headline ? notice.headline : notice.summary}
+              </p>
               {!compact && (notice.agency || notice.affectedModels?.length || notice.hazard || notice.recommendation) ? (
-                <dl className="mt-3 space-y-1 text-text-secondary">
+                <dl className={`mt-3 space-y-1 ${stop ? "text-[#d9d3c7]" : "text-text-secondary"}`}>
                   {notice.agency ? (
                     <div>
-                      <dt className="inline font-medium text-text-primary">Agency: </dt>
+                      <dt className={`inline font-medium ${stop ? "text-[#f4efe6]" : "text-text-primary"}`}>Agency: </dt>
                       <dd className="inline">{notice.agency}</dd>
                     </div>
                   ) : null}
                   {notice.affectedModels?.length ? (
                     <div>
-                      <dt className="inline font-medium text-text-primary">Affected models: </dt>
+                      <dt className={`inline font-medium ${stop ? "text-[#f4efe6]" : "text-text-primary"}`}>Affected models: </dt>
                       <dd className="inline">{notice.affectedModels.join(", ")}</dd>
                     </div>
                   ) : null}
                   {notice.hazard ? (
                     <div>
-                      <dt className="inline font-medium text-text-primary">Hazard: </dt>
+                      <dt className={`inline font-medium ${stop ? "text-[#f4efe6]" : "text-text-primary"}`}>Hazard: </dt>
                       <dd className="inline">{notice.hazard}</dd>
                     </div>
                   ) : null}
                   {notice.recommendation ? (
                     <div>
-                      <dt className="inline font-medium text-text-primary">Current recommendation: </dt>
+                      <dt className={`inline font-medium ${stop ? "text-[#f4efe6]" : "text-text-primary"}`}>Current recommendation: </dt>
                       <dd className="inline">{notice.recommendation}</dd>
                     </div>
                   ) : null}
                   {notice.lastVerifiedAt ? (
                     <div>
-                      <dt className="inline font-medium text-text-primary">Record checked: </dt>
+                      <dt className={`inline font-medium ${stop ? "text-[#f4efe6]" : "text-text-primary"}`}>Record checked: </dt>
                       <dd className="inline">{notice.lastVerifiedAt}</dd>
                     </div>
                   ) : null}
                 </dl>
               ) : null}
               {source ? (
-                <a href={source.url} className="link-editorial mt-2 inline-block" target="_blank" rel="noopener noreferrer">
+                <a
+                  href={source.url}
+                  className={`mt-3 inline-block underline decoration-brand-accent underline-offset-4 ${stop ? "text-[#f4efe6]" : "link-editorial"}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {source.title}
                 </a>
               ) : null}

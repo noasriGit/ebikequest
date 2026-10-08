@@ -356,6 +356,84 @@ export const imageAssets: ImageAsset[] = [
     alt: "Wooded trail in Rock Creek Park representative of DC fort circle trail networks",
     notes: "Representative wooded DC park trail",
   },
+
+  {
+    id: "editorial-city-bike",
+    localPath: "/images/editorial/wheel.jpg",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=1600&q=80&auto=format&fit=crop",
+    sourceUrl: "https://unsplash.com/photos/1485965120184-e220f721d03e",
+    sourceSite: "unsplash",
+    license: "Unsplash License",
+    alt: "Conventional city bicycle against a dark wall. Not an e-bike and not a listed model.",
+    notes: "Category photograph for commuter atmosphere",
+  },
+  {
+    id: "editorial-drivetrain",
+    localPath: "/images/editorial/component.jpg",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=1600&q=80&auto=format&fit=crop",
+    sourceUrl: "https://unsplash.com/photos/1532298229144-0ec0c57515c7",
+    sourceSite: "unsplash",
+    license: "Unsplash License",
+    alt: "Road bicycle showing the chain, cassette, and crank. Not a listed e-bike model.",
+    notes: "Category drivetrain detail",
+  },
+  {
+    id: "editorial-brake",
+    localPath: "/images/editorial/workshop.jpg",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?w=1600&q=80&auto=format&fit=crop",
+    sourceUrl: "https://unsplash.com/photos/1576435728678-68d0fbf94e91",
+    sourceSite: "unsplash",
+    license: "Unsplash License",
+    alt: "Gravel bicycle showing a disc brake rotor and rear drivetrain. Not a listed e-bike model.",
+    notes: "Category mechanical detail",
+  },
+  {
+    id: "editorial-overlook",
+    localPath: "/images/editorial/urban.jpg",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1511994298241-608e28f14fde?w=1600&q=80&auto=format&fit=crop",
+    sourceUrl: "https://unsplash.com/photos/1511994298241-608e28f14fde",
+    sourceSite: "unsplash",
+    license: "Unsplash License",
+    alt: "Loaded bicycle overlooking a canyon at dusk. Not a listed e-bike model.",
+    notes: "Category landscape with a bicycle",
+  },
+  {
+    id: "editorial-riders",
+    localPath: "/images/editorial/road-rider.jpg",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=1600&q=80&auto=format&fit=crop",
+    sourceUrl: "https://unsplash.com/photos/1541625602330-2277a4c46182",
+    sourceSite: "unsplash",
+    license: "Unsplash License",
+    alt: "Two riders on road bicycles along a coastal road. Not listed e-bike models.",
+    notes: "Category rider photograph",
+  },
+  {
+    id: "editorial-city-wall",
+    localPath: "/images/editorial/singletrack.jpg",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1559348349-86f1f65817fe?w=1600&q=80&auto=format&fit=crop",
+    sourceUrl: "https://unsplash.com/photos/1559348349-86f1f65817fe",
+    sourceSite: "unsplash",
+    license: "Unsplash License",
+    alt: "Black city bicycle against a concrete wall. Not a listed e-bike model.",
+    notes: "Category urban bicycle photograph",
+  },
+  {
+    id: "editorial-forest",
+    localPath: "/images/editorial/forest.jpg",
+    downloadUrl:
+      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&q=80&auto=format&fit=crop",
+    sourceUrl: "https://unsplash.com/photos/1441974231531-c6227db76b6e",
+    sourceSite: "unsplash",
+    license: "Unsplash License",
+    alt: "Sunlit forest path, representative trail environment rather than a specific listed trail.",
+    notes: "Category forest atmosphere",
+  },
 ];
 
 const byLocalPath = new Map(imageAssets.map((a) => [a.localPath, a]));

@@ -12,7 +12,9 @@ import {
 } from "@/components/laws/LawComponents";
 import { getLawDiscoveryLinks } from "@/lib/commerce/relationships";
 import { DiscoveryLinks } from "@/components/research/DiscoveryLinks";
+import { JURISDICTIONS } from "@/config/jurisdictions";
 import { getJurisdictionImage } from "@/config/images";
+import { RouteDraw } from "@/components/motion/RouteDraw";
 import {
   assertPublicJurisdiction,
   getJurisdictionName,
@@ -68,6 +70,7 @@ export default async function JurisdictionLawPage({
   const name = getJurisdictionName(jurisdiction);
   const path = `/laws/${jurisdiction}`;
   const slug = jurisdiction as JurisdictionSlug;
+  const abbreviation = JURISDICTIONS.find((entry) => entry.slug === slug)?.abbreviation ?? name;
 
   return (
     <>
@@ -76,6 +79,7 @@ export default async function JurisdictionLawPage({
         title={law.title}
         description={law.summary}
         kicker={name}
+        mark={abbreviation}
         align="split"
         image={getJurisdictionImage(slug)}
         imageAlt={`${name} e-bike laws`}
@@ -176,6 +180,7 @@ export default async function JurisdictionLawPage({
         </section>
         <section>
           <h2 className="text-heading-editorial">Classifications</h2>
+          <RouteDraw className="mt-4 h-6 w-40 text-brand-accent" />
           <div className="mt-6">
             <ClassRulesGrid classifications={law.classifications} />
           </div>
@@ -188,26 +193,26 @@ export default async function JurisdictionLawPage({
           <h2 className="text-heading-editorial">Requirements</h2>
           <dl className="mt-4 grid gap-4 sm:grid-cols-2">
             {law.helmetRequirements ? (
-              <div className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-4 shadow-[var(--shadow-xs)]">
-                <dt className="font-medium text-text-primary">Helmets</dt>
-                <dd className="mt-1 text-text-secondary">{law.helmetRequirements}</dd>
+              <div className="border-t border-[color-mix(in_srgb,var(--text-primary)_16%,transparent)] py-4">
+                <dt className="text-meta text-text-muted">Helmets</dt>
+                <dd className="mt-2 font-reading text-text-secondary">{law.helmetRequirements}</dd>
               </div>
             ) : null}
             {law.ageRequirements ? (
-              <div className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-4 shadow-[var(--shadow-xs)]">
-                <dt className="font-medium text-text-primary">Age</dt>
+              <div className="border-t border-[color-mix(in_srgb,var(--text-primary)_16%,transparent)] py-4">
+                <dt className="text-meta text-text-muted">Age</dt>
                 <dd className="mt-1 text-text-secondary">{law.ageRequirements}</dd>
               </div>
             ) : null}
-            <div className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-4 shadow-[var(--shadow-xs)]">
-              <dt className="font-medium text-text-primary">Registration</dt>
-              <dd className="mt-1 text-text-secondary">
+            <div className="border-t border-[color-mix(in_srgb,var(--text-primary)_16%,transparent)] py-4">
+              <dt className="text-meta text-text-muted">Registration</dt>
+              <dd className="mt-2 font-display text-3xl uppercase text-text-primary">
                 {law.registrationRequired ? "Required" : "Not required"}
               </dd>
             </div>
-            <div className="rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] bg-surface-raised p-4 shadow-[var(--shadow-xs)]">
-              <dt className="font-medium text-text-primary">Insurance</dt>
-              <dd className="mt-1 text-text-secondary">
+            <div className="border-t border-[color-mix(in_srgb,var(--text-primary)_16%,transparent)] py-4">
+              <dt className="text-meta text-text-muted">Insurance</dt>
+              <dd className="mt-2 font-display text-3xl uppercase text-text-primary">
                 {law.insuranceRequired ? "Required" : "Not required"}
               </dd>
             </div>

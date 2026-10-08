@@ -20,6 +20,7 @@ export function PageHero({
   children,
   variant = "default",
   kicker,
+  mark,
   image,
   imageAlt,
   align = "left",
@@ -30,6 +31,8 @@ export function PageHero({
   children?: React.ReactNode;
   variant?: PageHeroVariant;
   kicker?: string;
+  /** Oversized jurisdiction or section mark. Decorative when the title already names the place. */
+  mark?: string;
   image?: string;
   imageAlt?: string;
   align?: "left" | "split";
@@ -40,22 +43,22 @@ export function PageHero({
   if (variant === "trails" && hasImage) {
     return (
       <section className="relative overflow-hidden border-b border-[color-mix(in_srgb,var(--text-muted)_12%,transparent)]">
-        <div className="relative h-48 md:h-64">
+        <div className="editorial-media relative h-[42vh] min-h-64 md:h-[58vh]">
           <ContentImage
             src={image!}
             alt={imageAlt ?? title}
             fill
             priority
             preset="pageHeroStrip"
-            className="object-cover brightness-[0.9] saturate-[1.05]"
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[rgba(26,25,23,0.7)] to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,27,23,0.55)] via-transparent to-[rgba(28,27,23,0.25)]" />
         </div>
         <div className={cn(variantStyles.trails, "border-t-0")}>
-          <Container className="py-10 md:py-14">
+          <Container className="py-12 md:py-16">
             {breadcrumbs ? <Breadcrumbs items={breadcrumbs} /> : null}
             {kicker ? <EditorialKicker className="mb-4">{kicker}</EditorialKicker> : null}
-            <h1 className="max-w-3xl text-display-lg text-text-primary">{title}</h1>
+            <h1 className="max-w-5xl text-display-lg text-text-primary">{title}</h1>
             {description ? (
               <p className="mt-4 max-w-3xl text-body-lg text-text-secondary">{description}</p>
             ) : null}
@@ -73,18 +76,23 @@ export function PageHero({
         variantStyles[variant],
       )}
     >
-      <Container className={cn("py-10 md:py-14", isSplit && "grid gap-8 lg:grid-cols-2 lg:items-center")}>
-        <div>
+      <Container className={cn("py-12 md:py-20", isSplit && "grid items-end gap-10 lg:grid-cols-12")}>
+        <div className={isSplit ? "lg:col-span-6" : undefined}>
           {breadcrumbs ? <Breadcrumbs items={breadcrumbs} /> : null}
+          {mark ? (
+            <p aria-hidden className="font-display text-[clamp(5.5rem,16vw,11rem)] leading-[0.78] text-text-primary">
+              {mark}
+            </p>
+          ) : null}
           {kicker ? <EditorialKicker className="mb-4">{kicker}</EditorialKicker> : null}
-          <h1 className="max-w-3xl text-display-lg text-text-primary">{title}</h1>
+          <h1 className="max-w-5xl text-display-lg text-text-primary">{title}</h1>
           {description ? (
-            <p className="mt-4 max-w-3xl text-body-lg text-text-secondary">{description}</p>
+            <p className="mt-5 max-w-xl font-reading text-lg leading-relaxed text-text-secondary">{description}</p>
           ) : null}
           {children ? <div className="mt-6">{children}</div> : null}
         </div>
         {isSplit ? (
-          <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] border border-[color-mix(in_srgb,var(--text-muted)_18%,transparent)] shadow-[var(--shadow-md)]">
+          <div className="editorial-media relative aspect-[4/5] lg:col-span-5 lg:col-start-8">
             <ContentImage
               src={image!}
               alt={imageAlt ?? title}
